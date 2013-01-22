@@ -1,0 +1,253 @@
+﻿<UserControl x:Class="NOnkyo.WpfGui.Views.NetUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <DockPanel LastChildFill="True">
+        <StackPanel Margin="0,10" DockPanel.Dock="Right" Orientation="Vertical">
+            <TextBlock Margin="0,10,0,0" Text="Control" HorizontalAlignment="Center"/>
+            <Separator />
+            <StackPanel>
+                <StackPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource StandardButton}">
+                        <Setter Property="Margin" Value="3,3,3,0"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Button Content="Top Menu"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="TOP"/>
+                <Button Content="Menu"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="MENU"/>
+                <Button Content="Return"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="RETURN"/>
+            </StackPanel>
+            <TextBlock Margin="0,10,0,0" Text="iRadio Channel" HorizontalAlignment="Center"/>
+            <Separator />
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                                    Height="43"
+                            		Width="43"
+                            		VerticalAlignment="Top"
+                                    Command="{Binding Path=NetTuneCommand}"
+                                    CommandParameter="CHUP">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_up}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                                    Height="43"
+                            		Width="43"
+                            		VerticalAlignment="Top"
+                                    Command="{Binding Path=NetTuneCommand}"
+                                    CommandParameter="CHDN">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_down}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+            </StackPanel>            
+        </StackPanel>
+        <StackPanel Margin="10,0,0,10" DockPanel.Dock="Bottom">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
+                            		VerticalAlignment="Center"
+                                    Command="{Binding Path=NetTuneCommand}"
+                                    CommandParameter="REW">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_rewind}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
+                            		VerticalAlignment="Center"
+                                    Command="{Binding Path=NetTuneCommand}"
+                                    CommandParameter="TRDN">                        
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_left}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
+                            		VerticalAlignment="Center"
+                                    Command="{Binding Path=NetTuneCommand}"
+                                    CommandParameter="TRUP">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_right}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
+                            		VerticalAlignment="Center"
+                                    Command="{Binding Path=NetTuneCommand}"
+                                    CommandParameter="FF">                        
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_fastforward}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>                
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
+                            		VerticalAlignment="Center"
+                                    Command="{Binding Path=NetTuneCommand}"
+                                    CommandParameter="PLAY">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_play}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Button  Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
+                            		VerticalAlignment="Center"
+                                    Command="{Binding Path=NetTuneCommand}"
+                                    CommandParameter="PAUSE">                         
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_pause}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Button  Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
+                            		VerticalAlignment="Center"
+                                    Command="{Binding Path=NetTuneCommand}"
+                                    CommandParameter="STOP">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="{DynamicResource BlackColor}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+        </StackPanel>        
+        <StackPanel  Margin="10,10,0,10" DockPanel.Dock="Left">
+            <TextBlock Margin="0,10,0,0" Text="Track Control" HorizontalAlignment="Center"/>
+            <Separator />
+            <Grid x:Name="grdNavigate" Margin="0,10,0,0" Height="130" Width="130" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <Grid.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource TextCircleButton}">
+                        <Setter Property="Height" Value="43" />
+                        <Setter Property="Width" Value="43" />
+                    </Style>
+                    <Style TargetType="TextBlock" >
+                        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                        <Setter Property="FontSize" Value="10" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.Background>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <ed:Arc x:Name="MyArc" Fill="{StaticResource TextBoxBackground}" ArcThickness="40" StrokeThickness="0" ArcThicknessUnit="Pixel" Stretch="None" EndAngle="360" StartAngle="0" Width="{Binding ElementName=grdNavigate, Path=Width}" Height="{Binding ElementName=grdNavigate, Path=Height}" />
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Grid.Background>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="0" Grid.Column="1" Content="↑"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="UP"/>
+                <Button Grid.Row="1" Grid.Column="0" Content="←" 
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="LEFT"/>
+                <Button Grid.Row="1" Grid.Column="1" Content="Enter" Style="{StaticResource CircleButtonNoBorder}" 
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="SELECT"/>
+                <Button Grid.Row="1" Grid.Column="2" Content="→"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="RIGHT"/>
+                <Button Grid.Row="2" Grid.Column="1" Content="↓"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="DOWN"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel Margin="10,10,0,10" HorizontalAlignment="Center">
+            <TextBlock Margin="0,10,0,0" Text="Net Selection" HorizontalAlignment="Center"/>
+            <Separator />
+            <Grid HorizontalAlignment="Center">
+                <Grid.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource TextCircleButton}">
+                        <Setter Property="Height" Value="40" />
+                        <Setter Property="Width" Value="40" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="0" Grid.Column="0" Content="1"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="KEY1"/>
+                <Button Grid.Row="0" Grid.Column="1" Content="2"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="KEY2"/>
+                <Button Grid.Row="0" Grid.Column="2" Content="3"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="KEY3"/>
+                <Button Grid.Row="1" Grid.Column="0" Content="4"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="KEY4"/>
+                <Button Grid.Row="1" Grid.Column="1" Content="5"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="KEY5"/>
+                <Button Grid.Row="1" Grid.Column="2" Content="6"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="KEY6"/>
+                <Button Grid.Row="2" Grid.Column="0" Content="7"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="KEY7"/>
+                <Button Grid.Row="2" Grid.Column="1" Content="8"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="KEY8"/>
+                <Button Grid.Row="2" Grid.Column="2" Content="9"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="KEY9"/>
+                <Button Grid.Row="3" Grid.Column="0" Content="+10"></Button>
+                <Button Grid.Row="3" Grid.Column="1" Content="0"
+                    Command="{Binding Path=NetTuneCommand}"
+                    CommandParameter="KEY0"/>
+                <Button Grid.Row="3" Grid.Column="2" Content="CLR"></Button>
+            </Grid>
+        </StackPanel>
+    </DockPanel>
+</UserControl>

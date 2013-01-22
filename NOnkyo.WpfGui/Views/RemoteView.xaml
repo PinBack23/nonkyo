@@ -1,0 +1,344 @@
+﻿<Controls:MetroWindow x:Class="NOnkyo.WpfGui.Views.RemoteView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:vm="clr-namespace:NOnkyo.WpfGui.ViewModels"
+        xmlns:properties="clr-namespace:NOnkyo.WpfGui.AttachedProperty"
+        xmlns:my="clr-namespace:NOnkyo.WpfGui.Views"
+        xmlns:conv="clr-namespace:NOnkyo.WpfGui.Converter"
+        properties:CloseDialog.DialogResult="{Binding IsDialogClose}"
+        Closed="Window_Closed"
+        Title="Remote-Control" Height="650" Width="550" ShowIconOnTitleBar="False" WindowStartupLocation="CenterScreen" >
+
+    <Window.Resources>
+        <Storyboard x:Key="AlbumImageStoryboard">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="imgAlbum" Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="imgAlbum">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="imgAlbum">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="imgAlbum">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-180"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="-90"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    
+    <Window.DataContext>
+        <vm:RemoteViewModel/>
+    </Window.DataContext>
+
+    
+    <Controls:MetroWindow.Flyouts>
+        <Controls:Flyout Header="Receiver" Background="#9f000000" Position="Right">
+            <StackPanel Orientation="Vertical">
+                <StackPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource StandardButton}">
+                        <Setter Property="Margin" Value="3,3,3,0"/>
+                        <Setter Property="Height" Value="30"/>
+                        <Setter Property="Width" Value="60"/>
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock Margin="0,10,0,0" Text="Input Selectors" HorizontalAlignment="Center"/>
+                <Separator />
+                <Grid HorizontalAlignment="Center" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Row="0" Grid.Column="0" Content="BD/DVD" 
+                    Command="{Binding Path=InputSelectorCommand}"
+                    CommandParameter="BDDVD"/>
+                    <Button Grid.Row="1" Grid.Column="0" Content="VCR/DVR"
+                    Command="{Binding Path=InputSelectorCommand}"
+                    CommandParameter="VIDEO1"/>
+                    <Button Grid.Row="2" Grid.Column="0" Content="CBL/SAT"
+                    Command="{Binding Path=InputSelectorCommand}"
+                    CommandParameter="VIDEO2"/>
+                    <Button Grid.Row="3" Grid.Column="0" Content="GAME"
+                    Command="{Binding Path=InputSelectorCommand}"
+                    CommandParameter="VIDEO3"/>
+                    <Button Grid.Row="4" Grid.Column="0" Content="DLNA"
+                    Command="{Binding Path=InputSelectorCommand}"
+                    CommandParameter="MUSICSERVER"/>
+                    <Button Grid.Row="5" Grid.Column="0" Content="iRadio"
+                    Command="{Binding Path=InputSelectorCommand}"
+                    CommandParameter="INTERNETRADIO"/>
+                    <Button Grid.Row="6" Grid.Column="0" Content="PC"
+                    Command="{Binding Path=InputSelectorCommand}"
+                    CommandParameter="VIDEO6"/>
+                    <Button Grid.Row="0" Grid.Column="1" Content="AUX"
+                    Command="{Binding Path=InputSelectorCommand}"
+                    CommandParameter="VIDEO4"/>
+                    <Button Grid.Row="1" Grid.Column="1" Content="AUX2"
+                    Command="{Binding Path=InputSelectorCommand}"
+                    CommandParameter="VIDEO5"/>
+                    <Button Grid.Row="2" Grid.Column="1" Content="TUNER"
+                    Command="{Binding Path=InputSelectorCommand}"
+                    CommandParameter="TUNER"/>
+                    <Button Grid.Row="3" Grid.Column="1" Content="TV/CD"
+                    Command="{Binding Path=InputSelectorCommand}"
+                    CommandParameter="TVCD"/>
+                    <Button Grid.Row="4" Grid.Column="1" Content="PHONO"
+                    Command="{Binding Path=InputSelectorCommand}"
+                    CommandParameter="PHONO"/>
+                    <Button Grid.Row="5" Grid.Column="1" Content="NET"
+                    Command="{Binding Path=InputSelectorCommand}"
+                    CommandParameter="NETWORKNET"/>
+                    <Button Grid.Row="6" Grid.Column="1" Content="USB"
+                    Command="{Binding Path=InputSelectorCommand}"
+                    CommandParameter="USB"/>
+                </Grid>
+
+                <TextBlock Margin="0,10,0,0" Text="Listening Mode" HorizontalAlignment="Center"/>
+                <Separator />
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="MOVIE" Command="{Binding Path=ListeningModeMovieUPCommand}"/>
+                    <Button Content="MUSIC" Command="{Binding Path=ListeningModeMusicUPCommand}"/>
+                    <Button Content="GAME" Command="{Binding Path=ListeningModeGameUPCommand}"/>
+                </StackPanel>
+            </StackPanel>
+        </Controls:Flyout>
+    </Controls:MetroWindow.Flyouts>
+
+    <DockPanel LastChildFill="True">
+        <TextBlock Margin="3" Text="{Binding ConnectState}" DockPanel.Dock="Bottom"></TextBlock>
+        <StackPanel  DockPanel.Dock="Left">
+            <StackPanel>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
+                            		VerticalAlignment="Center" Command="{Binding Path=ShowHomeCommand}">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_home}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Label Content="Home" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
+                            		VerticalAlignment="Center" Click="Selectors_Click">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_diagram}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Label Content="Receiver" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
+                            		VerticalAlignment="Center" Command="{Binding Path=ShowAudioCommand}">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_music}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Label Content="Audio" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </StackPanel>
+            <StackPanel>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
+                            		VerticalAlignment="Center" Command="{Binding Path=ShowRescanCommand}">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_network}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Label Content="Rescan" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </StackPanel>
+            <StackPanel>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
+                            		VerticalAlignment="Center" Command="{Binding Path=ShowSettingsCommand}">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Label Content="Settings" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </StackPanel>
+            <StackPanel>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
+                            		VerticalAlignment="Center" Command="{Binding Path=PowerCommand}">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_power}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Label Visibility="{Binding Path=IsPowerOn, Converter={StaticResource boolToVis}}" Content="Power On" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Label Visibility="{Binding Path=IsPowerOn, Converter={StaticResource boolToHidden}}" Content="Power Off" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </StackPanel>            
+        </StackPanel>
+        <DockPanel x:Name="dopDisplay" Margin="3" DockPanel.Dock="Top">
+            <StackPanel Margin="0,2,2,0" DockPanel.Dock="Right">
+                <StackPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource StandardButton}">
+                        <Setter Property="Margin" Value="3,3,3,0"/>
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Width" Value="50"/>
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock Margin="0,2,0,2" Text="Volume" HorizontalAlignment="Center"/>
+                <Separator />
+                <Button Content="Up" Command="{Binding VolumeUpCommand}"/>
+                <Button Content="Down" Command="{Binding VolumeDownCommand}"/>
+                <TextBlock Margin="0,2,0,2" Text="Mute" HorizontalAlignment="Center"/>
+                <Separator />
+                <Button Height="30"  Command="{Binding MuteToggleCommand}">
+                    <Rectangle Height="25" Width="25">
+                        <Rectangle.Fill>
+                            <VisualBrush x:Name="bruMute" Stretch="Fill"  Visual="{StaticResource appbar_sound_0}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            <Border Height="216" Margin="0,2,3,0" Style="{StaticResource ContentBorder}">
+                <Border.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="10" />
+                        <Setter Property="FontWeight"  Value="Heavy"/>
+                    </Style>
+                </Border.Resources>
+
+                <DockPanel LastChildFill="True">
+                    <StackPanel DockPanel.Dock="Left">
+                        <TextBlock Margin="2,1,0,1" Text="{Binding CurrentInputSelector}"/>
+                        <TextBlock Margin="2,1,0,1" Text="{Binding CurrentListeningMode}"/>
+                        <TextBlock Margin="2,1,0,1" Text="{Binding Path=CurrentVolume, StringFormat='Volume: {0:000}'}"/>
+                        <TextBlock Margin="2,1,0,1" Text="{Binding CurrentNetworkGuiTitle}"/>
+                        <TextBlock Margin="2,1,0,1" Text="{Binding NetArtistName}"/>
+                        <TextBlock Margin="2,1,0,1" Text="{Binding NetAlbumName}"/>
+                        <TextBlock Margin="2,1,0,1" Text="{Binding NetTitleName}"/>
+                        <TextBlock Margin="2,1,0,1" Text="{Binding NetTrackInfo}"/>
+                        <TextBlock Margin="2,1,0,1" Text="{Binding NetTimeInfo}"/>
+                        <StackPanel Orientation="Horizontal" Visibility="{Binding Path=ShowNetPlayStatus, Converter={StaticResource boolToVis}}">
+                            <StackPanel.Resources>
+                                <Style TargetType="Rectangle">
+                                    <Setter Property="Margin" Value="2,1,2,1"/>
+                                    <Setter Property="Height" Value="15" />
+                                    <Setter Property="Width" Value="15" />
+                                </Style>
+                            </StackPanel.Resources>
+                            <Rectangle Visibility="{Binding Path=PlayStatus, ConverterParameter=PLAY, Converter={StaticResource enumToVis}}">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_play}"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle Visibility="{Binding Path=PlayStatus, ConverterParameter=PAUSE, Converter={StaticResource enumToVis}}">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_pause}"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle Visibility="{Binding Path=PlayStatus, ConverterParameter=STOP, Converter={StaticResource enumToVis}}">
+                                <Rectangle.Fill>
+                                    <SolidColorBrush Color="{DynamicResource BlackColor}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle Visibility="{Binding Path=PlayStatus, ConverterParameter=FR, Converter={StaticResource enumToVis}}">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_rewind}"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle Visibility="{Binding Path=PlayStatus, ConverterParameter=FF, Converter={StaticResource enumToVis}}">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_fastforward}"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle Visibility="{Binding Path=RepeatStatus, ConverterParameter=OFF, Converter={StaticResource enumToInvis}}">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_repeat}"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle Visibility="{Binding Path=ShuffleStatus, ConverterParameter=OFF, Converter={StaticResource enumToInvis}}">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_shuffle}"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </StackPanel>
+                    </StackPanel>
+                    <Border Margin="5" Style="{StaticResource ContentBorder}" Visibility="{Binding Path=ShowNetItems, Converter={StaticResource boolToVis}}">
+                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="None" Background="Transparent" BorderThickness="0"
+                              SelectionMode="Single"
+                              ItemsSource="{Binding NetItemList}"  
+                              SelectedItem="{Binding SelectedNetItem}"
+                              MouseDoubleClick="DataGrid_MouseDoubleClick">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Visibility="Hidden" Width="*" Header="Line" IsReadOnly="True" Binding="{Binding Path=Line}"/>
+                                <DataGridTextColumn Width="*" Header="Name" IsReadOnly="True" Binding="{Binding Path=Name}"/>
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+                    </Border>
+
+                    <Image x:Name="imgAlbum" Visibility="Collapsed" HorizontalAlignment="Center" Height="128" Stretch="Fill" VerticalAlignment="Center" Width="128" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    
+                </DockPanel>
+            </Border>
+
+        </DockPanel>
+        <TabControl x:Name="tabControl" Margin="3"  SelectedIndex="{Binding SelectedTabIndex}">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="{x:Type TabItem}">
+                    <Style.Setters>
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </Style.Setters>
+                </Style>
+            </TabControl.ItemContainerStyle>
+            <TabItem x:Name="tabHome" Header="Home" TabIndex="0">
+                <my:HomeUserControl />
+            </TabItem>
+            <TabItem x:Name="tabNet" Header="Net" TabIndex="1">
+                <my:NetUserControl />
+            </TabItem>
+        </TabControl>
+
+        <!--<DockPanel.Triggers>
+            <EventTrigger RoutedEvent="Button.Click" SourceName="btnTest">
+                <BeginStoryboard Storyboard="{StaticResource AlbumImageStoryboard}"/>
+            </EventTrigger>
+        </DockPanel.Triggers>-->
+    </DockPanel>
+</Controls:MetroWindow>

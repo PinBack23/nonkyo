@@ -1,0 +1,12 @@
+﻿<Controls:MetroWindow x:Class="NOnkyo.WpfGui.Views.InputView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Keyboard Input" Height="122" Width="354" ShowIconOnTitleBar="false" ShowInTaskbar="false" ShowMinButton="false" ShowMaxRestoreButton="False">
+    <StackPanel Margin="4">
+        <StackPanel>
+            <Label x:Name="lblInput" Content="Input"></Label>
+            <TextBox x:Name="txtInput" Text=""></TextBox>
+        </StackPanel>
+    </StackPanel>
+</Controls:MetroWindow>

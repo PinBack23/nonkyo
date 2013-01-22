@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:myconverter="clr-namespace:NOnkyo.WpfGui.Converter">
+    <myconverter:BooleanToVisibilityConverter x:Key="boolToVis" />
+    <myconverter:BooleanToVisibilityConverter x:Key="boolToHidden" TrueValue="Collapsed" FalseValue="Visible"/>
+    <myconverter:EnumVisibilityConverter x:Key="enumToVis" />
+    <myconverter:EnumInvisibilityConverter x:Key="enumToInvis" />
+</ResourceDictionary>
