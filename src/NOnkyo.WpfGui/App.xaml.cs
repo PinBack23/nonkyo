@@ -33,8 +33,10 @@ namespace NOnkyo.WpfGui
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-            //Register();
-            RegisterFake();
+            if (e.Args != null && e.Args.Length > 0 && e.Args[0] == "FAKE")
+                RegisterFake();
+            else
+                Register();
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

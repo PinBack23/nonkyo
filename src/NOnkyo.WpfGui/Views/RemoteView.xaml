@@ -149,7 +149,7 @@
                 </Button>
                 <Label Content="Receiver" HorizontalAlignment="Center"/>
             </StackPanel>
-            <StackPanel>
+            <!--<StackPanel>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
                             		Height="55"
                             		Width="55"
@@ -161,7 +161,7 @@
                     </Rectangle>
                 </Button>
                 <Label Content="Audio" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            </StackPanel>
+            </StackPanel>-->
             <StackPanel>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
                             		Height="55"
@@ -175,7 +175,7 @@
                 </Button>
                 <Label Content="Rescan" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             </StackPanel>
-            <StackPanel>
+            <!--<StackPanel>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
                             		Height="55"
                             		Width="55"
@@ -187,7 +187,7 @@
                     </Rectangle>
                 </Button>
                 <Label Content="Settings" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            </StackPanel>
+            </StackPanel>-->
             <StackPanel>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
                             		Height="55"
