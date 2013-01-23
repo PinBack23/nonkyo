@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+  <?define INSTALLNAME = "NOnkyo GUI"?>
+  <?define PRODUCTVERSION = "0.8.0"?>
+  <?define OUTPUTPATH = "..\..\bin\Release\"?>
+  <?define EXENAME = "NOnkyo.WpfGui"?>
+  <?define UPGRADECODE = "665f4e2e-10bb-4b62-8f1c-c5be51b2021b"?>
+  <?define COPYRIGHT = "Copyright © Karl Sparwald 2013"?>
+  <?define MANUFACTURER = "Karl Sparwald"?>
+  <?define DESCRIPTION = "NOnkyo GUI"?>
+  <?define PKGKEYWORDS = "Installer"?>
+  
+</Include>

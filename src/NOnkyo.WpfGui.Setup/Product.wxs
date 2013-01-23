@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+    xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+
+  <?include Definition.wxi ?>
+
+  <Product Id="*"
+         Name="$(var.INSTALLNAME)"
+         Language="1031"
+         Version="$(var.PRODUCTVERSION)"
+         Manufacturer="$(var.MANUFACTURER)"
+         UpgradeCode="$(var.UPGRADECODE)">
+
+    <Package Id="*"
+             Keywords="$(var.PKGKEYWORDS)"
+             Description="$(var.DESCRIPTION)"
+             Comments="$(var.COPYRIGHT)"
+             Manufacturer="$(var.MANUFACTURER)"
+             Platform="x86"
+             InstallerVersion="200"
+             Compressed="yes"/>
+
+
+    <!-- Include der Infos fuer Installationspaket -->
+    <?include ControlPanel.wxi ?>
+
+    <!-- Check DotNet-Framework -->
+    <PropertyRef Id="NETFRAMEWORK40FULL"/>
+    <Condition Message="!(loc.FrameworkNotInstalled)">
+      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+    </Condition>
+
+    <!-- Install Source -->
+    <Media Id="1" Cabinet="media.cab" EmbedCab="yes" />
+
+    <!-- Installationspfad festlegen -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="NOnkyo">
+          <Directory Id="DID_SYSTEM" Name="System"/>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <!-- Installationspfad -->
+    <DirectoryRef Id="INSTALLLOCATION"  FileSource="$(var.OUTPUTPATH)" >
+      <!-- Shortcut Pfad -->
+      <Directory Id="ProgramMenuFolder" >
+        <Directory Id="DID_MENU_ABRAXAS" Name="NOnkyo">
+        </Directory>
+      </Directory>
+      <!-- Exe -->
+      <Component Id="CID_APP" Guid="101e1379-428c-4ced-9888-882ae6543a85" >
+        <File Id="FID_EXE" Name="$(var.EXENAME).exe" KeyPath="yes" Vital="yes">
+          <Shortcut Id="SID_MENU"
+                        Directory="DID_MENU_ABRAXAS"
+                        Advertise="yes"
+                        Name="$(var.INSTALLNAME)"
+                        WorkingDirectory="INSTALLLOCATION"
+                        Icon="Icon.exe">
+          </Shortcut>
+        </File>
+        <File Id="FID_EXE_CONFIG" Name="$(var.EXENAME).exe.config" />
+        <File Id="NOnkyo.ISCP.dll" />
+        <RemoveFolder Id="RID_MENU_ABRAXAS" Directory="DID_MENU_ABRAXAS"  On="uninstall" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- System Ordner Source aus Release Ordner -->
+    <DirectoryRef Id="DID_SYSTEM" FileSource="$(var.OUTPUTPATH)">
+      <Component Id="CID_SYSTEM_OUT" Guid="1e30ad8f-7079-4562-bce1-df21232c85b6">
+        <File Id="LightCore.CommonServiceLocator.dll" />
+        <File Id="LightCore.Configuration.dll" />
+        <File Id="LightCore.dll" />
+        <File Id="MahApps.Metro.dll" />
+        <File Id="Microsoft.Expression.Drawing.dll" />
+        <File Id="Microsoft.Practices.ServiceLocation.dll" />
+        <File Id="NLog.dll" />
+        <File Id="System.Windows.Interactivity.dll" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- Feature-Liste immer nur ein Feature kein Auswahl nötig -->
+    <Feature Id="Application" Title="$(var.INSTALLNAME)" Level="1">
+      <ComponentRef Id="CID_APP" />
+      <ComponentRef Id="CID_SYSTEM_OUT" />
+      <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
+      <ComponentGroupRef Id="Product.Generated" />
+    </Feature>
+
+    <!-- WiX UI -->
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+    <!-- Wird von dieser UI benötigt -->
+    <UIRef Id="CustomUI_InstallDir" />
+
+  </Product>
+</Wix>

@@ -113,7 +113,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Fake\Connection.cs" />
     <Compile Include="Fake\DeviceSearch.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="Properties\Settings.cs" />
     <Compile Include="ViewModels\AutoDetectViewModel.cs" />
     <Compile Include="ViewModels\Commands\RelayCommand.cs" />
     <Compile Include="ViewModels\KeyboardInputEventArgs.cs" />

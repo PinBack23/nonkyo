@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="PreventDowngrading">A newer Version of this product is already installed. The setup will not continue.</String>
+  <String Id="FrameworkNotInstalled">This application requires .NET Framework 4.0 Full. Please install the .NET Framework then run this installer again.</String>
+</WixLocalization>

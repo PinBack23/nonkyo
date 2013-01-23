@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+  <Icon Id="Icon.exe" SourceFile="$(var.OUTPUTPATH)$(var.EXENAME).exe" />
+  
+  <!-- Installer Infos -->
+  <Property Id="ARPCONTACT" Value="Karl Sparwald" />
+  <Property Id="ARPPRODUCTICON" Value="Icon.exe" />
+  <Property Id="ARPURLINFOABOUT" Value="http://nonkyo.codeplex.com/" />
+  <Property Id="ARPHELPLINK" Value="http://nonkyo.codeplex.com/documentation" />
+  <CustomAction Id="SetARPINSTALLLOCATION" Property="ARPINSTALLLOCATION" Value="[INSTALLLOCATION]" />
+
+  <!-- Setzt Installationspfad in Installer Infos -->
+  <InstallExecuteSequence>
+    <Custom Action="SetARPINSTALLLOCATION" After="InstallValidate"></Custom>
+  </InstallExecuteSequence>
+  
+</Include>
