@@ -13,6 +13,7 @@
                 </Style>
             </StackPanel.Resources>
             <TextBlock x:Name="txtProduct"></TextBlock>
+            <TextBlock x:Name="txtDate"></TextBlock>
             <TextBlock x:Name="txtCopyright" FontStyle="Italic"></TextBlock>
             <TextBlock Margin="0,10,0,0" Text="Developed by Karl Sparwald" ></TextBlock>
             <TextBlock>

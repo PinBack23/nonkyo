@@ -31,6 +31,8 @@
       <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
     </Condition>
 
+    <CustomAction Id="NewerVersionDetected"  Error="2000"/>
+    
     <!-- Install Source -->
     <Media Id="1" Cabinet="media.cab" EmbedCab="yes" />
 
@@ -89,6 +91,16 @@
       <ComponentGroupRef Id="Product.Generated" />
     </Feature>
 
+    <Upgrade Id="$(var.UPGRADECODE)">
+      <UpgradeVersion Property="OLDAPPFOUND" IncludeMinimum="yes" Minimum="0.0.0.0" IncludeMaximum="no" Maximum="$(var.PRODUCTVERSION)"/>
+      <UpgradeVersion Property="NEWAPPFOUND" IncludeMinimum="no" Minimum="$(var.PRODUCTVERSION)"  OnlyDetect="yes"/>
+    </Upgrade>
+
+    <InstallExecuteSequence>
+      <RemoveExistingProducts Before="InstallInitialize" />
+      <Custom Action="NewerVersionDetected" After="FindRelatedProducts">NEWAPPFOUND</Custom>
+    </InstallExecuteSequence>
+    
     <!-- WiX UI -->
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
     <!-- Wird von dieser UI benötigt -->

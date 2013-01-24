@@ -30,6 +30,7 @@ using System.Windows;
 using NOnkyo.ISCP;
 using MahApps.Metro.Controls;
 using System.Reflection;
+using System.IO;
 
 namespace NOnkyo.WpfGui
 {
@@ -64,5 +65,12 @@ namespace NOnkyo.WpfGui
         {
             return value.GetName().Version.ToString();
         }
+
+        public static DateTime FileTimestamp(this Assembly value)
+        {
+            FileInfo loFileInfo = new FileInfo(value.Location);
+            return loFileInfo.CreationTime;
+        }
+
     }
 }

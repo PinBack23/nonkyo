@@ -25,6 +25,7 @@ namespace NOnkyo.WpfGui.Views
             InitializeComponent();
             var loAssembly = this.GetType().Assembly;
             this.txtProduct.Text = "{0} - Version: {1}".FormatWith(loAssembly.Product(), loAssembly.Version());
+            this.txtDate.Text = loAssembly.FileTimestamp().ToString("g");
             this.txtCopyright.Text = loAssembly.Copyright();
         }
 
