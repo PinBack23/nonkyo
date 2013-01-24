@@ -73,5 +73,12 @@ namespace NOnkyo.WpfGui.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap NOnkyo1 {
+            get {
+                object obj = ResourceManager.GetObject("NOnkyo1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

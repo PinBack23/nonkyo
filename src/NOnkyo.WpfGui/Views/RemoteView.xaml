@@ -201,7 +201,20 @@
                 </Button>
                 <Label Visibility="{Binding Path=IsPowerOn, Converter={StaticResource boolToVis}}" Content="Power On" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                 <Label Visibility="{Binding Path=IsPowerOn, Converter={StaticResource boolToHidden}}" Content="Power Off" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            </StackPanel>            
+            </StackPanel>
+            <StackPanel>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
+                            		VerticalAlignment="Center" Command="{Binding Path=AboutCommand}">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Label Content="About" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </StackPanel>
         </StackPanel>
         <DockPanel x:Name="dopDisplay" Margin="3" DockPanel.Dock="Top">
             <StackPanel Margin="0,2,2,0" DockPanel.Dock="Right">

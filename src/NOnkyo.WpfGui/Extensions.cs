@@ -27,7 +27,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using NOnkyo.ISCP;
 using MahApps.Metro.Controls;
+using System.Reflection;
 
 namespace NOnkyo.WpfGui
 {
@@ -43,6 +45,24 @@ namespace NOnkyo.WpfGui
         {
             value.Owner = owner;
             value.Show();
+        }
+    }
+
+    public static class AssemblyExtensions
+    {
+        public static string Copyright(this Assembly value)
+        {
+            return ((AssemblyCopyrightAttribute)value.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), true)[0]).Copyright;
+        }
+
+        public static string Product(this Assembly value)
+        {
+            return ((AssemblyProductAttribute)value.GetCustomAttributes(typeof(AssemblyProductAttribute), true)[0]).Product;
+        }
+
+        public static string Version(this Assembly value)
+        {
+            return value.GetName().Version.ToString();
         }
     }
 }

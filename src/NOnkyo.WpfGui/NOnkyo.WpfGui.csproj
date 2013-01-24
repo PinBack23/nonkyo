@@ -120,6 +120,9 @@
     <Compile Include="ViewModels\RemoteViewModel.cs" />
     <Compile Include="ViewModels\SelectDeviceEventArgs.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AutoDetectView.xaml.cs">
       <DependentUpon>AutoDetectView.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AutoDetectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -194,6 +201,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\NOnkyo.png" />
     <None Include="Resources\NOnkyo.ico" />
     <Resource Include="Resources\album.bmp" />
     <EmbeddedResource Include="Properties\Resources.resx">

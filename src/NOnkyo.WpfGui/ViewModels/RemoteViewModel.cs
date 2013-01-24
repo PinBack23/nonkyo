@@ -80,7 +80,7 @@ namespace NOnkyo.WpfGui.ViewModels
 
         #endregion
 
-        #region Event CloseInputSelector
+        #region Event KeyboardInput
 
         [NonSerialized()]
         private EventHandler<KeyboardInputEventArgs> EventKeyboardInput;
@@ -97,6 +97,27 @@ namespace NOnkyo.WpfGui.ViewModels
             EventHandler<KeyboardInputEventArgs> loHandler = this.EventKeyboardInput;
             if (loHandler != null)
                 loHandler(this, e);
+        }
+
+        #endregion
+
+        #region Event ShowAbout
+
+        [NonSerialized()]
+        private EventHandler EventShowAbout;
+        public event EventHandler ShowAbout
+        {
+            add
+            { this.EventShowAbout += value; } 
+            remove
+            { this.EventShowAbout -= value; } 
+        }
+
+        protected virtual void OnShowAbout()
+        {
+            EventHandler loHandler = this.EventShowAbout;
+            if (loHandler != null)
+                loHandler(this, EventArgs.Empty);
         }
 
         #endregion
@@ -607,6 +628,32 @@ namespace NOnkyo.WpfGui.ViewModels
 
         #endregion
 
+        #region About
+
+        private RelayCommand moAboutCommand;
+        public ICommand AboutCommand
+        {
+            get
+            {
+                if (this.moAboutCommand == null)
+                    this.moAboutCommand = new RelayCommand(param => this.About(),
+                        param => this.CanAbout());
+                return this.moAboutCommand;
+            }
+        }
+
+        private void About()
+        {
+            this.OnShowAbout();
+        }
+
+        private bool CanAbout()
+        {
+            return true;
+        }
+
+        #endregion
+
         #endregion
 
         #region Public Methods / Properties
@@ -1045,7 +1092,7 @@ namespace NOnkyo.WpfGui.ViewModels
         {
             if (poTask.Exception != null)
             {
-                //this.ErrorCatcher(poTask, poTask.Exception.InnerException);
+                
             }
         }
 

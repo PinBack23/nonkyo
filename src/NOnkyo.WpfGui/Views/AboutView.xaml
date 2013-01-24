@@ -1,0 +1,42 @@
+﻿<Controls:MetroWindow x:Class="NOnkyo.WpfGui.Views.AboutView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About NOnkyo" Height="280" Width="480" ShowIconOnTitleBar="false" ShowInTaskbar="false" ShowMinButton="false" ShowMaxRestoreButton="False">
+    <DockPanel Margin="4" LastChildFill="True">
+        <Image DockPanel.Dock="Left" VerticalAlignment="Top"  Source="/NOnkyo.WpfGui;component/Resources/NOnkyo.png" MaxHeight="150" MaxWidth="150"/>
+        <StackPanel Margin="10,0,0,0">
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource MetroTextBlock}">
+                    <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock x:Name="txtProduct"></TextBlock>
+            <TextBlock x:Name="txtCopyright" FontStyle="Italic"></TextBlock>
+            <TextBlock Margin="0,10,0,0" Text="Developed by Karl Sparwald" ></TextBlock>
+            <TextBlock>
+                <Hyperlink NavigateUri="http://nonkyo.codeplex.com" RequestNavigate="Hyperlink_RequestNavigate">http://nonkyo.codeplex.com</Hyperlink>
+            </TextBlock>
+            <TextBlock Margin="0,10,0,5" Text="External libraries" FontWeight="Bold" TextDecorations="Underline"></TextBlock>
+            <StackPanel Margin="5,0,0,5">
+                <TextBlock Text="NLog Advanced .NET Logging" ></TextBlock>
+                <TextBlock>
+                <Hyperlink NavigateUri="http://nlog-project.org" RequestNavigate="Hyperlink_RequestNavigate">http://nlog-project.org</Hyperlink>
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Margin="5,0,0,5">
+                <TextBlock Text="LightCore" ></TextBlock>
+                <TextBlock>
+                <Hyperlink NavigateUri="http://lightcore.ch" RequestNavigate="Hyperlink_RequestNavigate">http://lightcore.ch</Hyperlink>
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Margin="5,0,0,5">
+                <TextBlock Text="MahApps.Metro" ></TextBlock>
+                <TextBlock>
+                <Hyperlink NavigateUri="http://nuget.org/packages/MahApps.Metro" RequestNavigate="Hyperlink_RequestNavigate">http://nuget.org/packages/MahApps.Metro</Hyperlink>
+                </TextBlock>
+            </StackPanel>
+        </StackPanel>
+    </DockPanel>
+</Controls:MetroWindow>

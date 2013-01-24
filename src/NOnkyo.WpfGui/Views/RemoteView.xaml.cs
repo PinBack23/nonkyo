@@ -31,6 +31,7 @@ namespace NOnkyo.WpfGui.Views
             this.Model.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Model_PropertyChanged);
             this.Model.CloseInputSelector += new EventHandler(Model_CloseInputSelector);
             this.Model.KeyboardInput += new EventHandler<KeyboardInputEventArgs>(Model_KeyboardInput);
+            this.Model.ShowAbout += new EventHandler(Model_ShowAbout);
             this.Loaded += new RoutedEventHandler(RemoteView_Loaded);
         }
 
@@ -118,6 +119,15 @@ namespace NOnkyo.WpfGui.Views
                 MessageBox.Show(exp.ToString());
             }            
         }
+
+        private void Model_ShowAbout(object sender, EventArgs e)
+        {
+            AboutView loView = new AboutView();
+            loView.Top = this.Top + 30;
+            loView.Left = this.Left + this.Width / 2 - loView.Width / 2;
+            loView.ShowDialog(this);
+        }
+
 
         private void RemoteView_Loaded(object sender, RoutedEventArgs e)
         {
