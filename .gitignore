@@ -1,4 +1,4 @@
-NOnkyo.5.1.TeamCity.user
+*.user
 src/NOnkyo.Test/obj
 src/NOnkyo.ISCP/obj
 src/NOnkyo.WpfGui/obj
