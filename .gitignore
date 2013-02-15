@@ -2,4 +2,6 @@
 src/NOnkyo.Test/obj
 src/NOnkyo.ISCP/obj
 src/NOnkyo.WpfGui/obj
+src/NOnkyo.WpfGui.Setup/obj
 bin
+NOnkyo.v11.suo

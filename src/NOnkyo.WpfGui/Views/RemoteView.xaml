@@ -33,12 +33,12 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
-    
+
     <Window.DataContext>
         <vm:RemoteViewModel/>
     </Window.DataContext>
 
-    
+
     <Controls:MetroWindow.Flyouts>
         <Controls:Flyout Header="Receiver" Background="#9f000000" Position="Right">
             <StackPanel Orientation="Vertical">
@@ -304,6 +304,26 @@
                         </StackPanel>
                     </StackPanel>
                     <Border Margin="5" Style="{StaticResource ContentBorder}" Visibility="{Binding Path=ShowNetItems, Converter={StaticResource boolToVis}}">
+                        <Border.Resources>
+                            <Style TargetType="DataGrid">
+                                <Setter Property="CellStyle">
+                                    <Setter.Value>
+                                        <Style TargetType="DataGridCell">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter Property="Background">
+                                                        <Setter.Value>
+                                                            <SolidColorBrush Color="{DynamicResource AccentColor2}" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter Property="BorderBrush" Value="#FF143c65" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Border.Resources>
                         <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="None" Background="Transparent" BorderThickness="0"
                               SelectionMode="Single"
                               ItemsSource="{Binding NetItemList}"  
@@ -313,7 +333,6 @@
                                 <DataGridTextColumn Visibility="Hidden" Width="*" Header="Line" IsReadOnly="True" Binding="{Binding Path=Line}"/>
                                 <DataGridTextColumn Width="*" Header="Name" IsReadOnly="True" Binding="{Binding Path=Name}"/>
                             </DataGrid.Columns>
-
                         </DataGrid>
                     </Border>
 
@@ -327,7 +346,7 @@
                             </TransformGroup>
                         </Image.RenderTransform>
                     </Image>
-                    
+
                 </DockPanel>
             </Border>
 
