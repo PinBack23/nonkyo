@@ -1,5 +1,0 @@
-D:\MyProjects\NOnkyo\bin\Setup\SetupNOnkyo\en-us\NOnkyo.WpfGui.Setup.msi
-D:\MyProjects\NOnkyo\bin\Setup\SetupNOnkyo\en-us\NOnkyo.WpfGui.Setup.wixpdb
-obj\Release\Product.wixobj
-obj\Release\UISequence.wixobj
-obj\Release\Product.Generated.wixobj
