@@ -87,9 +87,9 @@ namespace NOnkyo.WpfGui.ViewModels
         public event EventHandler<KeyboardInputEventArgs> KeyboardInput
         {
             add
-            { this.EventKeyboardInput += value; } 
+            { this.EventKeyboardInput += value; }
             remove
-            { this.EventKeyboardInput -= value; } 
+            { this.EventKeyboardInput -= value; }
         }
 
         protected virtual void OnKeyboardInput(KeyboardInputEventArgs e)
@@ -108,9 +108,9 @@ namespace NOnkyo.WpfGui.ViewModels
         public event EventHandler ShowAbout
         {
             add
-            { this.EventShowAbout += value; } 
+            { this.EventShowAbout += value; }
             remove
-            { this.EventShowAbout -= value; } 
+            { this.EventShowAbout -= value; }
         }
 
         protected virtual void OnShowAbout()
@@ -149,7 +149,7 @@ namespace NOnkyo.WpfGui.ViewModels
         private ERepeatStatus meRepeatStatus;
         private EShuffleStatus meShuffleStatus;
         private Byte[] moAlbumImage;
-        private bool mbIsPowerOn;
+        private bool? mbIsPowerOn = null;
 
         #endregion
 
@@ -964,7 +964,7 @@ namespace NOnkyo.WpfGui.ViewModels
 
         public bool IsPowerOn
         {
-            get { return this.mbIsPowerOn; }
+            get { return this.mbIsPowerOn.GetValueOrDefault(); }
             set
             {
                 if (this.mbIsPowerOn != value)
@@ -1006,6 +1006,7 @@ namespace NOnkyo.WpfGui.ViewModels
             this.moConnection.SendCommand(ISCP.Command.InputSelector.State);
             this.moConnection.SendCommand(ISCP.Command.ListeningMode.State);
             this.moConnection.SendCommand(ISCP.Command.AudioMuting.State);
+            this.moConnection.SendCommand(ISCP.Command.NetPlayStatus.State);
         }
 
         private void CloseConnection()
@@ -1018,10 +1019,7 @@ namespace NOnkyo.WpfGui.ViewModels
         {
             this.ShowNetItems =
                 this.ShowNetPlayStatus = false;
-            this.NetAlbumName =
-                this.NetArtistName =
-                this.NetTimeInfo =
-                this.NetTrackInfo = string.Empty;
+
             this.AlbumImage = null;
             switch (peInputSelector)
             {
@@ -1069,6 +1067,7 @@ namespace NOnkyo.WpfGui.ViewModels
                     this.SelectedTabIndex = 1;
                     this.ShowNetItems = true;
                     this.ShowNetPlayStatus = true;
+                    this.UpdateNetItems();
                     break;
                 case EInputSelector.UNIVERSALPORT:
                     break;
@@ -1083,6 +1082,63 @@ namespace NOnkyo.WpfGui.ViewModels
             }
         }
 
+        private void ResetNetItems()
+        {
+            this.NetAlbumName =
+                this.CurrentNetworkGuiTitle =
+                this.NetArtistName =
+                this.NetTitleName =
+                this.NetTimeInfo =
+                this.NetTrackInfo = string.Empty;
+        }
+
+        private void UpdateNetItems()
+        {
+            this.CurrentNetworkGuiTitle = this.GetCommand<ISCP.Command.NLT>().CurrentTitle;
+
+            this.NetAlbumName = this.GetCommand<ISCP.Command.NetAlbumName>().Info;
+            if (this.NetAlbumName.IsEmpty())
+                this.moConnection.SendCommand(ISCP.Command.NetAlbumName.State);
+
+            this.NetArtistName = this.GetCommand<ISCP.Command.NetArtistName>().Info;
+            if (this.NetArtistName.IsEmpty())
+                this.moConnection.SendCommand(ISCP.Command.NetArtistName.State);
+
+            this.NetTitleName = this.GetCommand<ISCP.Command.NetTitleName>().Info;
+            if (this.NetTitleName.IsEmpty())
+                this.moConnection.SendCommand(ISCP.Command.NetTitleName.State);
+
+            var loNetTrackInfoCommand = this.GetCommand<ISCP.Command.NetTrackInfo>();
+            if (loNetTrackInfoCommand.CurrentTrack == default(int) && loNetTrackInfoCommand.TotalTrack == default(int))
+                this.moConnection.SendCommand(ISCP.Command.NetTrackInfo.State);
+            else
+                this.UpdateNetTrackInfo(this.GetCommand<ISCP.Command.NetTrackInfo>());
+
+            this.UpdateNetTimeInfo(this.GetCommand<ISCP.Command.NetTimeInfo>());
+            this.UpdateNetJacketArt(this.GetCommand<ISCP.Command.NetJacketArt>());
+        }
+
+        private void UpdateNetTimeInfo(ISCP.Command.NetTimeInfo poCommand)
+        {
+            if (poCommand.IsComplete)
+                this.NetTimeInfo = "Time: {0} / {1}".FormatWith(poCommand.Elapsed, poCommand.Total);
+            else
+                this.NetTimeInfo = string.Empty;
+        }
+
+        private void UpdateNetTrackInfo(ISCP.Command.NetTrackInfo poCommand)
+        {
+            this.NetTrackInfo = "Track: {0} / {1}".FormatWith(poCommand.CurrentTrack, poCommand.TotalTrack);
+        }
+
+        private void UpdateNetJacketArt(ISCP.Command.NetJacketArt poCommand)
+        {
+            if (poCommand.IsReady)
+                this.AlbumImage = poCommand.Album;
+            else
+                this.AlbumImage = null;
+        }
+
         private T GetCommand<T>() where T : ISCP.Command.CommandBase
         {
             return ISCP.Command.CommandBase.CommandList.First(item => item.GetType() == typeof(T)) as T;
@@ -1092,7 +1148,7 @@ namespace NOnkyo.WpfGui.ViewModels
         {
             if (poTask.Exception != null)
             {
-                
+
             }
         }
 
@@ -1164,17 +1220,12 @@ namespace NOnkyo.WpfGui.ViewModels
 
                     if (loCommand is ISCP.Command.NetTimeInfo)
                     {
-                        var loCurrentCommand = (loCommand as ISCP.Command.NetTimeInfo);
-                        if (loCurrentCommand.IsComplete)
-                            this.NetTimeInfo = "Time: {0} / {1}".FormatWith(loCurrentCommand.Elapsed, loCurrentCommand.Total);
-                        else
-                            this.NetTimeInfo = string.Empty;
+                        this.UpdateNetTimeInfo(loCommand as ISCP.Command.NetTimeInfo);
                     }
 
                     if (loCommand is ISCP.Command.NetTrackInfo)
                     {
-                        var loCurrentCommand = (loCommand as ISCP.Command.NetTrackInfo);
-                        this.NetTrackInfo = "Track: {0} / {1}".FormatWith(loCurrentCommand.CurrentTrack, loCurrentCommand.TotalTrack);
+                        this.UpdateNetTrackInfo(loCommand as ISCP.Command.NetTrackInfo);
                     }
 
                     if (loCommand is ISCP.Command.NetPlayStatus)
@@ -1183,16 +1234,11 @@ namespace NOnkyo.WpfGui.ViewModels
                         this.PlayStatus = loCurrentCommand.PlayStatus;
                         this.RepeatStatus = loCurrentCommand.RepeatStatus;
                         this.ShuffleStatus = loCurrentCommand.ShuffleStatus;
-                        this.ShowNetPlayStatus = true;
                     }
 
                     if (loCommand is ISCP.Command.NetJacketArt)
                     {
-                        var loCurrentCommand = (loCommand as ISCP.Command.NetJacketArt);
-                        if (loCurrentCommand.IsReady)
-                            this.AlbumImage = loCurrentCommand.Album;
-                        else
-                            this.AlbumImage = null;
+                        this.UpdateNetJacketArt(loCommand as ISCP.Command.NetJacketArt);
                     }
 
                     if (loCommand is ISCP.Command.NetKeyboard)
@@ -1252,7 +1298,7 @@ namespace NOnkyo.WpfGui.ViewModels
                                 if (loArgs.Input.IsEmpty())
                                     this.moConnection.SendCommand(ISCP.Command.NetTune.Chose(ENetTuneOperation.RETURN, this.CurrentDevice));
                                 else
-                                    this.moConnection.SendCommand( ISCP.Command.NetKeyboard.Send(loArgs.Input, this.CurrentDevice));
+                                    this.moConnection.SendCommand(ISCP.Command.NetKeyboard.Send(loArgs.Input, this.CurrentDevice));
                             }
                         }
                     }

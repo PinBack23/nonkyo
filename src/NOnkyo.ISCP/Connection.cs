@@ -160,6 +160,7 @@ namespace NOnkyo.ISCP
                 Logger.Info("Send Message: {0}", psMessage);
                 Logger.Debug("Send byte [] {0}{1}", Environment.NewLine, loPackage.FormatToOutput());
                 this.moSocket.Send(loPackage, 0, loPackage.Length, SocketFlags.None);
+                System.Threading.Thread.Sleep(100);
             }
         }
 
@@ -254,9 +255,9 @@ namespace NOnkyo.ISCP
                     if (disposing)
                     {
                         // Dispose managed resources. HERE ->
-                        this.Disconnect();
                         this.EventMessageReceived = null;
-
+                        this.EventConnectionClosed = null;
+                        this.Disconnect();
                         //Release ComObjects
                         //System.Runtime.InteropServices.Marshal.ReleaseComObject(ComObj);
                     }

@@ -70,6 +70,13 @@ namespace NOnkyo.WpfGui.Views
                     else
                         this.bruMute.Visual = this.FindResource("appbar_sound_mute") as Visual;
                 }
+                else if (e.PropertyName == this.Model.GetPropertyNameFromExpression(() => this.Model.IsPowerOn))
+                {
+                    if (this.Model.IsPowerOn)
+                        this.bruPower.Visual = this.FindResource("appbar_power_on") as Visual;
+                    else
+                        this.bruPower.Visual = this.FindResource("appbar_power_off") as Visual;
+                }                    
                 else if (e.PropertyName == this.Model.GetPropertyNameFromExpression(() => this.Model.AlbumImage))
                 {
                     if (this.Model.AlbumImage == null)

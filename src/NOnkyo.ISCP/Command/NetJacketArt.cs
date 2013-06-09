@@ -37,7 +37,6 @@ namespace NOnkyo.ISCP.Command
 
         #region Attributes
 
-        
         private List<byte> moImageBytes;
 
         #endregion

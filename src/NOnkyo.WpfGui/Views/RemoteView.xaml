@@ -9,7 +9,7 @@
         xmlns:conv="clr-namespace:NOnkyo.WpfGui.Converter"
         properties:CloseDialog.DialogResult="{Binding IsDialogClose}"
         Closed="Window_Closed"
-        Title="Remote-Control" Height="650" Width="550" ShowIconOnTitleBar="False" WindowStartupLocation="CenterScreen" >
+        Title="Remote-Control" Height="650" Width="550" ShowIconOnTitleBar="True" WindowStartupLocation="CenterScreen" >
 
     <Window.Resources>
         <Storyboard x:Key="AlbumImageStoryboard">
@@ -34,10 +34,11 @@
         </Storyboard>
     </Window.Resources>
 
+
+
     <Window.DataContext>
         <vm:RemoteViewModel/>
     </Window.DataContext>
-
 
     <Controls:MetroWindow.Flyouts>
         <Controls:Flyout Header="Receiver" Background="#9f000000" Position="Right">
@@ -125,9 +126,24 @@
         <StackPanel  DockPanel.Dock="Left">
             <StackPanel>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
+            		Height="55"
+            		Width="55"
+            		VerticalAlignment="Center" Command="{Binding PowerCommand}">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush x:Name="bruPower" Stretch="Fill" Visual="{StaticResource appbar_power_on}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Label Content="Power" HorizontalAlignment="Center"/>
+                <!--<Label Visibility="{Binding IsPowerOn, Converter={StaticResource boolToVis}}" Content="Power On" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Label Visibility="{Binding IsPowerOn, Converter={StaticResource boolToHidden}}" Content="Power Off" HorizontalAlignment="Center" VerticalAlignment="Top"/>-->
+            </StackPanel>
+            <StackPanel>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
                             		Height="55"
                             		Width="55"
-                            		VerticalAlignment="Center" Command="{Binding Path=ShowHomeCommand}">
+                            		VerticalAlignment="Center" Command="{Binding ShowHomeCommand}">
                     <Rectangle Width="20" Height="20">
                         <Rectangle.Fill>
                             <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_home}"/>
@@ -166,7 +182,7 @@
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
                             		Height="55"
                             		Width="55"
-                            		VerticalAlignment="Center" Command="{Binding Path=ShowRescanCommand}">
+                            		VerticalAlignment="Center" Command="{Binding ShowRescanCommand}">
                     <Rectangle Width="20" Height="20">
                         <Rectangle.Fill>
                             <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_network}"/>
@@ -175,38 +191,11 @@
                 </Button>
                 <Label Content="Rescan" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             </StackPanel>
-            <!--<StackPanel>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}"
-                            		Height="55"
-                            		Width="55"
-                            		VerticalAlignment="Center" Command="{Binding Path=ShowSettingsCommand}">
-                    <Rectangle Width="20" Height="20">
-                        <Rectangle.Fill>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}"/>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                </Button>
-                <Label Content="Settings" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            </StackPanel>-->
             <StackPanel>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
                             		Height="55"
                             		Width="55"
-                            		VerticalAlignment="Center" Command="{Binding Path=PowerCommand}">
-                    <Rectangle Width="20" Height="20">
-                        <Rectangle.Fill>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_power}"/>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                </Button>
-                <Label Visibility="{Binding Path=IsPowerOn, Converter={StaticResource boolToVis}}" Content="Power On" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Label Visibility="{Binding Path=IsPowerOn, Converter={StaticResource boolToHidden}}" Content="Power Off" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            </StackPanel>
-            <StackPanel>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}"
-                            		Height="55"
-                            		Width="55"
-                            		VerticalAlignment="Center" Command="{Binding Path=AboutCommand}">
+                            		VerticalAlignment="Center" Command="{Binding AboutCommand}">
                     <Rectangle Width="20" Height="20">
                         <Rectangle.Fill>
                             <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information}"/>
@@ -226,6 +215,7 @@
                     </Style>
                 </StackPanel.Resources>
                 <TextBlock Margin="0,2,0,2" Text="Volume" HorizontalAlignment="Center"/>
+                <TextBlock Margin="0,2,0,2" Text="{Binding Path=CurrentVolume, StringFormat='\{0:000}'}" HorizontalAlignment="Center" FontFamily="Arial Black"/>
                 <Separator />
                 <Button Content="Up" Command="{Binding VolumeUpCommand}"/>
                 <Button Content="Down" Command="{Binding VolumeDownCommand}"/>

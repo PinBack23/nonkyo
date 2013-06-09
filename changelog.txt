@@ -1,0 +1,10 @@
+Release notes
+
+#################################
+version 0.11 beta
+#################################
+- fixed: connection closed after rescan
+- improved: show tooltips for min/max/close
+- improved: add the volume level next to the up/down buttons
+- improved: some refresh problems solved
+- changed: power button with green or red background (on/off). Position is now on top

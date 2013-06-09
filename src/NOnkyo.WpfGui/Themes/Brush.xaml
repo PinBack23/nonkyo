@@ -6,4 +6,8 @@
         <GradientStop Color="Transparent" Offset="1" />
     </LinearGradientBrush>
     
+    <SolidColorBrush x:Key="PowerOn" Color="#FF5A9906"/>
+    
+    <SolidColorBrush x:Key="PowerOff" Color="#FF991706"/>
+        
 </ResourceDictionary>

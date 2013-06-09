@@ -13,12 +13,16 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Colours.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Styles.xaml"/>
-                <ResourceDictionary Source="Resources/Icons.xaml"/>
                 <ResourceDictionary Source="Themes/Brush.xaml"/>
+                <ResourceDictionary Source="Resources/Icons.xaml"/>
                 <ResourceDictionary Source="Themes/Border.xaml"/>
                 <ResourceDictionary Source="Themes/Buttons.xaml"/>
                 <ResourceDictionary Source="Converter/Converter.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <!--Style the tooltips -->
+            <Style TargetType="{x:Type ToolTip}">
+                <Setter Property="Background" Value="Black" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

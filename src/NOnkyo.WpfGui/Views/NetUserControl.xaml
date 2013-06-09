@@ -59,7 +59,7 @@
         <StackPanel Margin="10,0,0,10" DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
-                            		Height="55"
+                                    Height="55"
                             		Width="55"
                             		VerticalAlignment="Center"
                                     Command="{Binding Path=NetTuneCommand}"
@@ -71,9 +71,9 @@
                     </Rectangle>
                 </Button>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
-                            		Height="55"
-                            		Width="55"
                             		VerticalAlignment="Center"
+                                    Height="55"
+                            		Width="55"
                                     Command="{Binding Path=NetTuneCommand}"
                                     CommandParameter="TRDN">                        
                     <Rectangle Width="20" Height="20">
@@ -83,8 +83,8 @@
                     </Rectangle>
                 </Button>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
-                            		Height="55"
-                            		Width="55"
+                                    Height="55"
+                            		Width="55"                        
                             		VerticalAlignment="Center"
                                     Command="{Binding Path=NetTuneCommand}"
                                     CommandParameter="TRUP">
@@ -95,9 +95,9 @@
                     </Rectangle>
                 </Button>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
-                            		Height="55"
-                            		Width="55"
                             		VerticalAlignment="Center"
+                                    Height="55"
+                            		Width="55"                        
                                     Command="{Binding Path=NetTuneCommand}"
                                     CommandParameter="FF">                        
                     <Rectangle Width="20" Height="20">
@@ -109,8 +109,8 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
-                            		Height="55"
-                            		Width="55"
+                                    Height="55"
+                            		Width="55"                        
                             		VerticalAlignment="Center"
                                     Command="{Binding Path=NetTuneCommand}"
                                     CommandParameter="PLAY">
@@ -121,8 +121,8 @@
                     </Rectangle>
                 </Button>
                 <Button  Style="{DynamicResource MetroCircleButtonStyle}"
-                            		Height="55"
-                            		Width="55"
+                                    Height="55"
+                            		Width="55"                         
                             		VerticalAlignment="Center"
                                     Command="{Binding Path=NetTuneCommand}"
                                     CommandParameter="PAUSE">                         
@@ -133,8 +133,8 @@
                     </Rectangle>
                 </Button>
                 <Button  Style="{DynamicResource MetroCircleButtonStyle}"
-                            		Height="55"
-                            		Width="55"
+                                    Height="55"
+                            		Width="55"                         
                             		VerticalAlignment="Center"
                                     Command="{Binding Path=NetTuneCommand}"
                                     CommandParameter="STOP">
