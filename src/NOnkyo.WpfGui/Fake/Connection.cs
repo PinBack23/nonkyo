@@ -307,6 +307,14 @@ namespace NOnkyo.WpfGui.Fake
             }
         }
 
+        public void BeginSendCommand(int pnDelay)
+        {
+        }
+
+        public void EndSendCommand()
+        {   
+        }
+
         #endregion
 
         private void StartNetTimeInfoTimer()

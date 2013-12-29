@@ -36,5 +36,12 @@ namespace NOnkyo.ISCP
 
         void SendCommand(Command.CommandBase poCommand);
         void SendPackage(string psMessage);
+
+        /// <summary>
+        /// Send Command with delay
+        /// </summary>
+        /// <param name="pnDelay">Delay in milliseconds</param>
+        void BeginSendCommand(int pnDelay);
+        void EndSendCommand();
     }
 }

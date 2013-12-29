@@ -42,6 +42,11 @@ namespace NOnkyo.ISCP
 
     public class Connection : IDisposable, IConnection
     {
+        private class SendOptions
+        {
+            public int Delay { get; set; }
+        }
+
         #region Logging
 
         private static Lazy<NLog.Logger> moLazyLogger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
@@ -78,15 +83,15 @@ namespace NOnkyo.ISCP
         #endregion Event PropertyChanged
 
         #region Event ConnectionClosed
-        
+
         [NonSerialized()]
         private EventHandler EventConnectionClosed;
         public event EventHandler ConnectionClosed
         {
             add
-            { this.EventConnectionClosed += value; } 
+            { this.EventConnectionClosed += value; }
             remove
-            { this.EventConnectionClosed -= value; } 
+            { this.EventConnectionClosed -= value; }
         }
 
         protected virtual void OnConnectionClosed()
@@ -101,7 +106,8 @@ namespace NOnkyo.ISCP
         #region Attributes
 
         private Socket moSocket = null;
-       
+        private SendOptions moSendOptions = null;
+
         #endregion
 
         #region Public Methods / Properties
@@ -160,8 +166,22 @@ namespace NOnkyo.ISCP
                 Logger.Info("Send Message: {0}", psMessage);
                 Logger.Debug("Send byte [] {0}{1}", Environment.NewLine, loPackage.FormatToOutput());
                 this.moSocket.Send(loPackage, 0, loPackage.Length, SocketFlags.None);
-                System.Threading.Thread.Sleep(100);
+                if (this.moSendOptions != null)
+                    System.Threading.Thread.Sleep(this.moSendOptions.Delay);
             }
+        }
+
+        public void BeginSendCommand(int pnDelay)
+        {
+            this.moSendOptions = new SendOptions()
+            {
+                Delay = pnDelay
+            };
+        }
+
+        public void EndSendCommand()
+        {
+            this.moSendOptions = null;
         }
 
         private void SocketListener(Object stateInfo)

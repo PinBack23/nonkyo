@@ -44,7 +44,7 @@ namespace NOnkyo.ISCP.Command
         {
             return new NetListInfo()
             {
-                CommandMessage = "NLSI{0}".FormatWith(pnIndex)
+                CommandMessage = "NLSI{0:00000}".FormatWith(pnIndex)
             };
         }
 

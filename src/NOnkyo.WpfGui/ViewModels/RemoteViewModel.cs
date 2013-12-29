@@ -584,7 +584,10 @@ namespace NOnkyo.WpfGui.ViewModels
         {
             if (this.moSelectedNetItem != null)
             {
-                this.moConnection.SendCommand(ISCP.Command.NetListInfo.ChoseLine(this.moSelectedNetItem.Line, this.CurrentDevice));
+                //if (this.moSelectedNetItem.Line == 8)
+                //    this.moConnection.SendCommand(ISCP.Command.NetListInfo.ChoseIndex(13, this.CurrentDevice));
+                //else
+                    this.moConnection.SendCommand(ISCP.Command.NetListInfo.ChoseLine(this.moSelectedNetItem.Line, this.CurrentDevice));
             }
         }
 
@@ -1001,12 +1004,20 @@ namespace NOnkyo.WpfGui.ViewModels
 
         private void QueryStatusInfos()
         {
-            this.moConnection.SendCommand(ISCP.Command.Power.State);
-            this.moConnection.SendCommand(ISCP.Command.MasterVolume.State);
-            this.moConnection.SendCommand(ISCP.Command.InputSelector.State);
-            this.moConnection.SendCommand(ISCP.Command.ListeningMode.State);
-            this.moConnection.SendCommand(ISCP.Command.AudioMuting.State);
-            this.moConnection.SendCommand(ISCP.Command.NetPlayStatus.State);
+            try
+            {
+                this.moConnection.BeginSendCommand(100);
+                this.moConnection.SendCommand(ISCP.Command.Power.State);
+                this.moConnection.SendCommand(ISCP.Command.MasterVolume.State);
+                this.moConnection.SendCommand(ISCP.Command.InputSelector.State);
+                this.moConnection.SendCommand(ISCP.Command.ListeningMode.State);
+                this.moConnection.SendCommand(ISCP.Command.AudioMuting.State);
+                this.moConnection.SendCommand(ISCP.Command.NetPlayStatus.State);
+            }
+            finally
+            {
+                this.moConnection.EndSendCommand();
+            }
         }
 
         private void CloseConnection()
@@ -1065,7 +1076,7 @@ namespace NOnkyo.WpfGui.ViewModels
                 case EInputSelector.USBREAR:
                 case EInputSelector.USBTOGGLE:
                     this.SelectedTabIndex = 1;
-                    this.ShowNetItems = true;
+                    this.ShowNetItems = this.NetItemList !=null && this.NetItemList.Count > 0;
                     this.ShowNetPlayStatus = true;
                     this.UpdateNetItems();
                     break;
@@ -1096,23 +1107,31 @@ namespace NOnkyo.WpfGui.ViewModels
         {
             this.CurrentNetworkGuiTitle = this.GetCommand<ISCP.Command.NLT>().CurrentTitle;
 
-            this.NetAlbumName = this.GetCommand<ISCP.Command.NetAlbumName>().Info;
-            if (this.NetAlbumName.IsEmpty())
-                this.moConnection.SendCommand(ISCP.Command.NetAlbumName.State);
+            try
+            {
+                this.moConnection.BeginSendCommand(100);
+                this.NetAlbumName = this.GetCommand<ISCP.Command.NetAlbumName>().Info;
+                if (this.NetAlbumName.IsEmpty())
+                    this.moConnection.SendCommand(ISCP.Command.NetAlbumName.State);
 
-            this.NetArtistName = this.GetCommand<ISCP.Command.NetArtistName>().Info;
-            if (this.NetArtistName.IsEmpty())
-                this.moConnection.SendCommand(ISCP.Command.NetArtistName.State);
+                this.NetArtistName = this.GetCommand<ISCP.Command.NetArtistName>().Info;
+                if (this.NetArtistName.IsEmpty())
+                    this.moConnection.SendCommand(ISCP.Command.NetArtistName.State);
 
-            this.NetTitleName = this.GetCommand<ISCP.Command.NetTitleName>().Info;
-            if (this.NetTitleName.IsEmpty())
-                this.moConnection.SendCommand(ISCP.Command.NetTitleName.State);
+                this.NetTitleName = this.GetCommand<ISCP.Command.NetTitleName>().Info;
+                if (this.NetTitleName.IsEmpty())
+                    this.moConnection.SendCommand(ISCP.Command.NetTitleName.State);
 
-            var loNetTrackInfoCommand = this.GetCommand<ISCP.Command.NetTrackInfo>();
-            if (loNetTrackInfoCommand.CurrentTrack == default(int) && loNetTrackInfoCommand.TotalTrack == default(int))
-                this.moConnection.SendCommand(ISCP.Command.NetTrackInfo.State);
-            else
-                this.UpdateNetTrackInfo(this.GetCommand<ISCP.Command.NetTrackInfo>());
+                var loNetTrackInfoCommand = this.GetCommand<ISCP.Command.NetTrackInfo>();
+                if (loNetTrackInfoCommand.CurrentTrack == default(int) && loNetTrackInfoCommand.TotalTrack == default(int))
+                    this.moConnection.SendCommand(ISCP.Command.NetTrackInfo.State);
+                else
+                    this.UpdateNetTrackInfo(this.GetCommand<ISCP.Command.NetTrackInfo>());
+            }
+            finally
+            {
+                this.moConnection.EndSendCommand();
+            }
 
             this.UpdateNetTimeInfo(this.GetCommand<ISCP.Command.NetTimeInfo>());
             this.UpdateNetJacketArt(this.GetCommand<ISCP.Command.NetJacketArt>());
