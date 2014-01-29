@@ -302,7 +302,8 @@ namespace NOnkyo.ISCP
             }
             string lsMessage = UnicodeEncoding.UTF8.GetString(poSourceArray, pnStartIndex, lnCount);
 
-            return lsMessage;
+            //'/0' entfernen
+            return lsMessage.Replace(char.ConvertFromUtf32(0), "");
         }
     }
 
