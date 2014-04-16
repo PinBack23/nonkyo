@@ -79,6 +79,18 @@ namespace NOnkyo.ISCP
                 
         }
 
+        public static T ToEnum<T>(this int value, T peDefaultValue) where T : struct
+        {
+            try
+            {
+                return value.ToEnum<T>();
+            }
+            catch
+            {
+                return peDefaultValue;
+            }
+        }
+
         public static T ToEnum<T>(this int value) where T : struct
         {
             return (T)Enum.ToObject(typeof(T), value);

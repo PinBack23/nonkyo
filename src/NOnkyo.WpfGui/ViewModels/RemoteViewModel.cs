@@ -139,6 +139,7 @@ namespace NOnkyo.WpfGui.ViewModels
         private List<NetListItem> moNetItemList;
         private NetListItem moSelectedNetItem;
         private string msCurrentNetworkGuiTitle;
+        private string msCurrentNetworkServiceType;
         private string msNetAlbumName;
         private string msNetArtistName;
         private string msNetTimeInfo;
@@ -830,6 +831,19 @@ namespace NOnkyo.WpfGui.ViewModels
             }
         }
 
+        public string CurrentNetworkServiceType
+        {
+            get { return this.msCurrentNetworkServiceType; }
+            set
+            {
+                if (this.msCurrentNetworkServiceType != value)
+                {
+                    this.msCurrentNetworkServiceType = value;
+                    this.OnPropertyChanged(() => this.CurrentNetworkServiceType);
+                }
+            }
+        }
+
         public string CurrentNetworkGuiTitle
         {
             get { return this.msCurrentNetworkGuiTitle; }
@@ -1030,6 +1044,7 @@ namespace NOnkyo.WpfGui.ViewModels
         {
             this.ShowNetItems =
                 this.ShowNetPlayStatus = false;
+            this.ResetNetItems();
 
             this.AlbumImage = null;
             switch (peInputSelector)
@@ -1097,6 +1112,7 @@ namespace NOnkyo.WpfGui.ViewModels
         {
             this.NetAlbumName =
                 this.CurrentNetworkGuiTitle =
+                this.CurrentNetworkServiceType =
                 this.NetArtistName =
                 this.NetTitleName =
                 this.NetTimeInfo =
@@ -1106,7 +1122,7 @@ namespace NOnkyo.WpfGui.ViewModels
         private void UpdateNetItems()
         {
             this.CurrentNetworkGuiTitle = this.GetCommand<ISCP.Command.NLT>().CurrentTitle;
-
+            this.CurrentNetworkServiceType = this.GetCommand<ISCP.Command.NLT>().NetworkSource.ToDescription();
             try
             {
                 this.moConnection.BeginSendCommand(100);
@@ -1220,6 +1236,7 @@ namespace NOnkyo.WpfGui.ViewModels
                     if (loCommand is ISCP.Command.NLT)
                     {
                         this.CurrentNetworkGuiTitle = (loCommand as ISCP.Command.NLT).CurrentTitle;
+                        this.CurrentNetworkServiceType = (loCommand as ISCP.Command.NLT).NetworkSource.ToDescription();
                     }
 
                     if (loCommand is ISCP.Command.NetAlbumName)

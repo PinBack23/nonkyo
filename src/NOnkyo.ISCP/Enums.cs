@@ -344,4 +344,39 @@ namespace NOnkyo.ISCP
         [Description("0C")] //(available ISO 8859-1 character set)
         ACCESSPASSWORD
     }
+
+    public enum ENetworkServiceType
+    {
+        DLNA = 0x00,
+        Favorite = 0x01,
+        vTuner = 0x02,
+        SiriusXM = 0x03,
+        Pandora = 0x04,
+        Rhapsody = 0x05,
+        [Description("Last.Fm")]
+        LastFm = 0x06,
+        Napster = 0x07,
+        Slacker = 0x08,
+        Mediafly = 0x09,
+        Spotify = 0x0A,
+        [Description("AUPEO!")]
+        AUPEO = 0x0B,
+        radiko = 0x0C,
+        [Description("e-onkyo")]
+        eonkyo = 0x0D,
+        [Description("TuneIn Radio")]
+        TuneInRadio = 0x0E,
+        MP3tunes = 0x0F,
+        Simfy = 0x10,
+        [Description("Home Media")]
+        HomeMedia = 0x11,
+        [Description("USB Front")]
+        USBFront = 0xF0,
+        [Description("USB Rear")]
+        USBRear = 0xF1,
+        [Description("Internet Radio")]
+        InternetRadio = 0xF2,
+        NET = 0xF3,
+        None = 0xFF,
+    }
 }
