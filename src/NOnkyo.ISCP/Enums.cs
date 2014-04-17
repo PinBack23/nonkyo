@@ -379,4 +379,88 @@ namespace NOnkyo.ISCP
         NET = 0xF3,
         None = 0xFF,
     }
+
+    public enum ENetworkListUIType
+    {
+        None = -1,
+        List = 0,
+        Menu = 1,
+        Playback = 2,
+        Popup = 3,
+        Keyboard = 4,
+        MenuList = 5
+    }
+
+    public enum ENetworkListLayerInfo
+    {
+        None = -1,
+        NetTop = 0,
+        Top = 1,
+        SecondLayer = 2
+    }
+
+    public enum ENetworkListLeftIcon
+    {
+        InternetRadio = 0x00,
+        Server = 0x01,
+        USB = 0x02,
+        iPod = 0x03,
+        DLNA = 0x04,
+        WiFi = 0x05,
+        Favorite = 0x06,
+        Account_Spotify = 0x10,
+        Album_Spotify = 0x11,
+        Playlist_Spotify = 0x12,
+        Playlist_C_Spotify = 0x13,
+        Starred_Spotify = 0x14,
+        WhatsNew_Spotify = 0x15,
+        Track_Spotify = 0x16,
+        Artist_Spotify = 0x17,
+        Play_Spotify = 0x18,
+        Search_Spotify = 0x19,
+        Folder_Spotify = 0x1A,
+        None = 0xFF,
+    }
+
+    public enum ENetworkListRightIcon
+    {
+        DLNA = 0x00,
+        Favorite = 0x01,
+        vTuner = 0x02,
+        SiriusXM = 0x03,
+        Pandora = 0x04,
+        Rhapsody = 0x05,
+        Lastfm = 0x06,
+        Napster = 0x07,
+        Slacker = 0x08,
+        Mediafly = 0x09,
+        Spotify = 0x0A,
+        AUPEO = 0x0B,
+        radiko = 0x0C,
+        eonkyo = 0x0D,
+        TuneInRadio = 0x0E,
+        MP3tunes = 0x0F,
+        Simfy = 0x10,
+        HomeMedia = 0x11,
+        None = 0xFF,
+    }
+
+    public enum ENetworkListStatusInfo
+    {
+        None = 0x00,
+        Connecting = 0x01,
+        AcquiringLicense = 0x02,
+        Buffering = 0x03,
+        CannotPlay = 0x04,
+        Searching = 0x05,
+        ProfileUpdate = 0x06,
+        OperationDisabled = 0x07,
+        ServerStartup = 0x08,
+        SongRatedasFavorite = 0x09,
+        SongBannedFromStation = 0x0A,
+        AuthenticationFailed = 0x0B,
+        SpotifyPaused = 0x0C,
+        TrackNotAvailable = 0x0D,
+        CannotSkip = 0x0E
+    }
 }
