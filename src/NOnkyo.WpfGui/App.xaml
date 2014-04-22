@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="Resources/Icons.xaml"/>
                 <ResourceDictionary Source="Themes/Border.xaml"/>
                 <ResourceDictionary Source="Themes/Buttons.xaml"/>
+                <ResourceDictionary Source="Themes/TabControl.xaml"/>
                 <ResourceDictionary Source="Converter/Converter.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <!--Style the tooltips -->

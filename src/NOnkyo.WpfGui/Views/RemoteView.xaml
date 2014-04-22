@@ -203,158 +203,165 @@
                 <Label Content="About" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             </StackPanel>
         </StackPanel>
-        <DockPanel x:Name="dopDisplay" Margin="3" DockPanel.Dock="Top">
-            <StackPanel Margin="0,2,2,0" DockPanel.Dock="Right">
-                <StackPanel.Resources>
-                    <Style TargetType="Button" BasedOn="{StaticResource StandardButton}">
-                        <Setter Property="Margin" Value="3,3,3,0"/>
-                        <Setter Property="Height" Value="40"/>
-                        <Setter Property="Width" Value="50"/>
-                    </Style>
-                </StackPanel.Resources>
-                <TextBlock Margin="0,2,0,2" Text="Volume" HorizontalAlignment="Center"/>
-                <TextBlock Margin="0,2,0,2" Text="{Binding Path=CurrentVolume, StringFormat='\{0:000}'}" HorizontalAlignment="Center" FontFamily="Arial Black"/>
-                <Separator />
-                <Button Content="Up" Command="{Binding VolumeUpCommand}"/>
-                <Button Content="Down" Command="{Binding VolumeDownCommand}"/>
-                <TextBlock Margin="0,2,0,2" Text="Mute" HorizontalAlignment="Center"/>
-                <Separator />
-                <Button Height="30"  Command="{Binding MuteToggleCommand}">
-                    <Rectangle Height="25" Width="25">
-                        <Rectangle.Fill>
-                            <VisualBrush x:Name="bruMute" Stretch="Fill"  Visual="{StaticResource appbar_sound_0}"/>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                </Button>
-            </StackPanel>
-            <Border Height="216" Margin="0,2,3,0" Style="{StaticResource ContentBorder}">
-                <Border.Resources>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="FontSize" Value="10" />
-                        <Setter Property="FontWeight"  Value="Heavy"/>
-                    </Style>
-                </Border.Resources>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="227" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <DockPanel x:Name="dopDisplay" Margin="3">
+                <StackPanel Margin="0,2,2,0" DockPanel.Dock="Right">
+                    <StackPanel.Resources>
+                        <Style TargetType="Button" BasedOn="{StaticResource StandardButton}">
+                            <Setter Property="Margin" Value="3,3,3,0"/>
+                            <Setter Property="Height" Value="40"/>
+                            <Setter Property="Width" Value="50"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock Margin="0,2,0,2" Text="Volume" HorizontalAlignment="Center"/>
+                    <TextBlock Margin="0,2,0,2" Text="{Binding Path=CurrentVolume, StringFormat='\{0:000}'}" HorizontalAlignment="Center" FontFamily="Arial Black"/>
+                    <Separator />
+                    <Button Content="Up" Command="{Binding VolumeUpCommand}"/>
+                    <Button Content="Down" Command="{Binding VolumeDownCommand}"/>
+                    <TextBlock Margin="0,2,0,2" Text="Mute" HorizontalAlignment="Center"/>
+                    <Separator />
+                    <Button Height="30"  Command="{Binding MuteToggleCommand}">
+                        <Rectangle Height="25" Width="25">
+                            <Rectangle.Fill>
+                                <VisualBrush x:Name="bruMute" Stretch="Fill"  Visual="{StaticResource appbar_sound_0}"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+                <Border Height="216" Margin="0,2,3,0" Style="{StaticResource ContentBorder}">
+                    <Border.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="10" />
+                            <Setter Property="FontWeight"  Value="Heavy"/>
+                        </Style>
+                    </Border.Resources>
 
-                <DockPanel LastChildFill="True">
-                    <StackPanel DockPanel.Dock="Left">
-                        <TextBlock Margin="2,1,0,1" Text="{Binding CurrentInputSelector}"/>
-                        <TextBlock Margin="2,1,0,1" Text="{Binding CurrentListeningMode}"/>
-                        <TextBlock Margin="2,1,0,1" Text="{Binding CurrentNetworkServiceType}"/>
-                        <TextBlock Margin="2,1,0,1" Text="{Binding Path=CurrentVolume, StringFormat='Volume: {0:000}'}"/>
-                        <TextBlock Margin="2,2,0,1" Text="{Binding NetArtistName}"/>
-                        <TextBlock Margin="2,1,0,1" Text="{Binding NetAlbumName}"/>
-                        <TextBlock Margin="2,1,0,1" Text="{Binding NetTitleName}"/>
-                        <TextBlock Margin="2,1,0,1" Text="{Binding NetTrackInfo}"/>
-                        <TextBlock Margin="2,1,0,1" Text="{Binding NetTimeInfo}"/>
-                        <StackPanel Orientation="Horizontal" Visibility="{Binding Path=ShowNetPlayStatus, Converter={StaticResource boolToVis}}">
-                            <StackPanel.Resources>
-                                <Style TargetType="Rectangle">
-                                    <Setter Property="Margin" Value="2,1,2,1"/>
-                                    <Setter Property="Height" Value="15" />
-                                    <Setter Property="Width" Value="15" />
-                                </Style>
-                            </StackPanel.Resources>
-                            <Rectangle Visibility="{Binding Path=PlayStatus, ConverterParameter=PLAY, Converter={StaticResource enumToVis}}">
-                                <Rectangle.Fill>
-                                    <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_play}"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Rectangle Visibility="{Binding Path=PlayStatus, ConverterParameter=PAUSE, Converter={StaticResource enumToVis}}">
-                                <Rectangle.Fill>
-                                    <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_pause}"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Rectangle Visibility="{Binding Path=PlayStatus, ConverterParameter=STOP, Converter={StaticResource enumToVis}}">
-                                <Rectangle.Fill>
-                                    <SolidColorBrush Color="{DynamicResource BlackColor}" />
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Rectangle Visibility="{Binding Path=PlayStatus, ConverterParameter=FR, Converter={StaticResource enumToVis}}">
-                                <Rectangle.Fill>
-                                    <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_rewind}"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Rectangle Visibility="{Binding Path=PlayStatus, ConverterParameter=FF, Converter={StaticResource enumToVis}}">
-                                <Rectangle.Fill>
-                                    <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_fastforward}"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Rectangle Visibility="{Binding Path=RepeatStatus, ConverterParameter=OFF, Converter={StaticResource enumToInvis}}">
-                                <Rectangle.Fill>
-                                    <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_repeat}"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Rectangle Visibility="{Binding Path=ShuffleStatus, ConverterParameter=OFF, Converter={StaticResource enumToInvis}}">
-                                <Rectangle.Fill>
-                                    <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_shuffle}"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
+                    <DockPanel LastChildFill="True">
+                        <StackPanel DockPanel.Dock="Left">
+                            <TextBlock Margin="2,1,0,1" Text="{Binding CurrentInputSelector}"/>
+                            <TextBlock Margin="2,1,0,1" Text="{Binding CurrentListeningMode}"/>
+                            <TextBlock Margin="2,1,0,1" Text="{Binding CurrentNetworkServiceType}"/>
+                            <TextBlock Margin="2,1,0,1" Text="{Binding Path=CurrentVolume, StringFormat='Volume: {0:000}'}"/>
+                            <TextBlock Margin="2,2,0,1" Text="{Binding NetArtistName}"/>
+                            <TextBlock Margin="2,1,0,1" Text="{Binding NetAlbumName}"/>
+                            <TextBlock Margin="2,1,0,1" Text="{Binding NetTitleName}"/>
+                            <TextBlock Margin="2,1,0,1" Text="{Binding NetTrackInfo}"/>
+                            <TextBlock Margin="2,1,0,1" Text="{Binding NetTimeInfo}"/>
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding Path=ShowNetPlayStatus, Converter={StaticResource boolToVis}}">
+                                <StackPanel.Resources>
+                                    <Style TargetType="Rectangle">
+                                        <Setter Property="Margin" Value="2,1,2,1"/>
+                                        <Setter Property="Height" Value="15" />
+                                        <Setter Property="Width" Value="15" />
+                                    </Style>
+                                </StackPanel.Resources>
+                                <Rectangle Visibility="{Binding Path=PlayStatus, ConverterParameter=PLAY, Converter={StaticResource enumToVis}}">
+                                    <Rectangle.Fill>
+                                        <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_play}"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle Visibility="{Binding Path=PlayStatus, ConverterParameter=PAUSE, Converter={StaticResource enumToVis}}">
+                                    <Rectangle.Fill>
+                                        <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_pause}"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle Visibility="{Binding Path=PlayStatus, ConverterParameter=STOP, Converter={StaticResource enumToVis}}">
+                                    <Rectangle.Fill>
+                                        <SolidColorBrush Color="{DynamicResource BlackColor}" />
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle Visibility="{Binding Path=PlayStatus, ConverterParameter=FR, Converter={StaticResource enumToVis}}">
+                                    <Rectangle.Fill>
+                                        <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_rewind}"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle Visibility="{Binding Path=PlayStatus, ConverterParameter=FF, Converter={StaticResource enumToVis}}">
+                                    <Rectangle.Fill>
+                                        <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_fastforward}"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle Visibility="{Binding Path=RepeatStatus, ConverterParameter=OFF, Converter={StaticResource enumToInvis}}">
+                                    <Rectangle.Fill>
+                                        <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_repeat}"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle Visibility="{Binding Path=ShuffleStatus, ConverterParameter=OFF, Converter={StaticResource enumToInvis}}">
+                                    <Rectangle.Fill>
+                                        <VisualBrush Stretch="Fill"  Visual="{StaticResource appbar_shuffle}"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
-                    <Border Margin="5" Style="{StaticResource ContentBorder}" Visibility="{Binding Path=ShowNetItems, Converter={StaticResource boolToVis}}">
-                        <Border.Resources>
-                            <Style TargetType="DataGrid">
-                                <Setter Property="CellStyle">
-                                    <Setter.Value>
-                                        <Style TargetType="DataGridCell">
-                                            <Style.Triggers>
-                                                <Trigger Property="IsSelected" Value="True">
-                                                    <Setter Property="Background">
-                                                        <Setter.Value>
-                                                            <SolidColorBrush Color="{DynamicResource AccentColor2}" />
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Setter Property="BorderBrush" Value="#FF143c65" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Border.Resources>
-                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="None" Background="Transparent" BorderThickness="0"
+                        <Border Margin="5" Style="{StaticResource ContentBorder}" Visibility="{Binding Path=ShowNetItems, Converter={StaticResource boolToVis}}">
+                            <Border.Resources>
+                                <Style TargetType="DataGrid">
+                                    <Setter Property="CellStyle">
+                                        <Setter.Value>
+                                            <Style TargetType="DataGridCell">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter Property="Background">
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="{DynamicResource AccentColor2}" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Setter Property="BorderBrush" Value="#FF143c65" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Border.Resources>
+                            <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="None" Background="Transparent" BorderThickness="0"
                               SelectionMode="Single"
                               ItemsSource="{Binding NetItemList}"  
                               SelectedItem="{Binding SelectedNetItem}"
                               MouseDoubleClick="DataGrid_MouseDoubleClick">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Visibility="Hidden" Width="*" Header="Line" IsReadOnly="True" Binding="{Binding Path=Line}"/>
-                                <DataGridTextColumn Width="*" Header="Name" IsReadOnly="True" Binding="{Binding Path=Name}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </Border>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Visibility="Hidden" Width="*" Header="Line" IsReadOnly="True" Binding="{Binding Path=Line}"/>
+                                    <DataGridTextColumn Width="*" Header="Name" IsReadOnly="True" Binding="{Binding Path=Name}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
 
-                    <Image x:Name="imgAlbum" Visibility="Collapsed" HorizontalAlignment="Center" Height="128" Stretch="Fill" VerticalAlignment="Center" Width="128" RenderTransformOrigin="0.5,0.5">
-                        <Image.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </Image.RenderTransform>
-                    </Image>
+                        <Image x:Name="imgAlbum" Visibility="Collapsed" HorizontalAlignment="Center" Height="128" Stretch="Fill" VerticalAlignment="Center" Width="128" RenderTransformOrigin="0.5,0.5">
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
 
-                </DockPanel>
-            </Border>
+                    </DockPanel>
+                </Border>
 
-        </DockPanel>
-        <TabControl x:Name="tabControl" Margin="3"  SelectedIndex="{Binding SelectedTabIndex}">
-            <TabControl.ItemContainerStyle>
-                <Style TargetType="{x:Type TabItem}">
-                    <Style.Setters>
-                        <Setter Property="Visibility" Value="Collapsed" />
-                    </Style.Setters>
-                </Style>
-            </TabControl.ItemContainerStyle>
-            <TabItem x:Name="tabHome" Header="Home" TabIndex="0">
-                <my:HomeUserControl />
-            </TabItem>
-            <TabItem x:Name="tabNet" Header="Net" TabIndex="1">
-                <my:NetUserControl />
-            </TabItem>
-        </TabControl>
-
+            </DockPanel>
+            <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" />
+            <TabControl x:Name="tabControl" Margin="3"  SelectedIndex="{Binding SelectedTabIndex}" Grid.Row="2">
+                <TabControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type TabItem}">
+                        <Style.Setters>
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </Style.Setters>
+                    </Style>
+                </TabControl.ItemContainerStyle>
+                <TabItem x:Name="tabHome" Header="Home" TabIndex="0" BorderThickness="0">
+                    <my:HomeUserControl />
+                </TabItem>
+                <TabItem x:Name="tabNet" Header="Net" TabIndex="1" BorderThickness="0">
+                    <my:NetUserControl />
+                </TabItem>
+            </TabControl>
+        </Grid>
         <!--<DockPanel.Triggers>
             <EventTrigger RoutedEvent="Button.Click" SourceName="btnTest">
                 <BeginStoryboard Storyboard="{StaticResource AlbumImageStoryboard}"/>

@@ -49,7 +49,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="CircleButtonNoBorder" TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource ButtonNormalBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ButtonNormalBorder}" />
@@ -95,5 +95,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
 </ResourceDictionary>
