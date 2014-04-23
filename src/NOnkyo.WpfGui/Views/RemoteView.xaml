@@ -120,7 +120,13 @@
     </Controls:MetroWindow.Flyouts>
 
     <DockPanel LastChildFill="True">
-        <TextBlock Margin="3" Text="{Binding ConnectState}" DockPanel.Dock="Bottom"></TextBlock>
+        <DockPanel DockPanel.Dock="Bottom">
+            <TextBlock Margin="3" Text="{Binding ConnectState}" DockPanel.Dock="Left"></TextBlock>
+            <TextBlock Margin="3" HorizontalAlignment="Right">
+                <Hyperlink NavigateUri="{Binding WebSetupUrl}" RequestNavigate="Hyperlink_RequestNavigate">Web Setup</Hyperlink>
+            </TextBlock>
+        </DockPanel>
+        
         <StackPanel  DockPanel.Dock="Left">
             <StackPanel>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"

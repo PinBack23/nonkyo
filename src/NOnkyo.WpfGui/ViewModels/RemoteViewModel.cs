@@ -126,6 +126,7 @@ namespace NOnkyo.WpfGui.ViewModels
 
         private Device moCurrentDevice;
         private string msConnectState;
+        private string msWebSetupUrl;
         private ObservableCollection<string> moLogList = new ObservableCollection<string>();
         private IConnection moConnection;
         private TaskScheduler moUITaskScheduler;
@@ -234,6 +235,7 @@ namespace NOnkyo.WpfGui.ViewModels
             {
                 this.CurrentDevice = loArgs.Device;
                 this.ConnectState = "Establish a connection to " + this.CurrentDevice.ToString() + " ....";
+                this.WebSetupUrl = string.Empty;
                 this.OpenConnection();
             }
         }
@@ -760,6 +762,22 @@ namespace NOnkyo.WpfGui.ViewModels
             }
         }
 
+        public string WebSetupUrl
+        {
+            get
+            {
+                return this.msWebSetupUrl;
+            }
+            set
+            {
+                if (this.msWebSetupUrl != value)
+                {
+                    this.msWebSetupUrl = value;
+                    this.OnPropertyChanged(() => this.WebSetupUrl);
+                }
+            }
+        } 
+
         public ObservableCollection<string> LogList
         {
             get
@@ -1007,6 +1025,7 @@ namespace NOnkyo.WpfGui.ViewModels
             if (lbSuccess)
             {
                 this.ConnectState = "Connect to " + this.CurrentDevice.ToString();
+                this.WebSetupUrl = "http://{0}".FormatWith(this.CurrentDevice.IP);
                 this.moConnection.MessageReceived += new EventHandler<MessageReceivedEventArgs>(Connection_MessageReceived);
                 this.moConnection.ConnectionClosed += new EventHandler(Connection_ConnectionClosed);
             }
@@ -1349,6 +1368,7 @@ namespace NOnkyo.WpfGui.ViewModels
             {
                 this.CloseConnection();
                 this.ConnectState = "Connection closed";
+                this.WebSetupUrl = string.Empty;
             }, System.Threading.CancellationToken.None, TaskCreationOptions.None, this.moUITaskScheduler);
         }
 

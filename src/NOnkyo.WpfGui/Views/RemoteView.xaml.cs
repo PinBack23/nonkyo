@@ -10,10 +10,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using NOnkyo.ISCP;
 using NOnkyo.WpfGui.ViewModels;
 using MahApps.Metro.Controls;
 using System.Windows.Media.Animation;
 using System.IO;
+using System.Diagnostics;
 
 namespace NOnkyo.WpfGui.Views
 {
@@ -160,6 +162,22 @@ namespace NOnkyo.WpfGui.Views
         private void Model_CloseInputSelector(object sender, EventArgs e)
         {
             this.Flyouts[0].IsOpen = false;
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            try
+            {
+                if (e.Uri.AbsoluteUri.IsNotEmpty())
+                {
+                    Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+                }
+                e.Handled = true;
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.ToString());
+            }
         }
 
         #endregion
