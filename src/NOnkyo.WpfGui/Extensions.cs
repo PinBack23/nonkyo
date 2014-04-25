@@ -69,7 +69,7 @@ namespace NOnkyo.WpfGui
         public static DateTime FileTimestamp(this Assembly value)
         {
             FileInfo loFileInfo = new FileInfo(value.Location);
-            return loFileInfo.CreationTime;
+            return loFileInfo.LastWriteTime;
         }
 
     }

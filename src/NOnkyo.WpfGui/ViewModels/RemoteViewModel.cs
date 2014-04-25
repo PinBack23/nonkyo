@@ -152,6 +152,7 @@ namespace NOnkyo.WpfGui.ViewModels
         private EShuffleStatus meShuffleStatus;
         private Byte[] moAlbumImage;
         private bool? mbIsPowerOn = null;
+        private bool mbShowSearching = false;
 
         #endregion
 
@@ -557,6 +558,7 @@ namespace NOnkyo.WpfGui.ViewModels
             if (leNetTuneOperation == ENetTuneOperation.SELECT && this.moSelectedNetItem != null)
             {
                 this.moConnection.SendCommand(ISCP.Command.NetListInfo.ChoseLine(this.moSelectedNetItem.Line, this.CurrentDevice));
+                this.ShowSearching = true;
             }
             else
                 this.moConnection.SendCommand(ISCP.Command.NetTune.Chose(leNetTuneOperation, this.CurrentDevice));
@@ -591,6 +593,7 @@ namespace NOnkyo.WpfGui.ViewModels
                 //    this.moConnection.SendCommand(ISCP.Command.NetListInfo.ChoseIndex(13, this.CurrentDevice));
                 //else
                     this.moConnection.SendCommand(ISCP.Command.NetListInfo.ChoseLine(this.moSelectedNetItem.Line, this.CurrentDevice));
+                    this.ShowSearching = true;
             }
         }
 
@@ -1010,6 +1013,19 @@ namespace NOnkyo.WpfGui.ViewModels
             }
         }
 
+        public bool ShowSearching
+        {
+            get { return this.mbShowSearching; }
+            set
+            {
+                if (this.mbShowSearching != value)
+                {
+                    this.mbShowSearching = value;
+                    this.OnPropertyChanged(() => this.ShowSearching);
+                }
+            }
+        }
+
         #endregion
 
         #region Private Methods / Properties
@@ -1256,6 +1272,7 @@ namespace NOnkyo.WpfGui.ViewModels
                     {
                         this.CurrentNetworkGuiTitle = (loCommand as ISCP.Command.NLT).CurrentTitle;
                         this.CurrentNetworkServiceType = (loCommand as ISCP.Command.NLT).NetworkSource.ToDescription();
+                        this.ShowSearching = false;
                     }
 
                     if (loCommand is ISCP.Command.NetAlbumName)

@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("NOnkyo Gui")]
-[assembly: AssemblyCopyright("Copyright © Karl Sparwald, 2012")]
+[assembly: AssemblyCopyright("Copyright © Karl Sparwald, 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -8,3 +8,8 @@ version 0.11 beta
 - improved: add the volume level next to the up/down buttons
 - improved: some refresh problems solved
 - changed: power button with green or red background (on/off). Position is now on top
+- added: link to open WebSetup
+- added: splitter for mainview
+- fixed: remove null characters from iscp string
+- improved: send refresh-commands with delay
+- added: buttons for pagenavigation

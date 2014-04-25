@@ -126,7 +126,7 @@
                 <Hyperlink NavigateUri="{Binding WebSetupUrl}" RequestNavigate="Hyperlink_RequestNavigate">Web Setup</Hyperlink>
             </TextBlock>
         </DockPanel>
-        
+
         <StackPanel  DockPanel.Dock="Left">
             <StackPanel>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
@@ -253,7 +253,7 @@
                             <TextBlock Margin="2,1,0,1" Text="{Binding CurrentListeningMode}"/>
                             <TextBlock Margin="2,1,0,1" Text="{Binding CurrentNetworkServiceType}"/>
                             <TextBlock Margin="2,1,0,1" Text="{Binding Path=CurrentVolume, StringFormat='Volume: {0:000}'}"/>
-                            <TextBlock Margin="2,2,0,1" Text="{Binding NetArtistName}"/>
+                            <TextBlock Margin="2,1,0,1" Text="{Binding NetArtistName}"/>
                             <TextBlock Margin="2,1,0,1" Text="{Binding NetAlbumName}"/>
                             <TextBlock Margin="2,1,0,1" Text="{Binding NetTitleName}"/>
                             <TextBlock Margin="2,1,0,1" Text="{Binding NetTrackInfo}"/>
@@ -302,6 +302,23 @@
                                     </Rectangle.Fill>
                                 </Rectangle>
                             </StackPanel>
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding Path=ShowSearching, Converter={StaticResource boolToVis}}" Margin="2,1,0,1">
+                                <Ellipse Fill="Red" Width="15" Height="15">
+                                    <Ellipse.Triggers>
+                                        <EventTrigger RoutedEvent="Ellipse.Loaded">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="(Ellipse.Opacity)" RepeatBehavior="Forever"
+                                                            From="0.8" To="0.2" Duration="0:0:2" AutoReverse="True"  />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                    </Ellipse.Triggers>
+                                </Ellipse>
+                                <TextBlock Text="Searching"></TextBlock>
+                            </StackPanel>
                         </StackPanel>
                         <Border Margin="5" Style="{StaticResource ContentBorder}" Visibility="{Binding Path=ShowNetItems, Converter={StaticResource boolToVis}}">
                             <Border.Resources>
@@ -324,16 +341,44 @@
                                     </Setter>
                                 </Style>
                             </Border.Resources>
-                            <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="None" Background="Transparent" BorderThickness="0"
+                            <DockPanel LastChildFill="True">
+                                <DockPanel DockPanel.Dock="Right">
+                                    <Button DockPanel.Dock="Top" Style="{DynamicResource MetroCircleButtonStyle}"
+                                        Height="30"
+                            		    Width="30"                        
+                            		    VerticalAlignment="Top"
+                                        Command="{Binding Path=NetTuneCommand}"
+                                        CommandParameter="LEFT">
+                                        <Rectangle Width="10" Height="10">
+                                            <Rectangle.Fill>
+                                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_up}"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                    </Button>
+                                    <Button DockPanel.Dock="Bottom" Style="{DynamicResource MetroCircleButtonStyle}"
+                                        Height="30"
+                            		    Width="30"                        
+                            		    VerticalAlignment="Bottom"
+                                        Command="{Binding Path=NetTuneCommand}"
+                                        CommandParameter="RIGHT">
+                                        <Rectangle Width="10" Height="10">
+                                            <Rectangle.Fill>
+                                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_down}"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                    </Button>
+                                </DockPanel>
+                                <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="None" Background="Transparent" BorderThickness="0"
                               SelectionMode="Single"
                               ItemsSource="{Binding NetItemList}"  
                               SelectedItem="{Binding SelectedNetItem}"
                               MouseDoubleClick="DataGrid_MouseDoubleClick">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Visibility="Hidden" Width="*" Header="Line" IsReadOnly="True" Binding="{Binding Path=Line}"/>
-                                    <DataGridTextColumn Width="*" Header="Name" IsReadOnly="True" Binding="{Binding Path=Name}"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Visibility="Hidden" Width="*" Header="Line" IsReadOnly="True" Binding="{Binding Path=Line}"/>
+                                        <DataGridTextColumn Width="*" Header="Name" IsReadOnly="True" Binding="{Binding Path=Name}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DockPanel>
                         </Border>
 
                         <Image x:Name="imgAlbum" Visibility="Collapsed" HorizontalAlignment="Center" Height="128" Stretch="Fill" VerticalAlignment="Center" Width="128" RenderTransformOrigin="0.5,0.5">
