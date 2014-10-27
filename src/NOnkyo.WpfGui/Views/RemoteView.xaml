@@ -239,7 +239,7 @@
                         </Rectangle>
                     </Button>
                 </StackPanel>
-                <Border Height="216" Margin="0,2,3,0" Style="{StaticResource ContentBorder}">
+                <Border Margin="0,2,3,0" Style="{StaticResource ContentBorder}">
                     <Border.Resources>
                         <Style TargetType="TextBlock">
                             <Setter Property="FontSize" Value="10" />
@@ -381,16 +381,35 @@
                             </DockPanel>
                         </Border>
 
-                        <Image x:Name="imgAlbum" Visibility="Collapsed" HorizontalAlignment="Center" Height="128" Stretch="Fill" VerticalAlignment="Center" Width="128" RenderTransformOrigin="0.5,0.5">
-                            <Image.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform/>
-                                    <TranslateTransform/>
-                                </TransformGroup>
-                            </Image.RenderTransform>
-                        </Image>
+                        <Grid Name="grdImageAlbum" Margin="30" >
+                            <Image x:Name="imgAlbum" Visibility="Collapsed" 
+                               HorizontalAlignment="Center" Stretch="Fill" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">                               
+                                <Image.Width>
+                                    <MultiBinding Converter="{StaticResource squareConverter}">
+                                        <MultiBinding.Bindings>
+                                            <Binding ElementName="grdImageAlbum" Path="ActualWidth" />
+                                            <Binding ElementName="grdImageAlbum" Path="ActualHeight" />
+                                        </MultiBinding.Bindings>
+                                    </MultiBinding>
+                                </Image.Width>
+                                <Image.Height>
+                                    <MultiBinding Converter="{StaticResource squareConverter}">
+                                        <MultiBinding.Bindings>
+                                            <Binding ElementName="grdImageAlbum" Path="ActualWidth" />
+                                            <Binding ElementName="grdImageAlbum" Path="ActualHeight" />
+                                        </MultiBinding.Bindings>
+                                    </MultiBinding>
+                                </Image.Height>
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                        </Grid>
 
                     </DockPanel>
                 </Border>

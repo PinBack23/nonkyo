@@ -32,37 +32,45 @@ namespace NOnkyo.ISCP
 {
     public enum EListeningMode
     {
+        [Description("Stereo")]
         STEREO = 0x00,
+        [Description("Direct")]
         DIRECT = 0x01,
+        [Description("Surround")]
         SURROUND = 0x02,
-        [Description("FILM Game-RPG")]
+        [Description("Game-RPG")]
         FILM = 0x03,
+        [Description("THX")]
         THX = 0x04,
-        [Description("ACTION Game-Action")]
+        [Description("Action")]
         ACTION = 0x05,
-        [Description("MUSICAL Game-Rock")]
+        [Description("Game-Rock")]
         MUSICAL = 0x06,
-        [Description("MONO MOVIE")]
+        [Description("Mono Movie")]
         MONOMOVIE = 0x07,
+        [Description("Orchestra")]
         ORCHESTRA = 0x08,
+        [Description("Unplugged")]
         UNPLUGGED = 0x09,
-        [Description("STUDIO-MIX")]
+        [Description("Studio Mix")]
         STUDIOMIX = 0x0A,
-        [Description("TV LOGIC")]
+        [Description("TV Logic")]
         TVLOGIC = 0x0B,
-        [Description("ALL CH STEREO")]
+        [Description("All Ch Stereo")]
         ALLCHSTEREO = 0x0C,
-        [Description("THEATER-DIMENSIONAL")]
+        [Description("Theater-Dimensional")]
         THEATERDIMENSIONAL = 0x0D,
-        [Description("ENHANCED 7/ENHANCE Game-Sports")]
+        [Description("Game-Sports")]
         ENHANCED7 = 0x0E,
+        [Description("Mono")]
         MONO = 0x0F,
-        [Description("PURE AUDIO")]
+        [Description("Pure Audio")]
         PUREAUDIO = 0x11,
+        [Description("Multiplex")]
         MULTIPLEX = 0x12,
-        [Description("FULL MONO")]
+        [Description("Full Mono")]
         FULLMONO = 0x13,
-        [Description("DOLBY VIRTUAL")]
+        [Description("Dolby Virtual")]
         DOLBYVIRTUAL = 0x14,
         [Description("DTS Surround Sensation")]
         DTSSURROUND = 0x15,

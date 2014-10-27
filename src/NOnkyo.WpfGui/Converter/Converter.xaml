@@ -5,4 +5,5 @@
     <myconverter:BooleanToVisibilityConverter x:Key="boolToHidden" TrueValue="Collapsed" FalseValue="Visible"/>
     <myconverter:EnumVisibilityConverter x:Key="enumToVis" />
     <myconverter:EnumInvisibilityConverter x:Key="enumToInvis" />
+    <myconverter:SquareConverter x:Key="squareConverter" />
 </ResourceDictionary>
