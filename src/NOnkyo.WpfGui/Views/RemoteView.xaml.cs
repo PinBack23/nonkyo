@@ -78,7 +78,7 @@ namespace NOnkyo.WpfGui.Views
                         this.bruPower.Visual = this.FindResource("appbar_power_on") as Visual;
                     else
                         this.bruPower.Visual = this.FindResource("appbar_power_off") as Visual;
-                }                    
+                }
                 else if (e.PropertyName == this.Model.GetPropertyNameFromExpression(() => this.Model.AlbumImage))
                 {
                     if (this.Model.AlbumImage == null)
@@ -126,7 +126,7 @@ namespace NOnkyo.WpfGui.Views
             catch (Exception exp)
             {
                 MessageBox.Show(exp.ToString());
-            }            
+            }
         }
 
         private void Model_ShowAbout(object sender, EventArgs e)
@@ -151,7 +151,7 @@ namespace NOnkyo.WpfGui.Views
 
         private void Selectors_Click(object sender, RoutedEventArgs e)
         {
-            this.Flyouts[0].IsOpen = !this.Flyouts[0].IsOpen;
+            this.ReceiverFlyout.IsOpen = !this.ReceiverFlyout.IsOpen;
         }
 
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -161,7 +161,7 @@ namespace NOnkyo.WpfGui.Views
 
         private void Model_CloseInputSelector(object sender, EventArgs e)
         {
-            this.Flyouts[0].IsOpen = false;
+            this.ReceiverFlyout.IsOpen = false;
         }
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
@@ -181,5 +181,6 @@ namespace NOnkyo.WpfGui.Views
         }
 
         #endregion
+
     }
 }

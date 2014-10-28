@@ -26,43 +26,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
+using System.Windows.Data;
+using System.Globalization;
 
-namespace NOnkyo.ISCP.Command
+namespace NOnkyo.WpfGui.Converter
 {
-    public class InputSelector : CommandBase
+    public class EnumToBooleanConverter : IValueConverter
     {
-        public static readonly InputSelector State = new InputSelector()
+        public virtual object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            CommandMessage = "SLIQSTN"
-        };
+            if (value == null || parameter == null)
+                return false;
 
-        public static InputSelector Chose(EInputSelector peInputSelector, Device poDevice)
-        {
-            return new InputSelector()
-            {
-                CommandMessage = "SLI{0}".FormatWith(((int)peInputSelector).ConverIntValueToHexString())
-            };
+            string lsValue = value.ToString();
+            string lsCheckValue = parameter.ToString();
+            return lsValue.Equals(lsCheckValue, StringComparison.InvariantCultureIgnoreCase);
         }
 
-        #region Constructor / Destructor
-
-        internal InputSelector()
-        { }
-
-        #endregion
-
-        public EInputSelector CurrentInputSelector { get; private set; }
-
-        public override bool Match(string psStatusMessage)
+        public virtual object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var loMatch = Regex.Match(psStatusMessage, @"!1SLI(\w\w)");
-            if (loMatch.Success)
-            {
-                this.CurrentInputSelector = loMatch.Groups[1].Value.ConvertHexValueToInt().ToEnum<EInputSelector>();
-                return true;
-            }
-            return false;   
+            if (value == null || parameter == null)
+                return null;
+            bool lbIsSet = (bool)value;
+            if (lbIsSet)
+                return Enum.Parse(targetType, parameter.ToString(), true);
+            return null;
         }
     }
 }

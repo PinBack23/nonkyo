@@ -350,7 +350,9 @@ namespace NOnkyo.ISCP
         [Description("0B")] //(available ISO 8859-1 character set)
         ACCESSNAME,
         [Description("0C")] //(available ISO 8859-1 character set)
-        ACCESSPASSWORD
+        ACCESSPASSWORD,
+        [Description("FF")] //Special NOnkyo
+        DEBUGCOMMAND
     }
 
     public enum ENetworkServiceType
@@ -470,5 +472,17 @@ namespace NOnkyo.ISCP
         SpotifyPaused = 0x0C,
         TrackNotAvailable = 0x0D,
         CannotSkip = 0x0E
+    }
+
+    public enum EZone
+    {
+        [Description("Zone 1")]
+        Zone1,
+        [Description("Zone 2")]
+        Zone2,
+        [Description("Zone 3")]
+        Zone3,
+        [Description("Zone 4")]
+        Zone4
     }
 }

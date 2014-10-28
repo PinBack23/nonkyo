@@ -33,6 +33,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Drawing;
+using NOnkyo.WpfGui.ViewModels.Misc;
 
 namespace NOnkyo.WpfGui.ViewModels
 {
@@ -135,6 +136,7 @@ namespace NOnkyo.WpfGui.ViewModels
         private int mnCurrentVolume;
         private string msCurrentInputSelector;
         private string msCurrentListeningMode;
+        private EListeningMode meCurrentListeningModeCboEntry;
         private bool? mbMuteStatus = null;
         private bool mbShowNetItems;
         private List<NetListItem> moNetItemList;
@@ -153,6 +155,7 @@ namespace NOnkyo.WpfGui.ViewModels
         private Byte[] moAlbumImage;
         private bool? mbIsPowerOn = null;
         private bool mbShowSearching = false;
+        private EZone meCurrentZone;
 
         #endregion
 
@@ -264,7 +267,7 @@ namespace NOnkyo.WpfGui.ViewModels
 
         private void VolumeUp()
         {
-            this.moConnection.SendCommand(ISCP.Command.MasterVolume.UP);
+            this.moConnection.SendCommand(ISCP.Command.MasterVolume.UpCommand());
         }
 
         private bool CanVolumeUp()
@@ -290,7 +293,7 @@ namespace NOnkyo.WpfGui.ViewModels
 
         private void VolumeDown()
         {
-            this.moConnection.SendCommand(ISCP.Command.MasterVolume.DOWN);
+            this.moConnection.SendCommand(ISCP.Command.MasterVolume.DownCommand());
         }
 
         private bool CanVolumeDown()
@@ -592,8 +595,8 @@ namespace NOnkyo.WpfGui.ViewModels
                 //if (this.moSelectedNetItem.Line == 8)
                 //    this.moConnection.SendCommand(ISCP.Command.NetListInfo.ChoseIndex(13, this.CurrentDevice));
                 //else
-                    this.moConnection.SendCommand(ISCP.Command.NetListInfo.ChoseLine(this.moSelectedNetItem.Line, this.CurrentDevice));
-                    this.ShowSearching = true;
+                this.moConnection.SendCommand(ISCP.Command.NetListInfo.ChoseLine(this.moSelectedNetItem.Line, this.CurrentDevice));
+                this.ShowSearching = true;
             }
         }
 
@@ -659,6 +662,48 @@ namespace NOnkyo.WpfGui.ViewModels
         private bool CanAbout()
         {
             return true;
+        }
+
+        #endregion
+        
+        #region SendDebugCommand
+
+        private RelayCommand moSendDebugCommandCommand;
+        public ICommand SendDebugCommandCommand
+        {
+            get
+            {
+                if (this.moSendDebugCommandCommand == null)
+                    this.moSendDebugCommandCommand = new RelayCommand(param => this.SendDebugCommand(),
+                        param => this.CanSendDebugCommand());
+                return this.moSendDebugCommandCommand;
+            }
+        }
+
+        public bool ShowSendDebugCommand
+        {
+            get
+            {
+#if DEBUG
+                return true;
+#else 
+                return false;
+#endif
+            }
+        }
+
+        private void SendDebugCommand()
+        {
+            var loArgs = new KeyboardInputEventArgs("Command", false);
+            loArgs.Category = EKeyboardCategory.DEBUGCOMMAND;
+            this.OnKeyboardInput(loArgs);
+            if (loArgs.Input.IsNotEmpty())
+                this.moConnection.SendPackage(loArgs.Input);
+        }
+
+        private bool CanSendDebugCommand()
+        {
+           return true;
         }
 
         #endregion
@@ -733,6 +778,21 @@ namespace NOnkyo.WpfGui.ViewModels
             }
         }
 
+        public EListeningMode CurrentListeningModeCboEntry
+        {
+            get { return this.meCurrentListeningModeCboEntry; }
+            set
+            {
+                //Call from ComboBox only
+                if (this.meCurrentListeningModeCboEntry != value)
+                {
+                    this.meCurrentListeningModeCboEntry = value;
+                    this.OnPropertyChanged(() => this.CurrentListeningModeCboEntry);
+                    this.moConnection.SendCommand(ISCP.Command.ListeningMode.Chose(this.meCurrentListeningModeCboEntry, this.moCurrentDevice));
+                }
+            }
+        }
+
         public Device CurrentDevice
         {
             get
@@ -779,7 +839,7 @@ namespace NOnkyo.WpfGui.ViewModels
                     this.OnPropertyChanged(() => this.WebSetupUrl);
                 }
             }
-        } 
+        }
 
         public ObservableCollection<string> LogList
         {
@@ -1026,6 +1086,34 @@ namespace NOnkyo.WpfGui.ViewModels
             }
         }
 
+        public List<ListeningModeItem> ListeningModeItems
+        {
+            get { return ListeningModeItem.AllItems; }
+        }
+
+        public EZone CurrentZone
+        {
+            get { return this.meCurrentZone; }
+            set
+            {
+                //Call from RadioButtons only
+                if (this.meCurrentZone != value)
+                {
+                    this.meCurrentZone = value;
+                    this.OnPropertyChanged(() => this.CurrentZone);
+                    this.OnPropertyChanged(() => this.CurrentZoneDisplay);
+                }
+            }
+        }
+
+        public string CurrentZoneDisplay
+        {
+            get
+            {
+                return this.meCurrentZone.ToDescription();
+            }
+        }
+
         #endregion
 
         #region Private Methods / Properties
@@ -1057,10 +1145,10 @@ namespace NOnkyo.WpfGui.ViewModels
             {
                 this.moConnection.BeginSendCommand(100);
                 this.moConnection.SendCommand(ISCP.Command.Power.State);
-                this.moConnection.SendCommand(ISCP.Command.MasterVolume.State);
+                this.moConnection.SendCommand(ISCP.Command.MasterVolume.StateCommand());
                 this.moConnection.SendCommand(ISCP.Command.InputSelector.State);
                 this.moConnection.SendCommand(ISCP.Command.ListeningMode.State);
-                this.moConnection.SendCommand(ISCP.Command.AudioMuting.State);
+                this.moConnection.SendCommand(ISCP.Command.AudioMuting.StateCommand());
                 this.moConnection.SendCommand(ISCP.Command.NetPlayStatus.State);
             }
             finally
@@ -1126,7 +1214,7 @@ namespace NOnkyo.WpfGui.ViewModels
                 case EInputSelector.USBREAR:
                 case EInputSelector.USBTOGGLE:
                     this.SelectedTabIndex = 1;
-                    this.ShowNetItems = this.NetItemList !=null && this.NetItemList.Count > 0;
+                    this.ShowNetItems = this.NetItemList != null && this.NetItemList.Count > 0;
                     this.ShowNetPlayStatus = true;
                     this.UpdateNetItems();
                     break;
@@ -1251,7 +1339,10 @@ namespace NOnkyo.WpfGui.ViewModels
 
                     if (loCommand is ISCP.Command.ListeningMode)
                     {
-                        this.CurrentListeningMode = (loCommand as ISCP.Command.ListeningMode).CurrentListeningMode.ToDescription();
+                        EListeningMode leListeningMode = (loCommand as ISCP.Command.ListeningMode).CurrentListeningMode;
+                        this.CurrentListeningMode = leListeningMode.ToDescription();
+                        this.meCurrentListeningModeCboEntry = leListeningMode;
+                        this.OnPropertyChanged(() => this.CurrentListeningModeCboEntry);
                     }
 
                     if (loCommand is ISCP.Command.AudioMuting)

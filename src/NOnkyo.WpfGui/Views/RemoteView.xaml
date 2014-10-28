@@ -39,7 +39,7 @@
     </Window.DataContext>
 
     <Controls:MetroWindow.Flyouts>
-        <Controls:Flyout Header="Receiver" Background="#9f000000" Position="Right">
+        <Controls:Flyout x:Name="ReceiverFlyout" Header="Receiver" Background="#9f000000" Position="Right" >
             <StackPanel Orientation="Vertical">
                 <StackPanel.Resources>
                     <Style TargetType="Button" BasedOn="{StaticResource StandardButton}">
@@ -48,6 +48,14 @@
                         <Setter Property="Width" Value="60"/>
                     </Style>
                 </StackPanel.Resources>
+                <TextBlock Margin="0,10,0,0" Text="Zone Selectors" HorizontalAlignment="Center"/>
+                <Separator />
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton GroupName="Zone" Content="Zone1" IsChecked="{Binding Path=CurrentZone, Mode=TwoWay, Converter={StaticResource enumTobool}, ConverterParameter=Zone1}"/>
+                    <RadioButton GroupName="Zone" Content="Zone2" IsChecked="{Binding Path=CurrentZone, Mode=TwoWay, Converter={StaticResource enumTobool}, ConverterParameter=Zone2}"/>
+                    <RadioButton GroupName="Zone" Content="Zone3" IsChecked="{Binding Path=CurrentZone, Mode=TwoWay, Converter={StaticResource enumTobool}, ConverterParameter=Zone3}"/>
+                    <RadioButton GroupName="Zone" Content="Zone4" IsChecked="{Binding Path=CurrentZone, Mode=TwoWay, Converter={StaticResource enumTobool}, ConverterParameter=Zone4}"/>
+                </StackPanel>
                 <TextBlock Margin="0,10,0,0" Text="Input Selectors" HorizontalAlignment="Center"/>
                 <Separator />
                 <Grid HorizontalAlignment="Center" >
@@ -115,6 +123,11 @@
                     <Button Content="MUSIC" Command="{Binding Path=ListeningModeMusicUPCommand}"/>
                     <Button Content="GAME" Command="{Binding Path=ListeningModeGameUPCommand}"/>
                 </StackPanel>
+
+                <TextBlock Margin="0,10,0,0" Text="Listening Mode (Direct)" HorizontalAlignment="Center"/>
+                <Separator />
+                <ComboBox x:Name="cboListeningMode" Margin="3,0" Background="#02FFFFFF" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" 
+                    ItemsSource="{Binding Path=ListeningModeItems}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" SelectedValue="{Binding Path=CurrentListeningModeCboEntry}" />
             </StackPanel>
         </Controls:Flyout>
     </Controls:MetroWindow.Flyouts>
@@ -140,8 +153,6 @@
                     </Rectangle>
                 </Button>
                 <Label Content="Power" HorizontalAlignment="Center"/>
-                <!--<Label Visibility="{Binding IsPowerOn, Converter={StaticResource boolToVis}}" Content="Power On" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Label Visibility="{Binding IsPowerOn, Converter={StaticResource boolToHidden}}" Content="Power Off" HorizontalAlignment="Center" VerticalAlignment="Top"/>-->
             </StackPanel>
             <StackPanel>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
@@ -169,19 +180,6 @@
                 </Button>
                 <Label Content="Receiver" HorizontalAlignment="Center"/>
             </StackPanel>
-            <!--<StackPanel>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}"
-                            		Height="55"
-                            		Width="55"
-                            		VerticalAlignment="Center" Command="{Binding Path=ShowAudioCommand}">
-                    <Rectangle Width="20" Height="20">
-                        <Rectangle.Fill>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_music}"/>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                </Button>
-                <Label Content="Audio" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            </StackPanel>-->
             <StackPanel>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
                             		Height="55"
@@ -194,6 +192,19 @@
                     </Rectangle>
                 </Button>
                 <Label Content="Rescan" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </StackPanel>
+            <StackPanel Visibility="{Binding Path=ShowSendDebugCommand, Converter={StaticResource boolToVis}}">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
+                            		VerticalAlignment="Center" Command="{Binding SendDebugCommandCommand}">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_alert}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Label Content="Send Command" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             </StackPanel>
             <StackPanel>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
@@ -249,6 +260,7 @@
 
                     <DockPanel LastChildFill="True">
                         <StackPanel DockPanel.Dock="Left">
+                            <TextBlock Margin="2,1,0,1" Text="{Binding CurrentZoneDisplay}"/>
                             <TextBlock Margin="2,1,0,1" Text="{Binding CurrentInputSelector}"/>
                             <TextBlock Margin="2,1,0,1" Text="{Binding CurrentListeningMode}"/>
                             <TextBlock Margin="2,1,0,1" Text="{Binding CurrentNetworkServiceType}"/>
@@ -383,7 +395,7 @@
 
                         <Grid Name="grdImageAlbum" Margin="30" >
                             <Image x:Name="imgAlbum" Visibility="Collapsed" 
-                               HorizontalAlignment="Center" Stretch="Fill" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">                               
+                               HorizontalAlignment="Center" Stretch="Fill" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
                                 <Image.Width>
                                     <MultiBinding Converter="{StaticResource squareConverter}">
                                         <MultiBinding.Bindings>

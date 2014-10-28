@@ -215,6 +215,27 @@ namespace NOnkyo.WpfGui.Fake
                         this.OnMessageReceived("!1LMD0C");
                     });
                     break;
+                case "LMDMOVIE":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        this.OnMessageReceived("!1LMD03");
+                    });
+                    break;
+                case "LMDMUSIC":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        this.OnMessageReceived("!1LMD00");
+                    });
+                    break;
+                case "LMDGAME":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        this.OnMessageReceived("!1LMD05");
+                    });
+                    break;
                 case "AMTQSTN":
                     Task.Factory.StartNew(() =>
                     {
@@ -244,7 +265,7 @@ namespace NOnkyo.WpfGui.Fake
                     });
                     break;
                 default:
-                    if (psMessage.StartsWith("SLI"))
+                    if (psMessage.StartsWith("SLI") || psMessage.StartsWith("LMD"))
                     {
                         this.OnMessageReceived("!1" + psMessage);
                     }

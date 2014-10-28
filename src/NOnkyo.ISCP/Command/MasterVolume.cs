@@ -32,29 +32,91 @@ namespace NOnkyo.ISCP.Command
 {
     public class MasterVolume : CommandBase
     {
-        public static readonly MasterVolume State = new MasterVolume() 
-        { 
-            CommandMessage = "MVLQSTN"
-        };
 
-        public static readonly MasterVolume UP = new MasterVolume()
+        public static MasterVolume StateCommand()
         {
-            CommandMessage = "MVLUP"
-        };
+            string lsCommandMessage = "MVLQSTN";
+            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            {
+                case EZone.Zone2:
+                    lsCommandMessage = "ZVLQSTN";
+                    break;
+                case EZone.Zone3:
+                    lsCommandMessage = "VL3QSTN";
+                    break;
+                case EZone.Zone4:
+                    lsCommandMessage = "VL4QSTN";
+                    break;
+            }
+            return new MasterVolume()
+            {
+                CommandMessage = lsCommandMessage
+            };
+        }
 
-        public static readonly MasterVolume DOWN = new MasterVolume()
+        public static MasterVolume UpCommand()
         {
-            CommandMessage = "MVLDOWN"
-        };
+            string lsCommandMessage = "MVLUP";
+            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            {
+                case EZone.Zone2:
+                    lsCommandMessage = "ZVLUP";
+                    break;
+                case EZone.Zone3:
+                    lsCommandMessage = "VL3UP";
+                    break;
+                case EZone.Zone4:
+                    lsCommandMessage = "VL4UP";
+                    break;
+            }
+            return new MasterVolume()
+            {
+                CommandMessage = lsCommandMessage
+            };
+        }
+
+        public static MasterVolume DownCommand()
+        {
+            string lsCommandMessage = "MVLDOWN";
+            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            {
+                case EZone.Zone2:
+                    lsCommandMessage = "ZVLDOWN";
+                    break;
+                case EZone.Zone3:
+                    lsCommandMessage = "VL3DOWN";
+                    break;
+                case EZone.Zone4:
+                    lsCommandMessage = "VL4DOWN";
+                    break;
+            }
+            return new MasterVolume()
+            {
+                CommandMessage = lsCommandMessage
+            };
+        }
 
         public static MasterVolume SetLevel(int pnLevel, Device poDevice)
         {
             if (pnLevel < poDevice.MinVolume || pnLevel > poDevice.MaxVolume)
                 throw new ArgumentException("Volume-range is {0}-{1}".FormatWith(poDevice.MinVolume, poDevice.MaxVolume), "pnLevel");
 
+            string lsCommandMessage = "MVL{0}";
+            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            {
+                case EZone.Zone2:
+                    lsCommandMessage = "ZVL{0}";
+                    break;
+                case EZone.Zone3:
+                    lsCommandMessage = "VL3{0}";
+                    break;
+                case EZone.Zone4:
+                    lsCommandMessage = "VL4{0}";
+                    break;
+            }
             return new MasterVolume()
             {
-                CommandMessage = "MVL{0}".FormatWith(pnLevel.ConverIntValueToHexString())
+                CommandMessage = lsCommandMessage.FormatWith(pnLevel.ConverIntValueToHexString())
             };
         }
 
@@ -69,7 +131,20 @@ namespace NOnkyo.ISCP.Command
 
         public override bool Match(string psStatusMessage)
         {
-            var loMatch = Regex.Match(psStatusMessage, @"!1MVL(\w\w)");
+            string lsMatchToken = "MVL";
+            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            {
+                case EZone.Zone2:
+                    lsMatchToken = "ZVL";
+                    break;
+                case EZone.Zone3:
+                    lsMatchToken = "VL3";
+                    break;
+                case EZone.Zone4:
+                    lsMatchToken = "VL4";
+                    break;
+            }
+            var loMatch = Regex.Match(psStatusMessage, @"!1{0}(\w\w)".FormatWith(lsMatchToken));
             if (loMatch.Success)
             {
                 this.VolumeLevel = loMatch.Groups[1].Value.ConvertHexValueToInt();
