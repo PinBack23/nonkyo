@@ -213,7 +213,10 @@ namespace NOnkyo.ISCP
         [Description("MULTI CH")]
         MULTICH = 0x30,
         XM = 0x31,
-        SIRIUS = 0x32
+        SIRIUS = 0x32,
+        DAB5 = 0x33,
+        OFF = 0x7F,
+        SOURCE = 0x80
     }
 
     public enum EOSDOperation
