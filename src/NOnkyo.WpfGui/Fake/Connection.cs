@@ -95,6 +95,11 @@ namespace NOnkyo.WpfGui.Fake
 
         private static int mnCurrentVolume = 0X30;
         private static int mnNetTimeInfo = 0;
+        private static int mnCurrentTreble = 0;
+        private static int mnCurrentBass = 0;
+        private static int mnCurrentCenterLevel = 0;
+        private static int mnCurrentSubwooferLevel = -10;
+
         #endregion
 
         #region Attributes
@@ -264,6 +269,91 @@ namespace NOnkyo.WpfGui.Fake
                         this.OnMessageReceived("!1PWR01".FormatWith(mnCurrentVolume));
                     });
                     break;
+                case "TFRQSTN":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        this.OnMessageReceived("!1TFRB{0}T{1}".FormatWith(mnCurrentBass.ConvertIntToDbValue(), mnCurrentTreble.ConvertIntToDbValue()));
+                    });
+                    break;
+                case "TFRBUP":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        mnCurrentBass += 2;
+                        this.OnMessageReceived("!1TFRB{0}T{1}".FormatWith(mnCurrentBass.ConvertIntToDbValue(), mnCurrentTreble.ConvertIntToDbValue()));
+                    });
+                    break;
+                case "TFRBDOWN":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        mnCurrentBass -= 2;
+                        this.OnMessageReceived("!1TFRB{0}T{1}".FormatWith(mnCurrentBass.ConvertIntToDbValue(), mnCurrentTreble.ConvertIntToDbValue()));
+                    });
+                    break;
+                case "TFRTUP":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        mnCurrentTreble += 2;
+                        this.OnMessageReceived("!1TFRB{0}T{1}".FormatWith(mnCurrentBass.ConvertIntToDbValue(), mnCurrentTreble.ConvertIntToDbValue()));
+                    });
+                    break;
+                case "TFRTDOWN":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        mnCurrentTreble -= 2;
+                        this.OnMessageReceived("!1TFRB{0}T{1}".FormatWith(mnCurrentBass.ConvertIntToDbValue(), mnCurrentTreble.ConvertIntToDbValue()));
+                    });
+                    break;
+                case "CTLQSTN":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        this.OnMessageReceived("!1CTL{0}".FormatWith(mnCurrentCenterLevel.ConvertIntToDbValue()));
+                    });
+                    break;
+                case "CTLUP":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        mnCurrentCenterLevel++; ;
+                        this.OnMessageReceived("!1CTL{0}".FormatWith(mnCurrentCenterLevel.ConvertIntToDbValue()));
+                    });
+                    break;
+                case "CTLDOWN":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        mnCurrentCenterLevel--; ;
+                        this.OnMessageReceived("!1CTL{0}".FormatWith(mnCurrentCenterLevel.ConvertIntToDbValue()));
+                    });
+                    break;
+                case "SWLQSTN":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        this.OnMessageReceived("!1SWL{0}".FormatWith(mnCurrentSubwooferLevel.ConvertIntToDbValue()));
+                    });
+                    break;
+                case "SWLUP":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        mnCurrentSubwooferLevel++; ;
+                        this.OnMessageReceived("!1SWL{0}".FormatWith(mnCurrentSubwooferLevel.ConvertIntToDbValue()));
+                    });
+                    break;
+                case "SWLDOWN":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        mnCurrentSubwooferLevel--; ;
+                        this.OnMessageReceived("!1SWL{0}".FormatWith(mnCurrentSubwooferLevel.ConvertIntToDbValue()));
+                    });
+                    break;
                 default:
                     if (psMessage.StartsWith("SLI") || psMessage.StartsWith("LMD"))
                     {
@@ -333,7 +423,7 @@ namespace NOnkyo.WpfGui.Fake
         }
 
         public void EndSendCommand()
-        {   
+        {
         }
 
         #endregion
@@ -506,6 +596,7 @@ namespace NOnkyo.WpfGui.Fake
             this.OnMessageReceived("!1NJA0136363636363636363636363636363636363636363636BD36363636363636363636363636363636363636363636BDBDBDBDBDBDBD367B7B367B7B7B7B7B7B7B7B7B7B7B7B7B7BBD7B7B7B7B7B7B7B7B7B7B7B7BBD7B7B7B7B7B7B7BBDBDBDBDBDBDBD7B7B7B7B7B7B3636367B7B7B7B7B7B7BA0A0A0A0A0A0A01E1E");
             this.OnMessageReceived("!1NJA021E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1EC8C8C81E1E1E1E1EA0A01E1E1E1E1E1E1E1E1E1E1EA0A0A0A0A0C8C8C8C8C8C8A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0C8C8C8C8C81EA0A0A01E1E1EC81E1EA036A0A0A0A0A0A0A0A0A0A0A01E1E1E1E1EC8A0A0A0A01200");
         }
+
         #region IDisposable Member
 
         public void Dispose()

@@ -58,6 +58,9 @@ namespace NOnkyo.ISCP.Command
                     moCommandList.Add(new NetJacketArt());
                     moCommandList.Add(new NLT());
                     moCommandList.Add(new NetKeyboard());
+                    moCommandList.Add(new Tone());
+                    moCommandList.Add(new CenterLevel());
+                    moCommandList.Add(new SubwooferLevel());
                 }
                 return moCommandList;
             }

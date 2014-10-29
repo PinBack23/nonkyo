@@ -82,18 +82,15 @@ namespace NOnkyo.WpfGui.Views
                 else if (e.PropertyName == this.Model.GetPropertyNameFromExpression(() => this.Model.AlbumImage))
                 {
                     if (this.Model.AlbumImage == null)
-                        this.imgAlbum.Visibility = System.Windows.Visibility.Collapsed;
+                    {
+                        this.grdImageAlbum.Visibility = System.Windows.Visibility.Collapsed;
+                        this.imgAlbum.Source = new BitmapImage();
+                    }
                     else
                     {
+                        this.grdImageAlbum.Visibility = System.Windows.Visibility.Visible;
                         BitmapImage loImage = new BitmapImage();
                         loImage.BeginInit();
-
-                        //using (MemoryStream loStream = new MemoryStream(this.moImageBytes.ToArray()))
-                        //{
-                        //    this.Album = Image.FromStream(loStream);
-                        //    this.IsReady = true;
-                        //}
-
                         MemoryStream loStream = new MemoryStream(this.Model.AlbumImage);
                         loImage.StreamSource = loStream;
 
@@ -149,9 +146,14 @@ namespace NOnkyo.WpfGui.Views
                 this.Model.Dispose();
         }
 
-        private void Selectors_Click(object sender, RoutedEventArgs e)
+        private void ReceiverButton_Click(object sender, RoutedEventArgs e)
         {
             this.ReceiverFlyout.IsOpen = !this.ReceiverFlyout.IsOpen;
+        }
+
+        private void AudioButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.AudioFlyout.IsOpen = !this.AudioFlyout.IsOpen;
         }
 
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)

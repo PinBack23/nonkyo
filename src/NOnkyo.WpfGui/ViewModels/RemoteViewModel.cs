@@ -665,7 +665,7 @@ namespace NOnkyo.WpfGui.ViewModels
         }
 
         #endregion
-        
+
         #region SendDebugCommand
 
         private RelayCommand moSendDebugCommandCommand;
@@ -703,7 +703,280 @@ namespace NOnkyo.WpfGui.ViewModels
 
         private bool CanSendDebugCommand()
         {
-           return true;
+            return true;
+        }
+
+        #endregion
+
+        #region TrebleUp
+
+        private RelayCommand moTrebleUpCommand;
+        public ICommand TrebleUpCommand
+        {
+            get
+            {
+                if (this.moTrebleUpCommand == null)
+                    this.moTrebleUpCommand = new RelayCommand(param => this.TrebleUp(),
+                        param => this.CanTrebleUp());
+                return this.moTrebleUpCommand;
+            }
+        }
+
+        private void TrebleUp()
+        {
+            this.moConnection.SendCommand(ISCP.Command.Tone.TrebleUpCommand());
+        }
+
+        public bool ViewCanTrebleUp
+        {
+            get
+            {
+                return this.CanTrebleUp();
+            }
+        }
+
+        private bool CanTrebleUp()
+        {
+            return this.GetCommand<ISCP.Command.Tone>().CanTrebleUp();
+        }
+
+        #endregion
+
+        #region TrebleDown
+
+        private RelayCommand moTrebleDownCommand;
+        public ICommand TrebleDownCommand
+        {
+            get
+            {
+                if (this.moTrebleDownCommand == null)
+                    this.moTrebleDownCommand = new RelayCommand(param => this.TrebleDown(),
+                        param => this.CanTrebleDown());
+                return this.moTrebleDownCommand;
+            }
+        }
+
+        private void TrebleDown()
+        {
+            this.moConnection.SendCommand(ISCP.Command.Tone.TrebleDownCommand());
+            this.OnPropertyChanged(() => this.ViewCanTrebleDown);
+        }
+
+        public bool ViewCanTrebleDown
+        {
+            get
+            {
+                return this.CanTrebleDown();
+            }
+        }
+
+        private bool CanTrebleDown()
+        {
+            return this.GetCommand<ISCP.Command.Tone>().CanTrebleDown();
+        }
+
+        #endregion
+
+        #region BassUp
+
+        private RelayCommand moBassUpCommand;
+        public ICommand BassUpCommand
+        {
+            get
+            {
+                if (this.moBassUpCommand == null)
+                    this.moBassUpCommand = new RelayCommand(param => this.BassUp(),
+                        param => this.CanBassUp());
+                return this.moBassUpCommand;
+            }
+        }
+
+        private void BassUp()
+        {
+            this.moConnection.SendCommand(ISCP.Command.Tone.BassUpCommand());
+        }
+
+        public bool ViewCanBassUp
+        {
+            get
+            {
+                return this.CanBassUp();
+            }
+        }
+
+        private bool CanBassUp()
+        {
+            return this.GetCommand<ISCP.Command.Tone>().CanBassUp();
+        }
+
+        #endregion
+
+        #region BassDown
+
+        private RelayCommand moBassDownCommand;
+        public ICommand BassDownCommand
+        {
+            get
+            {
+                if (this.moBassDownCommand == null)
+                    this.moBassDownCommand = new RelayCommand(param => this.BassDown(),
+                        param => this.CanBassDown());
+                return this.moBassDownCommand;
+            }
+        }
+
+        private void BassDown()
+        {
+            this.moConnection.SendCommand(ISCP.Command.Tone.BassDownCommand());
+        }
+
+        public bool ViewCanBassDown
+        {
+            get
+            {
+                return this.CanBassDown();
+            }
+        }
+
+        private bool CanBassDown()
+        {
+            return this.GetCommand<ISCP.Command.Tone>().CanBassDown();
+        }
+
+        #endregion
+
+        #region CenterLevelUp
+
+        private RelayCommand moCenterLevelUpCommand;
+        public ICommand CenterLevelUpCommand
+        {
+            get
+            {
+                if (this.moCenterLevelUpCommand == null)
+                    this.moCenterLevelUpCommand = new RelayCommand(param => this.CenterLevelUp(),
+                        param => this.CanCenterLevelUp());
+                return this.moCenterLevelUpCommand;
+            }
+        }
+
+        private void CenterLevelUp()
+        {
+            this.moConnection.SendCommand(ISCP.Command.CenterLevel.Up);
+        }
+
+        public bool ViewCanCenterLevelUp
+        {
+            get
+            {
+                return this.CanBassUp();
+            }
+        }
+
+        private bool CanCenterLevelUp()
+        {
+            return this.GetCommand<ISCP.Command.CenterLevel>().CanLevelUp();
+        }
+
+        #endregion
+
+        #region CenterLevelDown
+
+        private RelayCommand moCenterLevelDownCommand;
+        public ICommand CenterLevelDownCommand
+        {
+            get
+            {
+                if (this.moCenterLevelDownCommand == null)
+                    this.moCenterLevelDownCommand = new RelayCommand(param => this.CenterLevelDown(),
+                        param => this.CanCenterLevelDown());
+                return this.moCenterLevelDownCommand;
+            }
+        }
+
+        private void CenterLevelDown()
+        {
+            this.moConnection.SendCommand(ISCP.Command.CenterLevel.Down);
+        }
+
+        public bool ViewCanCenterLevelDown
+        {
+            get
+            {
+                return this.CanCenterLevelDown();
+            }
+        }
+
+        private bool CanCenterLevelDown()
+        {
+            return this.GetCommand<ISCP.Command.CenterLevel>().CanLevelDown();
+        }
+
+        #endregion
+
+        #region SubwooferLevelUp
+
+        private RelayCommand moSubwooferLevelUpCommand;
+        public ICommand SubwooferLevelUpCommand
+        {
+            get
+            {
+                if (this.moSubwooferLevelUpCommand == null)
+                    this.moSubwooferLevelUpCommand = new RelayCommand(param => this.SubwooferLevelUp(),
+                        param => this.CanSubwooferLevelUp());
+                return this.moSubwooferLevelUpCommand;
+            }
+        }
+
+        private void SubwooferLevelUp()
+        {
+            this.moConnection.SendCommand(ISCP.Command.SubwooferLevel.Up);
+        }
+
+        public bool ViewCanSubwooferLevelUp
+        {
+            get
+            {
+                return this.CanSubwooferLevelUp();
+            }
+        }
+
+        private bool CanSubwooferLevelUp()
+        {
+            return this.GetCommand<ISCP.Command.SubwooferLevel>().CanLevelUp();
+        }
+
+        #endregion
+
+        #region SubwooferLevelDown
+
+        private RelayCommand moSubwooferLevelDownCommand;
+        public ICommand SubwooferLevelDownCommand
+        {
+            get
+            {
+                if (this.moSubwooferLevelDownCommand == null)
+                    this.moSubwooferLevelDownCommand = new RelayCommand(param => this.SubwooferLevelDown(),
+                        param => this.CanSubwooferLevelDown());
+                return this.moSubwooferLevelDownCommand;
+            }
+        }
+
+        private void SubwooferLevelDown()
+        {
+            this.moConnection.SendCommand(ISCP.Command.SubwooferLevel.Down);
+        }
+
+        public bool ViewCanSubwooferLevelDown
+        {
+            get
+            {
+                return this.CanSubwooferLevelDown();
+            }
+        }
+
+        private bool CanSubwooferLevelDown()
+        {
+            return this.GetCommand<ISCP.Command.SubwooferLevel>().CanLevelDown();
         }
 
         #endregion
@@ -1114,6 +1387,38 @@ namespace NOnkyo.WpfGui.ViewModels
             }
         }
 
+        public string TrebleDisplay 
+        {
+            get 
+            {
+                return this.GetCommand<ISCP.Command.Tone>().TrebleDisplay;
+            } 
+        }
+
+        public string BassDisplay
+        {
+            get
+            {
+                return this.GetCommand<ISCP.Command.Tone>().BassDisplay;
+            }
+        }
+
+        public string CenterLevelDisplay
+        {
+            get
+            {
+                return this.GetCommand<ISCP.Command.CenterLevel>().Display;
+            }
+        }
+
+        public string SubwooferLevelDisplay
+        {
+            get
+            {
+                return this.GetCommand<ISCP.Command.SubwooferLevel>().Display;
+            }
+        }
+
         #endregion
 
         #region Private Methods / Properties
@@ -1150,6 +1455,9 @@ namespace NOnkyo.WpfGui.ViewModels
                 this.moConnection.SendCommand(ISCP.Command.ListeningMode.State);
                 this.moConnection.SendCommand(ISCP.Command.AudioMuting.StateCommand());
                 this.moConnection.SendCommand(ISCP.Command.NetPlayStatus.State);
+                this.moConnection.SendCommand(ISCP.Command.Tone.StateCommand());
+                this.moConnection.SendCommand(ISCP.Command.CenterLevel.State);
+                this.moConnection.SendCommand(ISCP.Command.SubwooferLevel.State);
             }
             finally
             {
@@ -1465,6 +1773,31 @@ namespace NOnkyo.WpfGui.ViewModels
                             }
                         }
                     }
+
+                    if (loCommand is ISCP.Command.Tone)
+                    {
+                        this.OnPropertyChanged(() => this.BassDisplay);
+                        this.OnPropertyChanged(() => this.TrebleDisplay);
+                        this.OnPropertyChanged(() => this.ViewCanTrebleDown);
+                        this.OnPropertyChanged(() => this.ViewCanTrebleUp);
+                        this.OnPropertyChanged(() => this.ViewCanBassDown);
+                        this.OnPropertyChanged(() => this.ViewCanBassUp);
+                    }
+
+                    if (loCommand is ISCP.Command.CenterLevel)
+                    {
+                        this.OnPropertyChanged(() => this.CenterLevelDisplay);
+                        this.OnPropertyChanged(() => this.ViewCanCenterLevelDown);
+                        this.OnPropertyChanged(() => this.ViewCanCenterLevelUp);
+                    }
+
+                    if (loCommand is ISCP.Command.SubwooferLevel)
+                    {
+                        this.OnPropertyChanged(() => this.SubwooferLevelDisplay);
+                        this.OnPropertyChanged(() => this.ViewCanSubwooferLevelDown);
+                        this.OnPropertyChanged(() => this.ViewCanSubwooferLevelUp);
+                    }
+
                 }
             }, System.Threading.CancellationToken.None, TaskCreationOptions.None, this.moUITaskScheduler)
             .ContinueWith(t => this.TaskError(t), this.moUITaskScheduler);

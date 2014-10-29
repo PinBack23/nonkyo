@@ -55,9 +55,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\AudioMuting.cs" />
+    <Compile Include="Command\SubwooferLevel.cs" />
     <Compile Include="Command\CommandBase.cs" />
     <Compile Include="Command\InputSelector.cs" />
     <Compile Include="Command\ListeningMode.cs" />
+    <Compile Include="Command\CenterLevel.cs" />
+    <Compile Include="Command\Tone.cs" />
     <Compile Include="Command\MasterVolume.cs" />
     <Compile Include="Command\NetAlbumName.cs" />
     <Compile Include="Command\NetArtistName.cs" />
@@ -127,7 +130,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_StartDate="2013/1/24" BuildVersion_ConfigurationName="Release" />
+      <UserProperties BuildVersion_ConfigurationName="Release" BuildVersion_StartDate="2013/1/24" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

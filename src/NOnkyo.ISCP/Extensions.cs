@@ -76,7 +76,7 @@ namespace NOnkyo.ISCP
                 (value.GetType().GetField(value.ToString())
                 .GetCustomAttributes(typeof(DescriptionAttribute), false));
             return loAttrib.Length > 0 ? loAttrib[0].Description : value.ToString();
-                
+
         }
 
         public static T ToEnum<T>(this int value, T peDefaultValue) where T : struct
@@ -147,7 +147,7 @@ namespace NOnkyo.ISCP
             Logger.Debug("Convert string {0}", value);
             List<byte> loISCPMessage = new List<byte>();
             byte[] loCommandBytes = pbAddMessageChar ? Encoding.ASCII.GetBytes("!1" + value) : Encoding.ASCII.GetBytes(value);
-            
+
             loISCPMessage.AddRange(ASCIIEncoding.ASCII.GetBytes("ISCP"));
             loISCPMessage.AddRange(BitConverter.GetBytes(0x00000010).Reverse());
             loISCPMessage.AddRange(BitConverter.GetBytes(loCommandBytes.Length + 1).Reverse());
@@ -274,6 +274,46 @@ namespace NOnkyo.ISCP
             return loIndexList;
         }
 
+        public static int? ConvertDbValueToInt(this string value)
+        {
+            int lnMulti = 1;
+            if (value.Length == 2)
+            {
+                if (value == "00")
+                    return 0;
+                char lsFirstToken = value.First();
+                if (lsFirstToken == '-')
+                    lnMulti = -1;
+                return value[1].ToString().ConvertHexValueToInt() * lnMulti;
+            }
+            return null;
+        }
+
+        public static string ConvertIntToDbValue(this int value)
+        {
+            if (value == 0)
+                return "00";
+            if (value < 0)
+                return "-{0}".FormatWith((value * -1).ConverIntValueToHexString()[1]);
+            if (value > 0)
+                return "+{0}".FormatWith(value.ConverIntValueToHexString()[1]);
+            return "00";
+        }
+
+        public static string ConvertDbIntValueToDisplay(this int? value)
+        {
+            if (value.HasValue)
+            {
+                if (value.Value == 0)
+                    return "0 dB";
+                if (value.Value > 0)
+                    return "+{0} dB".FormatWith(value);
+                if (value.Value < 0)
+                    return "-{0} dB".FormatWith(value * -1);
+            }
+            return "--";
+        }
+
         private static int NextHeaderIndex(byte[] poBytes, int pnStart)
         {
             byte[] loISCPBytes = ASCIIEncoding.ASCII.GetBytes("ISCP");
@@ -317,6 +357,7 @@ namespace NOnkyo.ISCP
             //'/0' entfernen
             return lsMessage.Replace(char.ConvertFromUtf32(0), "");
         }
+
     }
 
     public static class DeviceExtensions
