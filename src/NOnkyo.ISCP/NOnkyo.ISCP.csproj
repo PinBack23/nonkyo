@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\AudioMuting.cs" />
+    <Compile Include="Command\Dimmer.cs" />
     <Compile Include="Command\SubwooferLevel.cs" />
     <Compile Include="Command\CommandBase.cs" />
     <Compile Include="Command\InputSelector.cs" />
@@ -77,7 +78,7 @@
     <Compile Include="Command\Power.cs" />
     <Compile Include="Command\Preset.cs" />
     <Compile Include="Command\Tuning.cs" />
-    <Compile Include="Command\ZoneCommand.cs" />
+    <Compile Include="Zone.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="Device.cs" />
     <Compile Include="DeviceSearch.cs" />

@@ -36,7 +36,7 @@ namespace NOnkyo.ISCP.Command
         public static Tone StateCommand()
         {
             string lsCommandMessage = "TFRQSTN";
-            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            switch (Zone.CurrentZone)
             {
                 case EZone.Zone2:
                     lsCommandMessage = "ZTNQSTN";
@@ -57,7 +57,7 @@ namespace NOnkyo.ISCP.Command
         public static Tone TrebleUpCommand()
         {
             string lsCommandMessage = "TFRTUP";
-            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            switch (Zone.CurrentZone)
             {
                 case EZone.Zone2:
                     lsCommandMessage = "ZTNTUP";
@@ -78,7 +78,7 @@ namespace NOnkyo.ISCP.Command
         public static Tone TrebleDownCommand()
         {
             string lsCommandMessage = "TFRTDOWN";
-            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            switch (Zone.CurrentZone)
             {
                 case EZone.Zone2:
                     lsCommandMessage = "ZTNTDOWN";
@@ -99,7 +99,7 @@ namespace NOnkyo.ISCP.Command
         public static Tone BassUpCommand()
         {
             string lsCommandMessage = "TFRBUP";
-            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            switch (Zone.CurrentZone)
             {
                 case EZone.Zone2:
                     lsCommandMessage = "ZTNBUP";
@@ -120,7 +120,7 @@ namespace NOnkyo.ISCP.Command
         public static Tone BassDownCommand()
         {
             string lsCommandMessage = "TFRBDOWN";
-            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            switch (Zone.CurrentZone)
             {
                 case EZone.Zone2:
                     lsCommandMessage = "ZTNBDOWN";
@@ -176,7 +176,7 @@ namespace NOnkyo.ISCP.Command
         public override bool Match(string psStatusMessage)
         {
             string lsMatchToken = "TFR";
-            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            switch (Zone.CurrentZone)
             {
                 case EZone.Zone2:
                     lsMatchToken = "ZTN";

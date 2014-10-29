@@ -155,7 +155,6 @@ namespace NOnkyo.WpfGui.ViewModels
         private Byte[] moAlbumImage;
         private bool? mbIsPowerOn = null;
         private bool mbShowSearching = false;
-        private EZone meCurrentZone;
 
         #endregion
 
@@ -981,6 +980,32 @@ namespace NOnkyo.WpfGui.ViewModels
 
         #endregion
 
+        #region DimmerChange
+
+        private RelayCommand moDimmerChangeCommand;
+        public ICommand DimmerChangeCommand
+        {
+            get
+            {
+                if (this.moDimmerChangeCommand == null)
+                    this.moDimmerChangeCommand = new RelayCommand(param => this.DimmerChange(),
+                        param => this.CanDimmerChange());
+                return this.moDimmerChangeCommand;
+            }
+        }
+
+        private void DimmerChange()
+        {
+            this.moConnection.SendCommand(ISCP.Command.Dimmer.Change);
+        }
+
+        private bool CanDimmerChange()
+        {
+            return true;
+        }
+
+        #endregion
+
         #endregion
 
         #region Public Methods / Properties
@@ -1366,15 +1391,16 @@ namespace NOnkyo.WpfGui.ViewModels
 
         public EZone CurrentZone
         {
-            get { return this.meCurrentZone; }
+            get { return ISCP.Zone.CurrentZone; }
             set
             {
                 //Call from RadioButtons only
-                if (this.meCurrentZone != value)
+                if (ISCP.Zone.CurrentZone != value)
                 {
-                    this.meCurrentZone = value;
+                    ISCP.Zone.CurrentZone = value;
                     this.OnPropertyChanged(() => this.CurrentZone);
                     this.OnPropertyChanged(() => this.CurrentZoneDisplay);
+                    this.QueryStatusInfos();
                 }
             }
         }
@@ -1383,7 +1409,7 @@ namespace NOnkyo.WpfGui.ViewModels
         {
             get
             {
-                return this.meCurrentZone.ToDescription();
+                return ISCP.Zone.CurrentZone.ToDescription();
             }
         }
 
@@ -1419,6 +1445,14 @@ namespace NOnkyo.WpfGui.ViewModels
             }
         }
 
+        public string DimmerDisplay
+        {
+            get
+            {
+                return "Dimmer: {0}".FormatWith(this.GetCommand<ISCP.Command.Dimmer>().Mode.ToDescription());
+            }
+        }
+
         #endregion
 
         #region Private Methods / Properties
@@ -1449,15 +1483,16 @@ namespace NOnkyo.WpfGui.ViewModels
             try
             {
                 this.moConnection.BeginSendCommand(100);
-                this.moConnection.SendCommand(ISCP.Command.Power.State);
+                this.moConnection.SendCommand(ISCP.Command.Power.StateCommand());
                 this.moConnection.SendCommand(ISCP.Command.MasterVolume.StateCommand());
-                this.moConnection.SendCommand(ISCP.Command.InputSelector.State);
+                this.moConnection.SendCommand(ISCP.Command.InputSelector.StateCommand());
                 this.moConnection.SendCommand(ISCP.Command.ListeningMode.State);
                 this.moConnection.SendCommand(ISCP.Command.AudioMuting.StateCommand());
                 this.moConnection.SendCommand(ISCP.Command.NetPlayStatus.State);
                 this.moConnection.SendCommand(ISCP.Command.Tone.StateCommand());
                 this.moConnection.SendCommand(ISCP.Command.CenterLevel.State);
                 this.moConnection.SendCommand(ISCP.Command.SubwooferLevel.State);
+                this.moConnection.SendCommand(ISCP.Command.Dimmer.State);
             }
             finally
             {
@@ -1796,6 +1831,11 @@ namespace NOnkyo.WpfGui.ViewModels
                         this.OnPropertyChanged(() => this.SubwooferLevelDisplay);
                         this.OnPropertyChanged(() => this.ViewCanSubwooferLevelDown);
                         this.OnPropertyChanged(() => this.ViewCanSubwooferLevelUp);
+                    }
+
+                    if (loCommand is ISCP.Command.Dimmer)
+                    {
+                        this.OnPropertyChanged(() => this.DimmerDisplay);
                     }
 
                 }

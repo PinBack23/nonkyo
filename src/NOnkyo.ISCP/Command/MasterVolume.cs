@@ -36,7 +36,7 @@ namespace NOnkyo.ISCP.Command
         public static MasterVolume StateCommand()
         {
             string lsCommandMessage = "MVLQSTN";
-            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            switch (Zone.CurrentZone)
             {
                 case EZone.Zone2:
                     lsCommandMessage = "ZVLQSTN";
@@ -57,7 +57,7 @@ namespace NOnkyo.ISCP.Command
         public static MasterVolume UpCommand()
         {
             string lsCommandMessage = "MVLUP";
-            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            switch (Zone.CurrentZone)
             {
                 case EZone.Zone2:
                     lsCommandMessage = "ZVLUP";
@@ -78,7 +78,7 @@ namespace NOnkyo.ISCP.Command
         public static MasterVolume DownCommand()
         {
             string lsCommandMessage = "MVLDOWN";
-            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            switch (Zone.CurrentZone)
             {
                 case EZone.Zone2:
                     lsCommandMessage = "ZVLDOWN";
@@ -102,7 +102,7 @@ namespace NOnkyo.ISCP.Command
                 throw new ArgumentException("Volume-range is {0}-{1}".FormatWith(poDevice.MinVolume, poDevice.MaxVolume), "pnLevel");
 
             string lsCommandMessage = "MVL{0}";
-            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            switch (Zone.CurrentZone)
             {
                 case EZone.Zone2:
                     lsCommandMessage = "ZVL{0}";
@@ -132,7 +132,7 @@ namespace NOnkyo.ISCP.Command
         public override bool Match(string psStatusMessage)
         {
             string lsMatchToken = "MVL";
-            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            switch (Zone.CurrentZone)
             {
                 case EZone.Zone2:
                     lsMatchToken = "ZVL";

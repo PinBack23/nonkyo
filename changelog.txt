@@ -1,6 +1,16 @@
 Release notes
 
 #################################
+version 0.12
+#################################
+- added: direct selection for listening mode
+- added: send debug command
+- added: zone support
+- added: audio control (tone, bass, center lvl and subwoofer lvl)
+- added: command for dimmer mode
+- improved: coverart now resizable
+- fixed: hide coverart if not available
+#################################
 version 0.11 beta
 #################################
 - fixed: connection closed after rescan

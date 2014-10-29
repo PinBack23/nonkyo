@@ -485,4 +485,19 @@ namespace NOnkyo.ISCP
         [Description("Zone 4")]
         Zone4
     }
+
+    public enum EDimmerMode
+    {
+        [Description("Bright")]
+        Bright = 0x00,
+        [Description("Dim")]
+        Dim = 0x01,
+        [Description("Dark")]
+        Dark = 0x02,
+        [Description("Shut off")]
+        ShutOff = 0x03,
+        [Description("Bright LED Off")]
+        BrigthAndLedOff = 0x08,
+        None = 0xFF,
+    }
 }

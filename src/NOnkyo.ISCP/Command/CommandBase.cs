@@ -61,6 +61,7 @@ namespace NOnkyo.ISCP.Command
                     moCommandList.Add(new Tone());
                     moCommandList.Add(new CenterLevel());
                     moCommandList.Add(new SubwooferLevel());
+                    moCommandList.Add(new Dimmer());
                 }
                 return moCommandList;
             }

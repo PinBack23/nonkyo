@@ -99,6 +99,7 @@ namespace NOnkyo.WpfGui.Fake
         private static int mnCurrentBass = 0;
         private static int mnCurrentCenterLevel = 0;
         private static int mnCurrentSubwooferLevel = -10;
+        private static EDimmerMode meDimmerMode = EDimmerMode.BrigthAndLedOff;
 
         #endregion
 
@@ -352,6 +353,44 @@ namespace NOnkyo.WpfGui.Fake
                         System.Threading.Thread.Sleep(50);
                         mnCurrentSubwooferLevel--; ;
                         this.OnMessageReceived("!1SWL{0}".FormatWith(mnCurrentSubwooferLevel.ConvertIntToDbValue()));
+                    });
+                    break;
+
+                case "DIMQSTN":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        this.OnMessageReceived("!1DIM{0}".FormatWith(((int)meDimmerMode).ConverIntValueToHexString()));
+                    });
+                    break;
+                case "DIMDIM":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        switch (meDimmerMode)
+                        {
+                            case EDimmerMode.Bright:
+                                meDimmerMode = EDimmerMode.Dim;
+                                break;
+                            case EDimmerMode.Dim:
+                                meDimmerMode = EDimmerMode.Dark;
+                                break;
+                            case EDimmerMode.Dark:
+                                meDimmerMode = EDimmerMode.ShutOff;
+                                break;
+                            case EDimmerMode.ShutOff:
+                                meDimmerMode = EDimmerMode.BrigthAndLedOff;
+                                break;
+                            case EDimmerMode.BrigthAndLedOff:
+                                meDimmerMode = EDimmerMode.Bright;
+                                break;
+                            case EDimmerMode.None:
+                                meDimmerMode = EDimmerMode.Bright;
+                                break;
+                            default:
+                                break;
+                        }
+                        this.OnMessageReceived("!1DIM{0}".FormatWith(((int)meDimmerMode).ConverIntValueToHexString()));
                     });
                     break;
                 default:

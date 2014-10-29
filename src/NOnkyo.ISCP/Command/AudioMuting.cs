@@ -35,7 +35,7 @@ namespace NOnkyo.ISCP.Command
         public static AudioMuting StateCommand()
         {
             string lsCommandMessage = "AMTQSTN";
-            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            switch (Zone.CurrentZone)
             {
                 case EZone.Zone2:
                     lsCommandMessage = "ZMTQSTN";
@@ -56,7 +56,7 @@ namespace NOnkyo.ISCP.Command
         public static AudioMuting Chose(bool pbMute, Device poDevice)
         {
             string lsCommandMessage = "AMT{0}";
-            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            switch (Zone.CurrentZone)
             {
                 case EZone.Zone2:
                     lsCommandMessage = "ZMT{0}";
@@ -86,7 +86,7 @@ namespace NOnkyo.ISCP.Command
         public override bool Match(string psStatusMessage)
         {
             string lsMatchToken = "AMT";
-            switch (ZoneCommand.ZoneFromCurrentZoneCommand)
+            switch (Zone.CurrentZone)
             {
                 case EZone.Zone2:
                     lsMatchToken = "ZMT";

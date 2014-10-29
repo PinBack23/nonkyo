@@ -26,42 +26,41 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace NOnkyo.ISCP.Command
 {
-    public class NetTune : CommandBase
+    public class Dimmer : CommandBase
     {
-        public static NetTune Chose(ENetTuneOperation peOperation, Device poDevice)
+        public static readonly Dimmer State = new Dimmer()
         {
-            string lsCommandMessage = "NTC{0}";
-            switch (Zone.CurrentZone)
-            {
-                case EZone.Zone2:
-                    lsCommandMessage = "NTZ{0}";
-                    break;
-                case EZone.Zone3:
-                    lsCommandMessage = "NT3{0}";
-                    break;
-                case EZone.Zone4:
-                    lsCommandMessage = "NT4{0}";
-                    break;
-            }
-            return new NetTune()
-            {
-                CommandMessage = lsCommandMessage.FormatWith(peOperation.ToDescription())
-            };
-        }
+            CommandMessage = "DIMQSTN"
+        };
+
+        public static readonly Dimmer Change = new Dimmer()
+        {
+            CommandMessage = "DIMDIM"
+        };
 
         #region Constructor / Destructor
 
-        internal NetTune()
+        internal Dimmer()
         { }
 
         #endregion
 
+        public EDimmerMode Mode { get; private set; }
+
         public override bool Match(string psStatusMessage)
         {
+            var loMatch = Regex.Match(psStatusMessage, @"!1DIM(\w\w)");
+            if (loMatch.Success)
+            {
+                this.Mode = loMatch.Groups[1].Value.ConvertHexValueToInt().ToEnum<EDimmerMode>(EDimmerMode.None);
+                return true;
+            }
             return false;
         }
+
     }
 }

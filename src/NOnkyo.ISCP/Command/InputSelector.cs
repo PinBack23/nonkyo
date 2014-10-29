@@ -32,16 +32,45 @@ namespace NOnkyo.ISCP.Command
 {
     public class InputSelector : CommandBase
     {
-        public static readonly InputSelector State = new InputSelector()
+        public static InputSelector StateCommand()
         {
-            CommandMessage = "SLIQSTN"
-        };
+            string lsCommandMessage = "SLIQSTN";
+            switch (Zone.CurrentZone)
+            {
+                case EZone.Zone2:
+                    lsCommandMessage = "SLZQSTN";
+                    break;
+                case EZone.Zone3:
+                    lsCommandMessage = "SL3QSTN";
+                    break;
+                case EZone.Zone4:
+                    lsCommandMessage = "SL4QSTN";
+                    break;
+            }
+            return new InputSelector()
+            {
+                CommandMessage = lsCommandMessage
+            };
+        }
 
         public static InputSelector Chose(EInputSelector peInputSelector, Device poDevice)
         {
+            string lsCommandMessage = "SLI{0}";
+            switch (Zone.CurrentZone)
+            {
+                case EZone.Zone2:
+                    lsCommandMessage = "SLZ{0}";
+                    break;
+                case EZone.Zone3:
+                    lsCommandMessage = "SL3{0}";
+                    break;
+                case EZone.Zone4:
+                    lsCommandMessage = "SL4{0}";
+                    break;
+            }
             return new InputSelector()
             {
-                CommandMessage = "SLI{0}".FormatWith(((int)peInputSelector).ConverIntValueToHexString())
+                CommandMessage = lsCommandMessage.FormatWith(((int)peInputSelector).ConverIntValueToHexString())
             };
         }
 
@@ -56,7 +85,20 @@ namespace NOnkyo.ISCP.Command
 
         public override bool Match(string psStatusMessage)
         {
-            var loMatch = Regex.Match(psStatusMessage, @"!1SLI(\w\w)");
+            string lsMatchToken = "SLI";
+            switch (Zone.CurrentZone)
+            {
+                case EZone.Zone2:
+                    lsMatchToken = "SLZ";
+                    break;
+                case EZone.Zone3:
+                    lsMatchToken = "SL3";
+                    break;
+                case EZone.Zone4:
+                    lsMatchToken = "SL4";
+                    break;
+            }
+            var loMatch = Regex.Match(psStatusMessage, @"!1{0}(\w\w)".FormatWith(lsMatchToken));
             if (loMatch.Success)
             {
                 this.CurrentInputSelector = loMatch.Groups[1].Value.ConvertHexValueToInt().ToEnum<EInputSelector>();

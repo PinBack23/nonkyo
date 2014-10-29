@@ -48,15 +48,19 @@
                         <Setter Property="Width" Value="60"/>
                     </Style>
                 </StackPanel.Resources>
-                <TextBlock Margin="0,0,0,0" Text="Zone Selectors" HorizontalAlignment="Center"/>
+                <TextBlock Text="Zone Selectors" HorizontalAlignment="Center"/>
                 <Separator />
-                <StackPanel Orientation="Horizontal">
-                    <RadioButton GroupName="Zone" Content="Zone1" IsChecked="{Binding Path=CurrentZone, Mode=TwoWay, Converter={StaticResource enumTobool}, ConverterParameter=Zone1}"/>
-                    <RadioButton GroupName="Zone" Content="Zone2" IsChecked="{Binding Path=CurrentZone, Mode=TwoWay, Converter={StaticResource enumTobool}, ConverterParameter=Zone2}"/>
-                    <RadioButton GroupName="Zone" Content="Zone3" IsChecked="{Binding Path=CurrentZone, Mode=TwoWay, Converter={StaticResource enumTobool}, ConverterParameter=Zone3}"/>
-                    <RadioButton GroupName="Zone" Content="Zone4" IsChecked="{Binding Path=CurrentZone, Mode=TwoWay, Converter={StaticResource enumTobool}, ConverterParameter=Zone4}"/>
-                </StackPanel>
-                <TextBlock Margin="0,5,0,0" Text="Input Selectors" HorizontalAlignment="Center"/>
+                <Grid Margin="5,0,5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <RadioButton Grid.Column="0" GroupName="Zone" Content="Zone1" IsChecked="{Binding Path=CurrentZone, Mode=TwoWay, Converter={StaticResource enumTobool}, ConverterParameter=Zone1}"/>
+                    <RadioButton Grid.Column="1" GroupName="Zone" Content="Zone2" IsChecked="{Binding Path=CurrentZone, Mode=TwoWay, Converter={StaticResource enumTobool}, ConverterParameter=Zone2}" HorizontalAlignment="Center"/>
+                    <RadioButton Grid.Column="2" GroupName="Zone" Content="Zone3" IsChecked="{Binding Path=CurrentZone, Mode=TwoWay, Converter={StaticResource enumTobool}, ConverterParameter=Zone3}"/>
+                </Grid>
+                <TextBlock Margin="0,10,0,0" Text="Input Selectors" HorizontalAlignment="Center"/>
                 <Separator />
                 <Grid HorizontalAlignment="Center" >
                     <Grid.RowDefinitions>
@@ -116,7 +120,7 @@
                     CommandParameter="USB"/>
                 </Grid>
 
-                <TextBlock Margin="0,5,0,0" Text="Listening Mode" HorizontalAlignment="Center"/>
+                <TextBlock Margin="0,10,0,0" Text="Listening Mode" HorizontalAlignment="Center"/>
                 <Separator />
                 <StackPanel Orientation="Horizontal">
                     <Button Content="MOVIE" Command="{Binding Path=ListeningModeMovieUPCommand}"/>
@@ -124,116 +128,85 @@
                     <Button Content="GAME" Command="{Binding Path=ListeningModeGameUPCommand}"/>
                 </StackPanel>
 
-                <TextBlock Margin="0,5,0,0" Text="Listening Mode (Direct)" HorizontalAlignment="Center"/>
+                <TextBlock Margin="0,10,0,0" Text="Listening Mode (Direct)" HorizontalAlignment="Center"/>
                 <Separator />
                 <ComboBox x:Name="cboListeningMode" Margin="3,0" Background="#02FFFFFF" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" 
                     ItemsSource="{Binding Path=ListeningModeItems}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" SelectedValue="{Binding Path=CurrentListeningModeCboEntry}" />
-
-                <TextBlock Margin="0,5,0,0" Text="Audio" HorizontalAlignment="Center"/>
-                <Separator />
-                <Grid>
-                    <Grid.Resources>
-                        <Style TargetType="Button" BasedOn="{StaticResource MetroCircleButtonStyle}">
-                            <Setter Property="Height" Value="40"/>
-                            <Setter Property="Width" Value="40"/>
-                            <Setter Property="VerticalAlignment" Value="Center"/>
-                            <Setter Property="FontSize" Value="16"/>
-                        </Style>
-                    </Grid.Resources>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Row="0" Grid.Column="0" 
-                                Command="{Binding TrebleDownCommand}" Content="-" IsEnabled="{Binding Path=ViewCanTrebleDown}"/>
-                    <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=TrebleDisplay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <Button Grid.Row="0" Grid.Column="2" 
-                                Command="{Binding TrebleUpCommand}" Content="+" IsEnabled="{Binding Path=ViewCanTrebleUp}"/>
-                    <Label Grid.Row="0" Grid.Column="3" Content="Treble" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-                    <Button Grid.Row="1" Grid.Column="0" 
-                                Command="{Binding BassDownCommand}" Content="-" IsEnabled="{Binding Path=ViewCanBassDown}"/>
-                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=BassDisplay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <Button Grid.Row="1" Grid.Column="2" 
-                                Command="{Binding BassUpCommand}" Content="+" IsEnabled="{Binding Path=ViewCanBassUp}"/>
-                    <Label Grid.Row="1" Grid.Column="3" Content="Bass" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-                    <Button Grid.Row="2" Grid.Column="0" 
-                                Command="{Binding CenterLevelDownCommand}" Content="-" IsEnabled="{Binding Path=ViewCanCenterLevelDown}"/>
-                    <Label Grid.Row="2" Grid.Column="1" Content="{Binding Path=CenterLevelDisplay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <Button Grid.Row="2" Grid.Column="2" 
-                                Command="{Binding CenterLevelUpCommand}" Content="+" IsEnabled="{Binding Path=ViewCanCenterLevelUp}"/>
-                    <Label Grid.Row="2" Grid.Column="3" Content="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-                    <Button Grid.Row="3" Grid.Column="0" 
-                                Command="{Binding SubwooferLevelDownCommand}" Content="-" IsEnabled="{Binding Path=ViewCanSubwooferLevelDown}"/>
-                    <Label Grid.Row="3" Grid.Column="1" Content="{Binding Path=SubwooferLevelDisplay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <Button Grid.Row="3" Grid.Column="2" 
-                                Command="{Binding SubwooferLevelUpCommand}" Content="+" IsEnabled="{Binding Path=ViewCanSubwooferLevelUp}"/>
-                    <Label Grid.Row="3" Grid.Column="3" Content="Subwoofer" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                </Grid>
             </StackPanel>
         </Controls:Flyout>
-        <Controls:Flyout x:Name="AudioFlyout" Header="Audio" Background="#9f000000" Position="Left" >
+        <Controls:Flyout x:Name="SettingsFlyout" Header="Settings" Background="#9f000000" Position="Left" >
             <StackPanel>
-                <TextBlock Margin="0,5,0,0" Text="Audio" HorizontalAlignment="Center"/>
+                <StackPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource MetroCircleButtonStyle}">
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Width" Value="40"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="FontSize" Value="16"/>
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock Text="Treble" HorizontalAlignment="Center"/>
                 <Separator />
                 <Grid>
-                    <Grid.Resources>
-                        <Style TargetType="Button" BasedOn="{StaticResource MetroCircleButtonStyle}">
-                            <Setter Property="Height" Value="40"/>
-                            <Setter Property="Width" Value="40"/>
-                            <Setter Property="VerticalAlignment" Value="Center"/>
-                            <Setter Property="FontSize" Value="16"/>
-                        </Style>
-                    </Grid.Resources>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Row="0" Grid.Column="0" 
+
+                    <Button Grid.Column="0" 
                                 Command="{Binding TrebleDownCommand}" Content="-" IsEnabled="{Binding Path=ViewCanTrebleDown}"/>
-                    <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=TrebleDisplay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <Button Grid.Row="0" Grid.Column="2" 
+                    <Label  Grid.Column="1" Content="{Binding Path=TrebleDisplay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Button Grid.Column="2" 
                                 Command="{Binding TrebleUpCommand}" Content="+" IsEnabled="{Binding Path=ViewCanTrebleUp}"/>
-                    <!--<Label Grid.Row="0" Grid.Column="3" Content="Treble" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
-
-                    <Button Grid.Row="1" Grid.Column="0" 
-                                Command="{Binding BassDownCommand}" Content="-" IsEnabled="{Binding Path=ViewCanBassDown}"/>
-                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=BassDisplay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <Button Grid.Row="1" Grid.Column="2" 
-                                Command="{Binding BassUpCommand}" Content="+" IsEnabled="{Binding Path=ViewCanBassUp}"/>
-                    <!--<Label Grid.Row="1" Grid.Column="3" Content="Bass" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
-
-                    <Button Grid.Row="2" Grid.Column="0" 
-                                Command="{Binding CenterLevelDownCommand}" Content="-" IsEnabled="{Binding Path=ViewCanCenterLevelDown}"/>
-                    <Label Grid.Row="2" Grid.Column="1" Content="{Binding Path=CenterLevelDisplay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <Button Grid.Row="2" Grid.Column="2" 
-                                Command="{Binding CenterLevelUpCommand}" Content="+" IsEnabled="{Binding Path=ViewCanCenterLevelUp}"/>
-                    <!--<Label Grid.Row="2" Grid.Column="3" Content="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
-
-                    <Button Grid.Row="3" Grid.Column="0" 
-                                Command="{Binding SubwooferLevelDownCommand}" Content="-" IsEnabled="{Binding Path=ViewCanSubwooferLevelDown}"/>
-                    <Label Grid.Row="3" Grid.Column="1" Content="{Binding Path=SubwooferLevelDisplay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <Button Grid.Row="3" Grid.Column="2" 
-                                Command="{Binding SubwooferLevelUpCommand}" Content="+" IsEnabled="{Binding Path=ViewCanSubwooferLevelUp}"/>
-                    <!--<Label Grid.Row="3" Grid.Column="3" Content="Subwoofer" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
                 </Grid>
+                <TextBlock Margin="0,5,0,0" Text="Bass" HorizontalAlignment="Center"/>
+                <Separator />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" 
+                                Command="{Binding BassDownCommand}" Content="-" IsEnabled="{Binding Path=ViewCanBassDown}"/>
+                    <Label Grid.Column="1" Content="{Binding Path=BassDisplay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Button Grid.Column="2" 
+                                Command="{Binding BassUpCommand}" Content="+" IsEnabled="{Binding Path=ViewCanBassUp}"/>
+                </Grid>
+                <TextBlock Margin="0,5,0,0" Text="Center Level" HorizontalAlignment="Center"/>
+                <Separator />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" 
+                                Command="{Binding CenterLevelDownCommand}" Content="-" IsEnabled="{Binding Path=ViewCanCenterLevelDown}"/>
+                    <Label Grid.Column="1" Content="{Binding Path=CenterLevelDisplay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Button Grid.Column="2" 
+                                Command="{Binding CenterLevelUpCommand}" Content="+" IsEnabled="{Binding Path=ViewCanCenterLevelUp}"/>
+                </Grid>
+                <TextBlock Margin="0,5,0,0" Text="Subwoofer Level" HorizontalAlignment="Center"/>
+                <Separator />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" 
+                                Command="{Binding SubwooferLevelDownCommand}" Content="-" IsEnabled="{Binding Path=ViewCanSubwooferLevelDown}"/>
+                    <Label Grid.Column="1" Content="{Binding Path=SubwooferLevelDisplay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Button Grid.Column="2" 
+                                Command="{Binding SubwooferLevelUpCommand}" Content="+" IsEnabled="{Binding Path=ViewCanSubwooferLevelUp}"/>
+                </Grid>
+                <TextBlock Margin="0,5,0,0" Text="{Binding Path=DimmerDisplay}" HorizontalAlignment="Center"/>
+                <Separator />
+                <Button Margin="10" Content="Change" Style="{DynamicResource SquareButtonStyle}" Command="{Binding Path=DimmerChangeCommand}"/>
             </StackPanel>
         </Controls:Flyout>
     </Controls:MetroWindow.Flyouts>
@@ -290,14 +263,14 @@
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
                             		Height="55"
                             		Width="55"
-                            		VerticalAlignment="Center" Click="AudioButton_Click">
+                            		VerticalAlignment="Center" Click="SettingsButton_Click">
                     <Rectangle Width="20" Height="20">
                         <Rectangle.Fill>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_diagram}"/>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                 </Button>
-                <Label Content="Audio" HorizontalAlignment="Center"/>
+                <Label Content="Settings" HorizontalAlignment="Center"/>
             </StackPanel>
             <StackPanel>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"

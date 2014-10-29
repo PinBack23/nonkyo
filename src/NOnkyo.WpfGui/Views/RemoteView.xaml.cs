@@ -151,9 +151,9 @@ namespace NOnkyo.WpfGui.Views
             this.ReceiverFlyout.IsOpen = !this.ReceiverFlyout.IsOpen;
         }
 
-        private void AudioButton_Click(object sender, RoutedEventArgs e)
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            this.AudioFlyout.IsOpen = !this.AudioFlyout.IsOpen;
+            this.SettingsFlyout.IsOpen = !this.SettingsFlyout.IsOpen;
         }
 
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
