@@ -88,6 +88,12 @@ namespace NOnkyo.ISCP.Command
             }
             return false;
         }
+
+        public void Clear()
+        {
+            this.Album = null;
+            this.IsBMP = this.IsReady = false;
+        }
     }
    
 }

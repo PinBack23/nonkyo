@@ -59,5 +59,10 @@ namespace NOnkyo.ISCP.Command
             }
             return false;
         }
+
+        public void Clear()
+        {
+            this.CurrentTrack = this.TotalTrack = 0;
+        }
     }
 }

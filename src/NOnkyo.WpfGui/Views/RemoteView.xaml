@@ -353,11 +353,11 @@
                     <DockPanel LastChildFill="True">
                         <StackPanel DockPanel.Dock="Left">
                             <TextBlock Margin="2,1,0,1" Text="{Binding CurrentZoneDisplay}"/>
-                            <TextBlock Margin="2,1,0,1" Text="{Binding CurrentInputSelector}"/>
+                            <TextBlock Margin="2,10,0,1" Text="{Binding CurrentInputSelector}"/>
                             <TextBlock Margin="2,1,0,1" Text="{Binding CurrentListeningMode}"/>
                             <TextBlock Margin="2,1,0,1" Text="{Binding CurrentNetworkServiceType}"/>
                             <TextBlock Margin="2,1,0,1" Text="{Binding Path=CurrentVolume, StringFormat='Volume: {0:000}'}"/>
-                            <TextBlock Margin="2,1,0,1" Text="{Binding NetArtistName}"/>
+                            <TextBlock Margin="2,10,0,1" Text="{Binding NetArtistName}"/>
                             <TextBlock Margin="2,1,0,1" Text="{Binding NetAlbumName}"/>
                             <TextBlock Margin="2,1,0,1" Text="{Binding NetTitleName}"/>
                             <TextBlock Margin="2,1,0,1" Text="{Binding NetTrackInfo}"/>

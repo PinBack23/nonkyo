@@ -71,5 +71,18 @@ namespace NOnkyo.ISCP.Command
             }
             return false;
         }
+
+        public void Clear()
+        {
+            this.NetworkSource = ENetworkServiceType.None;
+            this.UiType = ENetworkListUIType.None;
+            this.LayerInfo = ENetworkListLayerInfo.None;
+            this.CurrentCursorPosition =  this.NumberOfListItems = this.NumberOfLayer = 0;
+            this.Reserved = string.Empty;
+            this.IconLeft = ENetworkListLeftIcon.None;
+            this.IconRight = ENetworkListRightIcon.None;
+            this.StatusInfo = ENetworkListStatusInfo.None;
+            this.CurrentTitle = string.Empty;
+        }
     }
 }

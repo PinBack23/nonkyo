@@ -72,9 +72,11 @@ namespace NOnkyo.ISCP
     {
         public static string ToDescription(this Enum value)
         {
+            var loFieldInfo = value.GetType().GetField(value.ToString());
+            if (loFieldInfo == null)
+                return "Unk. Enum:{0}, Type:{1}".FormatWith(value, value.GetType().Name);
             DescriptionAttribute[] loAttrib = (DescriptionAttribute[])
-                (value.GetType().GetField(value.ToString())
-                .GetCustomAttributes(typeof(DescriptionAttribute), false));
+                loFieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
             return loAttrib.Length > 0 ? loAttrib[0].Description : value.ToString();
 
         }

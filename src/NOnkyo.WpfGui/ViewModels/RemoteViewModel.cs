@@ -1512,7 +1512,6 @@ namespace NOnkyo.WpfGui.ViewModels
                 this.ShowNetPlayStatus = false;
             this.ResetNetItems();
 
-            this.AlbumImage = null;
             switch (peInputSelector)
             {
                 case EInputSelector.VIDEO1:
@@ -1583,6 +1582,15 @@ namespace NOnkyo.WpfGui.ViewModels
                 this.NetTitleName =
                 this.NetTimeInfo =
                 this.NetTrackInfo = string.Empty;
+
+            this.AlbumImage = null;
+            this.GetCommand<ISCP.Command.NetAlbumName>().Clear();
+            this.GetCommand<ISCP.Command.NLT>().Clear();
+            this.GetCommand<ISCP.Command.NetArtistName>().Clear();
+            this.GetCommand<ISCP.Command.NetTitleName>().Clear();
+            this.GetCommand<ISCP.Command.NetTimeInfo>().Clear();
+            this.GetCommand<ISCP.Command.NetTrackInfo>().Clear();
+            this.GetCommand<ISCP.Command.NetJacketArt>().Clear();
         }
 
         private void UpdateNetItems()
