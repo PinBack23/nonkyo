@@ -172,9 +172,9 @@ namespace NOnkyo.ISCP
         VIDEO1 = 0x00,
         [Description("CBL/SAT")]
         VIDEO2 = 0x01,
-        [Description("GAME/TV, GAME")]
+        [Description("GAME/TV")]
         VIDEO3 = 0x02,
-        [Description("AUX1(AUX)")]
+        [Description("AUX1")]
         VIDEO4 = 0x03,
         [Description("AUX2")]
         VIDEO5 = 0x04,
@@ -182,29 +182,37 @@ namespace NOnkyo.ISCP
         VIDEO6 = 0x05,
         [Description("VIDEO7")]
         VIDEO7 = 0x06,
+        [Description("EXTRA 1")]
         HIDDEN1 = 0x07,
+        [Description("EXTRA 2")]
         HIDDEN2 = 0x08,
+        [Description("EXTRA 3")]
         HIDDEN3 = 0x09,
         [Description("DVD, BD/DVD")]
         BDDVD = 0x10,
         [Description("TAPE(1), TV/TAPE")]
         TAPE1 = 0x20,
+        [Description("TAPE2")]
         TAPE2 = 0x21,
+        [Description("PHONO")]
         PHONO = 0x22,
-        [Description("CD, TV/CD")]
+        [Description("TV/CD")]
         TVCD = 0x23,
+        [Description("FM")]
         FM = 0x24,
+        [Description("AM")]
         AM = 0x25,
+        [Description("TUNER")]
         TUNER = 0x26,
-        [Description("MUSIC SERVER, P4S, DLNA")]
+        [Description("DLNA")]
         MUSICSERVER = 0x27,
-        [Description("INTERNET RADIO, iRadio Favorite")]
+        [Description("iRadio Favorite")]
         INTERNETRADIO = 0x28,
         [Description("USB/USB(Front)")]
         USB = 0x29,
         [Description("USB(Rear)")]
         USBREAR = 0x2A,
-        [Description("NETWORK, NET")]
+        [Description("NETWORK")]
         NETWORKNET = 0x2B,
         [Description("USB(toggle)")]
         USBTOGGLE = 0x2C,

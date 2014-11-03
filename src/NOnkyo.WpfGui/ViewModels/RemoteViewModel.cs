@@ -135,6 +135,7 @@ namespace NOnkyo.WpfGui.ViewModels
         private int mnSelectedTabIndex = 0;
         private int mnCurrentVolume;
         private string msCurrentInputSelector;
+        private EInputSelector meCurrentInputSelectorCboEntry;
         private string msCurrentListeningMode;
         private EListeningMode meCurrentListeningModeCboEntry;
         private bool? mbMuteStatus = null;
@@ -176,9 +177,8 @@ namespace NOnkyo.WpfGui.ViewModels
 
         private void ShowHome()
         {
-            this.ChoseImputSelector(this.GetCommand<ISCP.Command.InputSelector>().CurrentInputSelector);
+            this.ChoseInputSelector(this.GetCommand<ISCP.Command.InputSelector>().CurrentInputSelector);
         }
-
 
         private bool CanShowHome()
         {
@@ -347,7 +347,7 @@ namespace NOnkyo.WpfGui.ViewModels
             EInputSelector leInputSelector = poParam.ToString().ToEnum<EInputSelector>();
             this.moConnection.SendCommand(ISCP.Command.InputSelector.Chose(leInputSelector, this.CurrentDevice));
             this.OnCloseInputSelector();
-            this.ChoseImputSelector(leInputSelector);
+            this.ChoseInputSelector(leInputSelector);
         }
 
         private bool CanInputSelector(object poParam)
@@ -1063,6 +1063,21 @@ namespace NOnkyo.WpfGui.ViewModels
             }
         }
 
+        public EInputSelector CurrentInputSelectorCboEntry
+        {
+            get { return this.meCurrentInputSelectorCboEntry; }
+            set
+            {
+                //Call from ComboBox only
+                if (this.meCurrentInputSelectorCboEntry != value)
+                {
+                    this.meCurrentInputSelectorCboEntry = value;
+                    this.OnPropertyChanged(() => this.CurrentInputSelectorCboEntry);
+                    this.moConnection.SendCommand(ISCP.Command.InputSelector.Chose(this.meCurrentInputSelectorCboEntry, this.moCurrentDevice));
+                }
+            }
+        }
+
         public string CurrentListeningMode
         {
             get { return this.msCurrentListeningMode; }
@@ -1389,6 +1404,11 @@ namespace NOnkyo.WpfGui.ViewModels
             get { return ListeningModeItem.AllItems; }
         }
 
+        public List<InputSelectorItem> InputSelectorItems
+        {
+            get { return InputSelectorItem.AllItems; }
+        }
+
         public EZone CurrentZone
         {
             get { return ISCP.Zone.CurrentZone; }
@@ -1413,12 +1433,12 @@ namespace NOnkyo.WpfGui.ViewModels
             }
         }
 
-        public string TrebleDisplay 
+        public string TrebleDisplay
         {
-            get 
+            get
             {
                 return this.GetCommand<ISCP.Command.Tone>().TrebleDisplay;
-            } 
+            }
         }
 
         public string BassDisplay
@@ -1506,7 +1526,7 @@ namespace NOnkyo.WpfGui.ViewModels
                 this.moConnection.Dispose();
         }
 
-        private void ChoseImputSelector(EInputSelector peInputSelector)
+        private void ChoseInputSelector(EInputSelector peInputSelector)
         {
             this.ShowNetItems =
                 this.ShowNetPlayStatus = false;
@@ -1571,6 +1591,9 @@ namespace NOnkyo.WpfGui.ViewModels
                 default:
                     break;
             }
+
+            this.meCurrentInputSelectorCboEntry = peInputSelector;
+            this.OnPropertyChanged(() => this.CurrentInputSelectorCboEntry);
         }
 
         private void ResetNetItems()
@@ -1685,7 +1708,7 @@ namespace NOnkyo.WpfGui.ViewModels
                     {
                         EInputSelector leInputSelector = (loCommand as ISCP.Command.InputSelector).CurrentInputSelector;
                         this.CurrentInputSelector = leInputSelector.ToDescription();
-                        this.ChoseImputSelector(leInputSelector);
+                        this.ChoseInputSelector(leInputSelector);
                     }
 
                     if (loCommand is ISCP.Command.ListeningMode)

@@ -85,7 +85,7 @@
                     <Button Grid.Row="2" Grid.Column="0" Content="CBL/SAT"
                     Command="{Binding Path=InputSelectorCommand}"
                     CommandParameter="VIDEO2"/>
-                    <Button Grid.Row="3" Grid.Column="0" Content="GAME"
+                    <Button Grid.Row="3" Grid.Column="0" Content="GAME/TV"
                     Command="{Binding Path=InputSelectorCommand}"
                     CommandParameter="VIDEO3"/>
                     <Button Grid.Row="4" Grid.Column="0" Content="DLNA"
@@ -97,7 +97,7 @@
                     <Button Grid.Row="6" Grid.Column="0" Content="PC"
                     Command="{Binding Path=InputSelectorCommand}"
                     CommandParameter="VIDEO6"/>
-                    <Button Grid.Row="0" Grid.Column="1" Content="AUX"
+                    <Button Grid.Row="0" Grid.Column="1" Content="AUX1"
                     Command="{Binding Path=InputSelectorCommand}"
                     CommandParameter="VIDEO4"/>
                     <Button Grid.Row="1" Grid.Column="1" Content="AUX2"
@@ -119,6 +119,11 @@
                     Command="{Binding Path=InputSelectorCommand}"
                     CommandParameter="USB"/>
                 </Grid>
+
+                <TextBlock Margin="0,10,0,0" Text="Input Selectors (Direct)" HorizontalAlignment="Center"/>
+                <Separator />
+                <ComboBox x:Name="cboInputSelectors" Margin="3,0" Background="#02FFFFFF" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" 
+                    ItemsSource="{Binding Path=InputSelectorItems}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" SelectedValue="{Binding Path=CurrentInputSelectorCboEntry}" />
 
                 <TextBlock Margin="0,10,0,0" Text="Listening Mode" HorizontalAlignment="Center"/>
                 <Separator />
