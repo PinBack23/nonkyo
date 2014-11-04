@@ -8,6 +8,7 @@ version 0.12
 - added: zone support
 - added: audio control (tone, bass, center lvl and subwoofer lvl)
 - added: command for dimmer mode
+- added: direct selection for input selectors
 - improved: coverart now resizable
 - fixed: hide coverart if not available
 #################################
