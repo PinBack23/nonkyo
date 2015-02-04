@@ -34,6 +34,9 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using NOnkyo.WpfGui.ViewModels.Misc;
+using NOnkyo.WpfGui.Model;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace NOnkyo.WpfGui.ViewModels
 {
@@ -123,6 +126,27 @@ namespace NOnkyo.WpfGui.ViewModels
 
         #endregion
 
+        #region AudioPresetChanged
+        
+        [NonSerialized()]
+        private EventHandler EventAudioPresetChanged;
+        public event EventHandler AudioPresetChanged
+        {
+            add
+            { this.EventAudioPresetChanged += value; } 
+            remove
+            { this.EventAudioPresetChanged -= value; } 
+        }
+
+        protected virtual void OnAudioPresetChanged()
+        {
+            EventHandler loHandler = this.EventAudioPresetChanged;
+            if (loHandler != null)
+                loHandler(this, EventArgs.Empty);
+        }
+
+        #endregion
+
         #region Attributes
 
         private Device moCurrentDevice;
@@ -156,6 +180,17 @@ namespace NOnkyo.WpfGui.ViewModels
         private Byte[] moAlbumImage;
         private bool? mbIsPowerOn = null;
         private bool mbShowSearching = false;
+        private Dictionary<string, AudioPreset> moAudioPresets = new Dictionary<string,AudioPreset>();
+        private string msCurrentAudioPreset;
+
+        #endregion
+
+        #region Constructor
+
+        public RemoteViewModel()
+        {
+            this.ReadAudioPresets();
+        }
 
         #endregion
 
@@ -1006,6 +1041,76 @@ namespace NOnkyo.WpfGui.ViewModels
 
         #endregion
 
+        #region AudioPresetSet
+
+        private RelayCommand moAudioPresetSetCommand;
+        public ICommand AudioPresetSetCommand
+        {
+            get
+            {
+                if (this.moAudioPresetSetCommand == null)
+                    this.moAudioPresetSetCommand = new RelayCommand(param => this.AudioPresetSet(param),
+                        param => this.CanAudioPresetSet());
+                return this.moAudioPresetSetCommand;
+            }
+        }
+
+        private void AudioPresetSet(object poParam)
+        {
+            string lsPresetValue = poParam.ToString();
+            this.ReadAudioPresets();
+            this.moAudioPresets[lsPresetValue] = new AudioPreset()
+            {
+                MasterVolume = this.GetCommand<ISCP.Command.MasterVolume>().VolumeLevel,
+                TrebleLevel = this.GetCommand<ISCP.Command.Tone>().TrebleLevel,
+                BassLevel = this.GetCommand<ISCP.Command.Tone>().BassLevel,
+                CenterLevel = this.GetCommand<ISCP.Command.CenterLevel>().Level,
+                SubwooferLevel = this.GetCommand<ISCP.Command.SubwooferLevel>().Level
+            };
+            this.SaveAudioPresets();
+            this.OnAudioPresetChanged();
+        }
+
+        private bool CanAudioPresetSet()
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region AudioPresetChange
+
+        private RelayCommand moAudioPresetChangeCommand;
+        public ICommand AudioPresetChangeCommand
+        {
+            get
+            {
+                if (this.moAudioPresetChangeCommand == null)
+                    this.moAudioPresetChangeCommand = new RelayCommand(param => this.AudioPresetChange(param),
+                        param => this.CanAudioPresetChange());
+                return this.moAudioPresetChangeCommand;
+            }
+        }
+
+        private void AudioPresetChange(object poParam)
+        {
+            string lsPresetValue = poParam.ToString();
+            this.ReadAudioPresets();
+            if (this.moAudioPresets.ContainsKey(lsPresetValue))
+            {
+                this.SetAudioPreset(this.moAudioPresets[lsPresetValue]);
+                this.CurrentAudioPreset = lsPresetValue;
+            }
+            this.OnAudioPresetChanged();
+        }
+
+        private bool CanAudioPresetChange()
+        {
+            return true;
+        }
+
+        #endregion
+
         #endregion
 
         #region Public Methods / Properties
@@ -1030,7 +1135,6 @@ namespace NOnkyo.WpfGui.ViewModels
             {
                 if (this.mnCurrentVolume != value)
                 {
-                    System.Diagnostics.Debug.WriteLine(value.ToString());
                     this.mnCurrentVolume = value;
                     this.OnPropertyChanged(() => this.CurrentVolume);
                 }
@@ -1473,9 +1577,41 @@ namespace NOnkyo.WpfGui.ViewModels
             }
         }
 
+        public string CurrentAudioPreset
+        {
+            get { return this.msCurrentAudioPreset; }
+            set
+            {
+                if (this.msCurrentAudioPreset != value)
+                {
+                    this.msCurrentAudioPreset = value;
+                    this.OnPropertyChanged(() => this.CurrentAudioPreset);
+                }
+            }
+        }
+
         #endregion
 
         #region Private Methods / Properties
+
+        private string ApplicationDataDirectory
+        {
+            get
+            {
+                DirectoryInfo loApplicationDataDirectory = new DirectoryInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "NOnkyo"));
+                if (!loApplicationDataDirectory.Exists)
+                    Directory.CreateDirectory(loApplicationDataDirectory.FullName);
+                return loApplicationDataDirectory.FullName;
+            }
+        }
+
+        private string AudioPresetFile
+        {
+            get
+            {
+                return Path.Combine(this.ApplicationDataDirectory, "AudioPreset.dat");
+            }
+        }
 
         private void OpenConnection()
         {
@@ -1682,6 +1818,52 @@ namespace NOnkyo.WpfGui.ViewModels
             {
 
             }
+        }
+
+        private void ReadAudioPresets()
+        {
+            //JsonTextReader loReader = new JsonTextReader();
+            FileInfo loFileInfo = new FileInfo(this.AudioPresetFile);
+            if (!loFileInfo.Exists)
+                this.moAudioPresets = new Dictionary<string, AudioPreset>();
+            else
+            {
+                try
+                {
+                    this.moAudioPresets = JsonConvert.DeserializeObject<Dictionary<string, AudioPreset>>(File.ReadAllText(loFileInfo.FullName));
+                }
+                catch
+                {
+                    this.moAudioPresets = new Dictionary<string, AudioPreset>();
+                }
+            }
+        }
+
+        private void SaveAudioPresets()
+        {
+            if (this.moAudioPresets != null)
+                File.WriteAllText(this.AudioPresetFile, JsonConvert.SerializeObject(this.moAudioPresets));
+        }
+
+        private void SetAudioPreset(AudioPreset poAudioPreset)
+        {
+            try
+            {
+                this.moConnection.BeginSendCommand(100);
+                this.moConnection.SendCommand(ISCP.Command.MasterVolume.SetLevel(poAudioPreset.MasterVolume, this.CurrentDevice));
+                if (poAudioPreset.TrebleLevel.HasValue)
+                    this.moConnection.SendCommand(ISCP.Command.Tone.SetTrebleLevel(poAudioPreset.TrebleLevel.Value));
+                if (poAudioPreset.BassLevel.HasValue)
+                    this.moConnection.SendCommand(ISCP.Command.Tone.SetTrebleLevel(poAudioPreset.BassLevel.Value));
+                if (poAudioPreset.SubwooferLevel.HasValue)
+                    this.moConnection.SendCommand(ISCP.Command.SubwooferLevel.SetLevel(poAudioPreset.SubwooferLevel.Value));
+                if (poAudioPreset.CenterLevel.HasValue)
+                    this.moConnection.SendCommand(ISCP.Command.CenterLevel.SetLevel(poAudioPreset.CenterLevel.Value));
+            }
+            finally
+            {
+                this.moConnection.EndSendCommand();
+            }   
         }
 
         #endregion

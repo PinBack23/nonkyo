@@ -34,6 +34,7 @@ namespace NOnkyo.WpfGui.Views
             this.Model.CloseInputSelector += new EventHandler(Model_CloseInputSelector);
             this.Model.KeyboardInput += new EventHandler<KeyboardInputEventArgs>(Model_KeyboardInput);
             this.Model.ShowAbout += new EventHandler(Model_ShowAbout);
+            this.Model.AudioPresetChanged += new EventHandler(Model_AudioPresetChanged);
             this.Loaded += new RoutedEventHandler(RemoteView_Loaded);
         }
 
@@ -180,6 +181,31 @@ namespace NOnkyo.WpfGui.Views
             {
                 MessageBox.Show(exp.ToString());
             }
+        }
+
+        private void cmdAudioPresetSet_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.popAudioPresetSet.IsOpen = !this.popAudioPresetSet.IsOpen;
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.ToString());
+            }
+        }
+
+
+        private void Model_AudioPresetChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                this.popAudioPresetSet.IsOpen = false;
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.ToString());
+            }            
         }
 
         #endregion

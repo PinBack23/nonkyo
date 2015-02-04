@@ -47,6 +47,15 @@ namespace NOnkyo.ISCP.Command
             CommandMessage = "SWLDOWN"
         };
 
+        public static SubwooferLevel SetLevel(int pnLevel)
+        {
+            string lsCommandMessage = "SWL{0}";
+            return new SubwooferLevel()
+            {
+                CommandMessage = lsCommandMessage.FormatWith(pnLevel.ConvertIntToDbValue())
+            };
+        }
+
         #region Constructor / Destructor
 
         internal SubwooferLevel()

@@ -96,6 +96,28 @@ namespace NOnkyo.ISCP.Command
             };
         }
 
+        public static Tone SetTrebleLevel(int pnLevel)
+        {
+
+            string lsCommandMessage = "TFRT{0}";
+            switch (Zone.CurrentZone)
+            {
+                case EZone.Zone2:
+                    lsCommandMessage = "ZTNT{0}";
+                    break;
+                case EZone.Zone3:
+                    lsCommandMessage = "TN3T{0}";
+                    break;
+                case EZone.Zone4:
+                    lsCommandMessage = "TN4T{0}";
+                    break;
+            }
+            return new Tone()
+            {
+                CommandMessage = lsCommandMessage.FormatWith(pnLevel.ConvertIntToDbValue())
+            };
+        }
+
         public static Tone BassUpCommand()
         {
             string lsCommandMessage = "TFRBUP";
@@ -135,6 +157,28 @@ namespace NOnkyo.ISCP.Command
             return new Tone()
             {
                 CommandMessage = lsCommandMessage
+            };
+        }
+
+        public static Tone SetBassLevel(int pnLevel)
+        {
+
+            string lsCommandMessage = "TFRB{0}";
+            switch (Zone.CurrentZone)
+            {
+                case EZone.Zone2:
+                    lsCommandMessage = "ZTNB{0}";
+                    break;
+                case EZone.Zone3:
+                    lsCommandMessage = "TN3B{0}";
+                    break;
+                case EZone.Zone4:
+                    lsCommandMessage = "TN4B{0}";
+                    break;
+            }
+            return new Tone()
+            {
+                CommandMessage = lsCommandMessage.FormatWith(pnLevel.ConvertIntToDbValue())
             };
         }
 

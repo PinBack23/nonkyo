@@ -398,6 +398,15 @@ namespace NOnkyo.WpfGui.Fake
                     {
                         this.OnMessageReceived("!1" + psMessage);
                     }
+                    //else if (psMessage.StartsWith("MVL") && )
+                    //{
+                    //    Task.Factory.StartNew(() =>
+                    //    {
+                    //        System.Threading.Thread.Sleep(50);
+                    //        mnCurrentVolume = psMessage;
+                    //        this.OnMessageReceived("!1MVL{0}".FormatWith(mnCurrentVolume));
+                    //    });
+                    //}
                     else if (psMessage.StartsWith("NLSL"))
                     {
                         this.mnNetInfoLine = Convert.ToInt32(psMessage.Last().ToString());

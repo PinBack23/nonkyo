@@ -47,6 +47,15 @@ namespace NOnkyo.ISCP.Command
             CommandMessage = "CTLDOWN"
         };
 
+        public static CenterLevel SetLevel(int pnLevel)
+        {
+            string lsCommandMessage = "CTL{0}";
+            return new CenterLevel()
+            {
+                CommandMessage = lsCommandMessage.FormatWith(pnLevel.ConvertIntToDbValue())
+            };
+        }
+
         #region Constructor / Destructor
 
         internal CenterLevel()

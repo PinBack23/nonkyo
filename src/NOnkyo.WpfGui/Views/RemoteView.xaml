@@ -324,7 +324,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <DockPanel x:Name="dopDisplay" Margin="3">
-                <StackPanel Margin="0,2,2,0" DockPanel.Dock="Right">
+                <StackPanel Margin="0,2,2,0" DockPanel.Dock="Right" Orientation="Horizontal">
                     <StackPanel.Resources>
                         <Style TargetType="Button" BasedOn="{StaticResource StandardButton}">
                             <Setter Property="Margin" Value="3,3,3,0"/>
@@ -332,20 +332,38 @@
                             <Setter Property="Width" Value="50"/>
                         </Style>
                     </StackPanel.Resources>
-                    <TextBlock Margin="0,2,0,2" Text="Volume" HorizontalAlignment="Center"/>
-                    <TextBlock Margin="0,2,0,2" Text="{Binding Path=CurrentVolume, StringFormat='\{0:000}'}" HorizontalAlignment="Center" FontFamily="Arial Black"/>
-                    <Separator />
-                    <Button Content="Up" Command="{Binding VolumeUpCommand}"/>
-                    <Button Content="Down" Command="{Binding VolumeDownCommand}"/>
-                    <TextBlock Margin="0,2,0,2" Text="Mute" HorizontalAlignment="Center"/>
-                    <Separator />
-                    <Button Height="30"  Command="{Binding MuteToggleCommand}">
-                        <Rectangle Height="25" Width="25">
-                            <Rectangle.Fill>
-                                <VisualBrush x:Name="bruMute" Stretch="Fill"  Visual="{StaticResource appbar_sound_0}"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </Button>
+                    <StackPanel>
+                        <TextBlock Margin="0,2,0,2" Text="Volume" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="0,2,0,2" Text="{Binding Path=CurrentVolume, StringFormat='\{0:000}'}" HorizontalAlignment="Center" FontFamily="Arial Black"/>
+                        <Separator />
+                        <Button Content="Up" Command="{Binding VolumeUpCommand}"/>
+                        <Button Content="Down" Command="{Binding VolumeDownCommand}"/>
+                        <TextBlock Margin="0,2,0,2" Text="Mute" HorizontalAlignment="Center"/>
+                        <Separator />
+                        <Button Height="30"  Command="{Binding MuteToggleCommand}">
+                            <Rectangle Height="25" Width="25">
+                                <Rectangle.Fill>
+                                    <VisualBrush x:Name="bruMute" Stretch="Fill"  Visual="{StaticResource appbar_sound_0}"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Margin="0,2,0,2" Text="Preset" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="0,2,0,2" Text="{Binding Path=CurrentAudioPreset}" HorizontalAlignment="Center" FontFamily="Arial Black"/>
+                        <Separator />
+                        <Button Content="1" Command="{Binding AudioPresetChangeCommand}" CommandParameter="Set1"/>
+                        <Button Content="2" Command="{Binding AudioPresetChangeCommand}" CommandParameter="Set2"/>
+                        <Button Content="3" Command="{Binding AudioPresetChangeCommand}" CommandParameter="Set3"/>
+                        <Button x:Name="cmdAudioPresetSet" Content="Set" Click="cmdAudioPresetSet_Click"/>
+                        <Popup x:Name="popAudioPresetSet" IsOpen="False" PlacementTarget="{Binding ElementName=cmdAudioPresetSet}" Placement="Left" >
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Set 1" Command="{Binding AudioPresetSetCommand}" CommandParameter="Set1"/>
+                                <Button Content="Set 2" Command="{Binding AudioPresetSetCommand}" CommandParameter="Set2"/>
+                                <Button Content="Set 3" Command="{Binding AudioPresetSetCommand}" CommandParameter="Set3"/>
+                            </StackPanel>
+                        </Popup>
+                    </StackPanel>
                 </StackPanel>
                 <Border Margin="0,2,3,0" Style="{StaticResource ContentBorder}">
                     <Border.Resources>
