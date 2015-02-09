@@ -2,9 +2,16 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="About NOnkyo" Height="280" Width="480" ShowIconOnTitleBar="false" ShowInTaskbar="false" ShowMinButton="false" ShowMaxRestoreButton="False">
+        Title="About NOnkyo" Height="300" Width="480" ResizeMode="NoResize" ShowIconOnTitleBar="false" ShowInTaskbar="false" ShowMinButton="false" ShowMaxRestoreButton="False">
     <DockPanel Margin="4" LastChildFill="True">
-        <Image DockPanel.Dock="Left" VerticalAlignment="Top"  Source="/NOnkyo.WpfGui;component/Resources/NOnkyo.png" MaxHeight="150" MaxWidth="150"/>
+        <StackPanel DockPanel.Dock="Left">
+            <Image VerticalAlignment="Top"  Source="/NOnkyo.WpfGui;component/Resources/NOnkyo.png" MaxHeight="150" MaxWidth="150"/>
+            <TextBlock Margin="0,30,0,0"  HorizontalAlignment="Center">
+                <Hyperlink TextDecorations="None" NavigateUri="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=EF9R87PWAD6AU" RequestNavigate="Hyperlink_RequestNavigate">
+                    <Image  Source="/NOnkyo.WpfGui;component/Resources/Paypaldonate.gif" MaxHeight="21" MaxWidth="74"/>        
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
         <StackPanel Margin="10,0,0,0">
             <StackPanel.Resources>
                 <Style TargetType="TextBlock" BasedOn="{StaticResource MetroTextBlock}">
@@ -18,6 +25,9 @@
             <TextBlock Margin="0,10,0,0" Text="Developed by Karl Sparwald" ></TextBlock>
             <TextBlock>
                 <Hyperlink NavigateUri="http://nonkyo.codeplex.com" RequestNavigate="Hyperlink_RequestNavigate">http://nonkyo.codeplex.com</Hyperlink>
+            </TextBlock>
+            <TextBlock>
+                <Hyperlink NavigateUri="mailto:nonkyo@outlook.com" RequestNavigate="Hyperlink_RequestNavigate">nonkyo@outlook.com</Hyperlink>
             </TextBlock>
             <TextBlock Margin="0,10,0,5" Text="External libraries" FontWeight="Bold" TextDecorations="Underline"></TextBlock>
             <StackPanel Margin="5,0,0,5">
