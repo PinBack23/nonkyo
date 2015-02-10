@@ -1849,12 +1849,12 @@ namespace NOnkyo.WpfGui.ViewModels
         {
             try
             {
-                this.moConnection.BeginSendCommand(100);
+                this.moConnection.BeginSendCommand(200);
                 this.moConnection.SendCommand(ISCP.Command.MasterVolume.SetLevel(poAudioPreset.MasterVolume, this.CurrentDevice));
                 if (poAudioPreset.TrebleLevel.HasValue)
                     this.moConnection.SendCommand(ISCP.Command.Tone.SetTrebleLevel(poAudioPreset.TrebleLevel.Value));
                 if (poAudioPreset.BassLevel.HasValue)
-                    this.moConnection.SendCommand(ISCP.Command.Tone.SetTrebleLevel(poAudioPreset.BassLevel.Value));
+                    this.moConnection.SendCommand(ISCP.Command.Tone.SetBassLevel(poAudioPreset.BassLevel.Value));
                 if (poAudioPreset.SubwooferLevel.HasValue)
                     this.moConnection.SendCommand(ISCP.Command.SubwooferLevel.SetLevel(poAudioPreset.SubwooferLevel.Value));
                 if (poAudioPreset.CenterLevel.HasValue)
