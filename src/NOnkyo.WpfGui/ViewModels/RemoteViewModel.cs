@@ -126,27 +126,6 @@ namespace NOnkyo.WpfGui.ViewModels
 
         #endregion
 
-        #region AudioPresetChanged
-        
-        [NonSerialized()]
-        private EventHandler EventAudioPresetChanged;
-        public event EventHandler AudioPresetChanged
-        {
-            add
-            { this.EventAudioPresetChanged += value; } 
-            remove
-            { this.EventAudioPresetChanged -= value; } 
-        }
-
-        protected virtual void OnAudioPresetChanged()
-        {
-            EventHandler loHandler = this.EventAudioPresetChanged;
-            if (loHandler != null)
-                loHandler(this, EventArgs.Empty);
-        }
-
-        #endregion
-
         #region Attributes
 
         private Device moCurrentDevice;
@@ -182,6 +161,7 @@ namespace NOnkyo.WpfGui.ViewModels
         private bool mbShowSearching = false;
         private Dictionary<string, AudioPreset> moAudioPresets = new Dictionary<string,AudioPreset>();
         private string msCurrentAudioPreset;
+        private bool mbAudioPresetInProcess;
 
         #endregion
 
@@ -1057,18 +1037,7 @@ namespace NOnkyo.WpfGui.ViewModels
 
         private void AudioPresetSet(object poParam)
         {
-            string lsPresetValue = poParam.ToString();
-            this.ReadAudioPresets();
-            this.moAudioPresets[lsPresetValue] = new AudioPreset()
-            {
-                MasterVolume = this.GetCommand<ISCP.Command.MasterVolume>().VolumeLevel,
-                TrebleLevel = this.GetCommand<ISCP.Command.Tone>().TrebleLevel,
-                BassLevel = this.GetCommand<ISCP.Command.Tone>().BassLevel,
-                CenterLevel = this.GetCommand<ISCP.Command.CenterLevel>().Level,
-                SubwooferLevel = this.GetCommand<ISCP.Command.SubwooferLevel>().Level
-            };
-            this.SaveAudioPresets();
-            this.OnAudioPresetChanged();
+            this.AudioPresetInProcess = !this.AudioPresetInProcess;
         }
 
         private bool CanAudioPresetSet()
@@ -1095,13 +1064,36 @@ namespace NOnkyo.WpfGui.ViewModels
         private void AudioPresetChange(object poParam)
         {
             string lsPresetValue = poParam.ToString();
+            if (this.AudioPresetInProcess)
+                this.AudioPresetSet(lsPresetValue);
+            else
+                this.AudioPresetApply(lsPresetValue);
+        }
+
+        private void AudioPresetSet(string psPresetValue)
+        {
             this.ReadAudioPresets();
-            if (this.moAudioPresets.ContainsKey(lsPresetValue))
+            this.moAudioPresets[psPresetValue] = new AudioPreset()
             {
-                this.SetAudioPreset(this.moAudioPresets[lsPresetValue]);
-                this.CurrentAudioPreset = lsPresetValue;
+                MasterVolume = this.GetCommand<ISCP.Command.MasterVolume>().VolumeLevel,
+                TrebleLevel = this.GetCommand<ISCP.Command.Tone>().TrebleLevel,
+                BassLevel = this.GetCommand<ISCP.Command.Tone>().BassLevel,
+                CenterLevel = this.GetCommand<ISCP.Command.CenterLevel>().Level,
+                SubwooferLevel = this.GetCommand<ISCP.Command.SubwooferLevel>().Level
+            };
+            this.SaveAudioPresets();
+            this.AudioPresetInProcess = false;
+            this.CurrentAudioPreset = psPresetValue;
+        }
+
+        private void AudioPresetApply(string psPresetValue)
+        {
+            this.ReadAudioPresets();
+            if (this.moAudioPresets.ContainsKey(psPresetValue))
+            {
+                this.SetAudioPreset(this.moAudioPresets[psPresetValue]);
+                this.CurrentAudioPreset = psPresetValue;
             }
-            this.OnAudioPresetChanged();
         }
 
         private bool CanAudioPresetChange()
@@ -1586,6 +1578,19 @@ namespace NOnkyo.WpfGui.ViewModels
                 {
                     this.msCurrentAudioPreset = value;
                     this.OnPropertyChanged(() => this.CurrentAudioPreset);
+                }
+            }
+        }
+
+        public bool AudioPresetInProcess
+        {
+            get { return this.mbAudioPresetInProcess; }
+            set
+            {
+                if (this.mbAudioPresetInProcess != value)
+                {
+                    this.mbAudioPresetInProcess = value;
+                    this.OnPropertyChanged(() => this.AudioPresetInProcess);
                 }
             }
         }

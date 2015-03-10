@@ -1,6 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <Style x:Key="HighlightButton" TargetType="Button" BasedOn="{StaticResource StandardButton}">
+        <!--<Setter Property="Control.Background" Value="{StaticResource BackgroundHighlighted}" />-->
+    </Style>
+    
     <Style x:Key="TextCircleButton" TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource ButtonNormalBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ButtonNormalBorder}" />

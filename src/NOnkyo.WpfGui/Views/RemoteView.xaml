@@ -355,14 +355,16 @@
                         <Button Content="1" Command="{Binding AudioPresetChangeCommand}" CommandParameter="Set1"/>
                         <Button Content="2" Command="{Binding AudioPresetChangeCommand}" CommandParameter="Set2"/>
                         <Button Content="3" Command="{Binding AudioPresetChangeCommand}" CommandParameter="Set3"/>
-                        <Button x:Name="cmdAudioPresetSet" Content="Set" Click="cmdAudioPresetSet_Click"/>
+                        <Button x:Name="cmdAudioPresetSet" Content="Set" Command="{Binding AudioPresetSetCommand}" />
+
+                        <!--<Button x:Name="cmdAudioPresetSet" Content="Set" Click="cmdAudioPresetSet_Click"/> Background="{StaticResource BorderBrushSelected}"
                         <Popup x:Name="popAudioPresetSet" IsOpen="False" PlacementTarget="{Binding ElementName=cmdAudioPresetSet}" Placement="Left" >
                             <StackPanel Orientation="Horizontal">
                                 <Button Content="Set 1" Command="{Binding AudioPresetSetCommand}" CommandParameter="Set1"/>
                                 <Button Content="Set 2" Command="{Binding AudioPresetSetCommand}" CommandParameter="Set2"/>
                                 <Button Content="Set 3" Command="{Binding AudioPresetSetCommand}" CommandParameter="Set3"/>
                             </StackPanel>
-                        </Popup>
+                        </Popup>-->
                     </StackPanel>
                 </StackPanel>
                 <Border Margin="0,2,3,0" Style="{StaticResource ContentBorder}">

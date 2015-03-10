@@ -152,7 +152,7 @@ namespace NOnkyo.WpfGui.Fake
                     Task.Factory.StartNew(() =>
                         {
                             System.Threading.Thread.Sleep(50);
-                            this.OnMessageReceived("!1MVL{0}".FormatWith(mnCurrentVolume));
+                            this.OnMessageReceived("!1MVL{0:x2}".FormatWith(mnCurrentVolume));
                         });
                     break;
                 case "MVLUP":
@@ -160,7 +160,7 @@ namespace NOnkyo.WpfGui.Fake
                     {
                         System.Threading.Thread.Sleep(50);
                         mnCurrentVolume++;
-                        this.OnMessageReceived("!1MVL{0}".FormatWith(mnCurrentVolume));
+                        this.OnMessageReceived("!1MVL{0:x2}".FormatWith(mnCurrentVolume));
                     });
                     break;
                 case "MVLDOWN":
@@ -168,7 +168,7 @@ namespace NOnkyo.WpfGui.Fake
                     {
                         System.Threading.Thread.Sleep(50);
                         mnCurrentVolume--;
-                        this.OnMessageReceived("!1MVL{0}".FormatWith(mnCurrentVolume));
+                        this.OnMessageReceived("!1MVL{0:x2}".FormatWith(mnCurrentVolume));
                     });
                     break;
                 case "SLIQSTN":
@@ -267,7 +267,7 @@ namespace NOnkyo.WpfGui.Fake
                     Task.Factory.StartNew(() =>
                     {
                         System.Threading.Thread.Sleep(50);
-                        this.OnMessageReceived("!1PWR01".FormatWith(mnCurrentVolume));
+                        this.OnMessageReceived("!1PWR01");
                     });
                     break;
                 case "TFRQSTN":
