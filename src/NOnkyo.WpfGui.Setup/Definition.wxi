@@ -2,7 +2,7 @@
 <Include>
 
   <?define INSTALLNAME = "NOnkyo GUI"?>
-  <?define PRODUCTVERSION = "0.12.0"?>
+  <?define PRODUCTVERSION = "0.13.0"?>
   <?define OUTPUTPATH = "..\..\bin\Release\"?>
   <?define EXENAME = "NOnkyo.WpfGui"?>
   <?define UPGRADECODE = "665f4e2e-10bb-4b62-8f1c-c5be51b2021b"?>

@@ -1,6 +1,12 @@
 Release notes
 
 #################################
+version 0.13
+#################################
+- added: email contact address in about view
+- added: donate button in about view
+- added: 3 presets to save and restore audio settings (volume, treble, bass, center lvl and subwoofer lvl)
+#################################
 version 0.12
 #################################
 - added: direct selection for listening mode

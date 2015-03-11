@@ -72,12 +72,14 @@
     <!-- System Ordner Source aus Release Ordner -->
     <DirectoryRef Id="DID_SYSTEM" FileSource="$(var.OUTPUTPATH)">
       <Component Id="CID_SYSTEM_OUT" Guid="1e30ad8f-7079-4562-bce1-df21232c85b6">
+        <File Id="GrayscaleEffect.dll" />
         <File Id="LightCore.CommonServiceLocator.dll" />
         <File Id="LightCore.Configuration.dll" />
         <File Id="LightCore.dll" />
         <File Id="MahApps.Metro.dll" />
         <File Id="Microsoft.Expression.Drawing.dll" />
         <File Id="Microsoft.Practices.ServiceLocation.dll" />
+        <File Id="Newtonsoft.Json.dll" />
         <File Id="NLog.dll" />
         <File Id="System.Windows.Interactivity.dll" />
       </Component>
