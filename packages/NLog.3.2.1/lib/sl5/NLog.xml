@@ -4,6 +4,366 @@
         <name>NLog</name>
     </assembly>
     <members>
+        <member name="T:JetBrains.Annotations.CanBeNullAttribute">
+            <summary>
+            Indicates that the value of the marked element could be <c>null</c> sometimes,
+            so the check for <c>null</c> is necessary before its usage
+            </summary>
+            <example><code>
+            [CanBeNull] public object Test() { return null; }
+            public void UseTest() {
+              var p = Test();
+              var s = p.ToString(); // Warning: Possible 'System.NullReferenceException'
+            }
+            </code></example>
+        </member>
+        <member name="T:JetBrains.Annotations.NotNullAttribute">
+            <summary>
+            Indicates that the value of the marked element could never be <c>null</c>
+            </summary>
+            <example><code>
+            [NotNull] public object Foo() {
+              return null; // Warning: Possible 'null' assignment
+            }
+            </code></example>
+        </member>
+        <member name="T:JetBrains.Annotations.StringFormatMethodAttribute">
+            <summary>
+            Indicates that the marked method builds string by format pattern and (optional) arguments.
+            Parameter, which contains format string, should be given in constructor. The format string
+            should be in <see cref="M:System.String.Format(System.IFormatProvider,System.String,System.Object[])"/>-like form
+            </summary>
+            <example><code>
+            [StringFormatMethod("message")]
+            public void ShowError(string message, params object[] args) { /* do something */ }
+            public void Foo() {
+              ShowError("Failed: {0}"); // Warning: Non-existing argument in format string
+            }
+            </code></example>
+        </member>
+        <member name="M:JetBrains.Annotations.StringFormatMethodAttribute.#ctor(System.String)">
+            <param name="formatParameterName">
+            Specifies which parameter of an annotated method should be treated as format-string
+            </param>
+        </member>
+        <member name="T:JetBrains.Annotations.InvokerParameterNameAttribute">
+            <summary>
+            Indicates that the function argument should be string literal and match one
+            of the parameters of the caller function. For example, ReSharper annotates
+            the parameter of <see cref="T:System.ArgumentNullException"/>
+            </summary>
+            <example><code>
+            public void Foo(string param) {
+              if (param == null)
+                throw new ArgumentNullException("par"); // Warning: Cannot resolve symbol
+            }
+            </code></example>
+        </member>
+        <member name="T:JetBrains.Annotations.NotifyPropertyChangedInvocatorAttribute">
+             <summary>
+             Indicates that the method is contained in a type that implements
+             <see cref="T:System.ComponentModel.INotifyPropertyChanged"/> interface
+             and this method is used to notify that some property value changed
+             </summary>
+             <remarks>
+             The method should be non-static and conform to one of the supported signatures:
+             <list>
+             <item><c>NotifyChanged(string)</c></item>
+             <item><c>NotifyChanged(params string[])</c></item>
+             <item><c>NotifyChanged{T}(Expression{Func{T}})</c></item>
+             <item><c>NotifyChanged{T,U}(Expression{Func{T,U}})</c></item>
+             <item><c>SetProperty{T}(ref T, T, string)</c></item>
+             </list>
+             </remarks>
+             <example><code>
+             internal class Foo : INotifyPropertyChanged {
+               public event PropertyChangedEventHandler PropertyChanged;
+               [NotifyPropertyChangedInvocator]
+               protected virtual void NotifyChanged(string propertyName) { ... }
+            
+               private string _name;
+               public string Name {
+                 get { return _name; }
+                 set { _name = value; NotifyChanged("LastName"); /* Warning */ }
+               }
+             }
+             </code>
+             Examples of generated notifications:
+             <list>
+             <item><c>NotifyChanged("Property")</c></item>
+             <item><c>NotifyChanged(() =&gt; Property)</c></item>
+             <item><c>NotifyChanged((VM x) =&gt; x.Property)</c></item>
+             <item><c>SetProperty(ref myField, value, "Property")</c></item>
+             </list>
+             </example>
+        </member>
+        <member name="T:JetBrains.Annotations.ContractAnnotationAttribute">
+            <summary>
+            Describes dependency between method input and output
+            </summary>
+            <syntax>
+            <p>Function Definition Table syntax:</p>
+            <list>
+            <item>FDT      ::= FDTRow [;FDTRow]*</item>
+            <item>FDTRow   ::= Input =&gt; Output | Output &lt;= Input</item>
+            <item>Input    ::= ParameterName: Value [, Input]*</item>
+            <item>Output   ::= [ParameterName: Value]* {halt|stop|void|nothing|Value}</item>
+            <item>Value    ::= true | false | null | notnull | canbenull</item>
+            </list>
+            If method has single input parameter, it's name could be omitted.<br/>
+            Using <c>halt</c> (or <c>void</c>/<c>nothing</c>, which is the same)
+            for method output means that the methos doesn't return normally.<br/>
+            <c>canbenull</c> annotation is only applicable for output parameters.<br/>
+            You can use multiple <c>[ContractAnnotation]</c> for each FDT row,
+            or use single attribute with rows separated by semicolon.<br/>
+            </syntax>
+            <examples><list>
+            <item><code>
+            [ContractAnnotation("=> halt")]
+            public void TerminationMethod()
+            </code></item>
+            <item><code>
+            [ContractAnnotation("halt &lt;= condition: false")]
+            public void Assert(bool condition, string text) // regular assertion method
+            </code></item>
+            <item><code>
+            [ContractAnnotation("s:null => true")]
+            public bool IsNullOrEmpty(string s) // string.IsNullOrEmpty()
+            </code></item>
+            <item><code>
+            // A method that returns null if the parameter is null, and not null if the parameter is not null
+            [ContractAnnotation("null => null; notnull => notnull")]
+            public object Transform(object data) 
+            </code></item>
+            <item><code>
+            [ContractAnnotation("s:null=>false; =>true,result:notnull; =>false, result:null")]
+            public bool TryParse(string s, out Person result)
+            </code></item>
+            </list></examples>
+        </member>
+        <member name="T:JetBrains.Annotations.LocalizationRequiredAttribute">
+            <summary>
+            Indicates that marked element should be localized or not
+            </summary>
+            <example><code>
+            [LocalizationRequiredAttribute(true)]
+            internal class Foo {
+              private string str = "my string"; // Warning: Localizable string
+            }
+            </code></example>
+        </member>
+        <member name="T:JetBrains.Annotations.CannotApplyEqualityOperatorAttribute">
+            <summary>
+            Indicates that the value of the marked type (or its derivatives)
+            cannot be compared using '==' or '!=' operators and <c>Equals()</c>
+            should be used instead. However, using '==' or '!=' for comparison
+            with <c>null</c> is always permitted.
+            </summary>
+            <example><code>
+            [CannotApplyEqualityOperator]
+            class NoEquality { }
+            class UsesNoEquality {
+              public void Test() {
+                var ca1 = new NoEquality();
+                var ca2 = new NoEquality();
+                if (ca1 != null) { // OK
+                  bool condition = ca1 == ca2; // Warning
+                }
+              }
+            }
+            </code></example>
+        </member>
+        <member name="T:JetBrains.Annotations.BaseTypeRequiredAttribute">
+            <summary>
+            When applied to a target attribute, specifies a requirement for any type marked
+            with the target attribute to implement or inherit specific type or types.
+            </summary>
+            <example><code>
+            [BaseTypeRequired(typeof(IComponent)] // Specify requirement
+            internal class ComponentAttribute : Attribute { }
+            [Component] // ComponentAttribute requires implementing IComponent interface
+            internal class MyComponent : IComponent { }
+            </code></example>
+        </member>
+        <member name="T:JetBrains.Annotations.UsedImplicitlyAttribute">
+            <summary>
+            Indicates that the marked symbol is used implicitly
+            (e.g. via reflection, in external library), so this symbol
+            will not be marked as unused (as well as by other usage inspections)
+            </summary>
+        </member>
+        <member name="T:JetBrains.Annotations.MeansImplicitUseAttribute">
+            <summary>
+            Should be used on attributes and causes ReSharper
+            to not mark symbols marked with such attributes as unused
+            (as well as by other usage inspections)
+            </summary>
+        </member>
+        <member name="F:JetBrains.Annotations.ImplicitUseKindFlags.Access">
+            <summary>Only entity marked with attribute considered used</summary>
+        </member>
+        <member name="F:JetBrains.Annotations.ImplicitUseKindFlags.Assign">
+            <summary>Indicates implicit assignment to a member</summary>
+        </member>
+        <member name="F:JetBrains.Annotations.ImplicitUseKindFlags.InstantiatedWithFixedConstructorSignature">
+            <summary>
+            Indicates implicit instantiation of a type with fixed constructor signature.
+            That means any unused constructor parameters won't be reported as such.
+            </summary>
+        </member>
+        <member name="F:JetBrains.Annotations.ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature">
+            <summary>Indicates implicit instantiation of a type</summary>
+        </member>
+        <member name="T:JetBrains.Annotations.ImplicitUseTargetFlags">
+            <summary>
+            Specify what is considered used implicitly
+            when marked with <see cref="T:JetBrains.Annotations.MeansImplicitUseAttribute"/>
+            or <see cref="T:JetBrains.Annotations.UsedImplicitlyAttribute"/>
+            </summary>
+        </member>
+        <member name="F:JetBrains.Annotations.ImplicitUseTargetFlags.Members">
+            <summary>Members of entity marked with attribute are considered used</summary>
+        </member>
+        <member name="F:JetBrains.Annotations.ImplicitUseTargetFlags.WithMembers">
+            <summary>Entity marked with attribute and all its members considered used</summary>
+        </member>
+        <member name="T:JetBrains.Annotations.PublicAPIAttribute">
+            <summary>
+            This attribute is intended to mark publicly available API
+            which should not be removed and so is treated as used
+            </summary>
+        </member>
+        <member name="T:JetBrains.Annotations.InstantHandleAttribute">
+            <summary>
+            Tells code analysis engine if the parameter is completely handled
+            when the invoked method is on stack. If the parameter is a delegate,
+            indicates that delegate is executed while the method is executed.
+            If the parameter is an enumerable, indicates that it is enumerated
+            while the method is executed
+            </summary>
+        </member>
+        <member name="T:JetBrains.Annotations.PureAttribute">
+            <summary>
+            Indicates that a method does not make any observable state changes.
+            The same as <c>System.Diagnostics.Contracts.PureAttribute</c>
+            </summary>
+            <example><code>
+            [Pure] private int Multiply(int x, int y) { return x * y; }
+            public void Foo() {
+              const int a = 2, b = 2;
+              Multiply(a, b); // Waring: Return value of pure method is not used
+            }
+            </code></example>
+        </member>
+        <member name="T:JetBrains.Annotations.PathReferenceAttribute">
+            <summary>
+            Indicates that a parameter is a path to a file or a folder
+            within a web project. Path can be relative or absolute,
+            starting from web root (~)
+            </summary>
+        </member>
+        <member name="T:JetBrains.Annotations.AspMvcActionAttribute">
+            <summary>
+            ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter
+            is an MVC action. If applied to a method, the MVC action name is calculated
+            implicitly from the context. Use this attribute for custom wrappers similar to
+            <c>System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String)</c>
+            </summary>
+        </member>
+        <member name="T:JetBrains.Annotations.AspMvcAreaAttribute">
+            <summary>
+            ASP.NET MVC attribute. Indicates that a parameter is an MVC area.
+            Use this attribute for custom wrappers similar to
+            <c>System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String)</c>
+            </summary>
+        </member>
+        <member name="T:JetBrains.Annotations.AspMvcControllerAttribute">
+            <summary>
+            ASP.NET MVC attribute. If applied to a parameter, indicates that
+            the parameter is an MVC controller. If applied to a method,
+            the MVC controller name is calculated implicitly from the context.
+            Use this attribute for custom wrappers similar to 
+            <c>System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String, String)</c>
+            </summary>
+        </member>
+        <member name="T:JetBrains.Annotations.AspMvcMasterAttribute">
+            <summary>
+            ASP.NET MVC attribute. Indicates that a parameter is an MVC Master.
+            Use this attribute for custom wrappers similar to
+            <c>System.Web.Mvc.Controller.View(String, String)</c>
+            </summary>
+        </member>
+        <member name="T:JetBrains.Annotations.AspMvcModelTypeAttribute">
+            <summary>
+            ASP.NET MVC attribute. Indicates that a parameter is an MVC model type.
+            Use this attribute for custom wrappers similar to
+            <c>System.Web.Mvc.Controller.View(String, Object)</c>
+            </summary>
+        </member>
+        <member name="T:JetBrains.Annotations.AspMvcPartialViewAttribute">
+            <summary>
+            ASP.NET MVC attribute. If applied to a parameter, indicates that
+            the parameter is an MVC partial view. If applied to a method,
+            the MVC partial view name is calculated implicitly from the context.
+            Use this attribute for custom wrappers similar to
+            <c>System.Web.Mvc.Html.RenderPartialExtensions.RenderPartial(HtmlHelper, String)</c>
+            </summary>
+        </member>
+        <member name="T:JetBrains.Annotations.AspMvcSupressViewErrorAttribute">
+            <summary>
+            ASP.NET MVC attribute. Allows disabling all inspections
+            for MVC views within a class or a method.
+            </summary>
+        </member>
+        <member name="T:JetBrains.Annotations.AspMvcDisplayTemplateAttribute">
+            <summary>
+            ASP.NET MVC attribute. Indicates that a parameter is an MVC display template.
+            Use this attribute for custom wrappers similar to 
+            <c>System.Web.Mvc.Html.DisplayExtensions.DisplayForModel(HtmlHelper, String)</c>
+            </summary>
+        </member>
+        <member name="T:JetBrains.Annotations.AspMvcEditorTemplateAttribute">
+            <summary>
+            ASP.NET MVC attribute. Indicates that a parameter is an MVC editor template.
+            Use this attribute for custom wrappers similar to
+            <c>System.Web.Mvc.Html.EditorExtensions.EditorForModel(HtmlHelper, String)</c>
+            </summary>
+        </member>
+        <member name="T:JetBrains.Annotations.AspMvcTemplateAttribute">
+            <summary>
+            ASP.NET MVC attribute. Indicates that a parameter is an MVC template.
+            Use this attribute for custom wrappers similar to
+            <c>System.ComponentModel.DataAnnotations.UIHintAttribute(System.String)</c>
+            </summary>
+        </member>
+        <member name="T:JetBrains.Annotations.AspMvcViewAttribute">
+            <summary>
+            ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter
+            is an MVC view. If applied to a method, the MVC view name is calculated implicitly
+            from the context. Use this attribute for custom wrappers similar to
+            <c>System.Web.Mvc.Controller.View(Object)</c>
+            </summary>
+        </member>
+        <member name="T:JetBrains.Annotations.AspMvcActionSelectorAttribute">
+            <summary>
+            ASP.NET MVC attribute. When applied to a parameter of an attribute,
+            indicates that this parameter is an MVC action name
+            </summary>
+            <example><code>
+            [ActionName("Foo")]
+            public ActionResult Login(string returnUrl) {
+              ViewBag.ReturnUrl = Url.Action("Foo"); // OK
+              return RedirectToAction("Bar"); // Error: Cannot resolve action
+            }
+            </code></example>
+        </member>
+        <member name="T:JetBrains.Annotations.RazorSectionAttribute">
+            <summary>
+            Razor attribute. Indicates that a parameter or a method is a Razor section.
+            Use this attribute for custom wrappers similar to 
+            <c>System.Web.WebPages.WebPageBase.RenderSection(String)</c>
+            </summary>
+        </member>
         <member name="T:NLog.Common.AsyncContinuation">
             <summary>
             Asynchronous continuation delegate - function invoked at the end of asynchronous
@@ -643,28 +1003,40 @@
             <param name="secondValue">The second value.</param>
             <returns><b>true</b> when two objects are equal, <b>false</b> otherwise.</returns>
         </member>
-        <member name="M:NLog.Conditions.ConditionMethods.Contains(System.String,System.String)">
+        <member name="M:NLog.Conditions.ConditionMethods.Equals2(System.String,System.String,System.Object)">
+            <summary>
+            Compares two strings for equality.
+            </summary>
+            <param name="firstValue">The first string.</param>
+            <param name="secondValue">The second string.</param>
+            <param name="ignoreCase">Optional. If <c>true</c>, case is ignored; if <c>false</c> (default), case is significant.</param>
+            <returns><b>true</b> when two strings are equal, <b>false</b> otherwise.</returns>
+        </member>
+        <member name="M:NLog.Conditions.ConditionMethods.Contains(System.String,System.String,System.Object)">
             <summary>
             Gets or sets a value indicating whether the second string is a substring of the first one.
             </summary>
             <param name="haystack">The first string.</param>
             <param name="needle">The second string.</param>
+            <param name="ignoreCase">Optional. If <c>true</c> (default), case is ignored; if <c>false</c>, case is significant.</param>
             <returns><b>true</b> when the second string is a substring of the first string, <b>false</b> otherwise.</returns>
         </member>
-        <member name="M:NLog.Conditions.ConditionMethods.StartsWith(System.String,System.String)">
+        <member name="M:NLog.Conditions.ConditionMethods.StartsWith(System.String,System.String,System.Object)">
             <summary>
             Gets or sets a value indicating whether the second string is a prefix of the first one.
             </summary>
             <param name="haystack">The first string.</param>
             <param name="needle">The second string.</param>
+            <param name="ignoreCase">Optional. If <c>true</c> (default), case is ignored; if <c>false</c>, case is significant.</param>
             <returns><b>true</b> when the second string is a prefix of the first string, <b>false</b> otherwise.</returns>
         </member>
-        <member name="M:NLog.Conditions.ConditionMethods.EndsWith(System.String,System.String)">
+        <member name="M:NLog.Conditions.ConditionMethods.EndsWith(System.String,System.String,System.Object)">
             <summary>
             Gets or sets a value indicating whether the second string is a suffix of the first one.
             </summary>
             <param name="haystack">The first string.</param>
             <param name="needle">The second string.</param>
+            <param name="ignoreCase">Optional. If <c>true</c> (default), case is ignored; if <c>false</c>, case is significant.</param>
             <returns><b>true</b> when the second string is a prefix of the first string, <b>false</b> otherwise.</returns>
         </member>
         <member name="M:NLog.Conditions.ConditionMethods.Length(System.String)">
@@ -1150,6 +1522,12 @@
             </summary>
             <value>The ambient property factory.</value>
         </member>
+        <member name="P:NLog.Config.ConfigurationItemFactory.TimeSources">
+            <summary>
+            Gets the time source factory.
+            </summary>
+            <value>The time source factory.</value>
+        </member>
         <member name="P:NLog.Config.ConfigurationItemFactory.ConditionMethods">
             <summary>
             Gets the condition method factory.
@@ -1215,11 +1593,11 @@
             Provides means to populate factories of named items (such as targets, layouts, layout renderers, etc.).
             </summary>
         </member>
-        <member name="M:NLog.Config.Factory`2.ScanAssembly(System.Reflection.Assembly,System.String)">
+        <member name="M:NLog.Config.Factory`2.ScanTypes(System.Type[],System.String)">
             <summary>
             Scans the assembly.
             </summary>
-            <param name="theAssembly">The assembly.</param>
+            <param name="types">The types to scane.</param>
             <param name="prefix">The prefix.</param>
         </member>
         <member name="M:NLog.Config.Factory`2.RegisterType(System.Type,System.String)">
@@ -1462,6 +1840,14 @@
             Validates the configuration.
             </summary>
         </member>
+        <member name="P:NLog.Config.LoggingConfiguration.Variables">
+            <summary>
+            Gets the variables defined in the configuration.
+            </summary>
+            <remarks>
+            Returns null if not configured using XML configuration.
+            </remarks>
+        </member>
         <member name="P:NLog.Config.LoggingConfiguration.ConfiguredNamedTargets">
             <summary>
             Gets a collection of named targets specified in the configuration.
@@ -1481,6 +1867,11 @@
         <member name="P:NLog.Config.LoggingConfiguration.LoggingRules">
             <summary>
             Gets the collection of logging rules.
+            </summary>
+        </member>
+        <member name="P:NLog.Config.LoggingConfiguration.DefaultCultureInfo">
+            <summary>
+            Gets or sets the default culture info use.
             </summary>
         </member>
         <member name="P:NLog.Config.LoggingConfiguration.AllTargets">
@@ -1612,13 +2003,13 @@
             <typeparam name="TClassAttributeType">The type of the class marker attribute.</typeparam>
             <typeparam name="TMethodAttributeType">The type of the method marker attribute.</typeparam>
         </member>
-        <member name="M:NLog.Config.MethodFactory`2.ScanAssembly(System.Reflection.Assembly,System.String)">
+        <member name="M:NLog.Config.MethodFactory`2.ScanTypes(System.Type[],System.String)">
             <summary>
             Scans the assembly for classes marked with <typeparamref name="TClassAttributeType"/>
             and methods marked with <typeparamref name="TMethodAttributeType"/> and adds them 
             to the factory.
             </summary>
-            <param name="theAssembly">The assembly.</param>
+            <param name="types">The types to scan.</param>
             <param name="prefix">The prefix to use for names.</param>
         </member>
         <member name="M:NLog.Config.MethodFactory`2.RegisterType(System.Type,System.String)">
@@ -1672,6 +2063,16 @@
             of the item and value is the <see cref="T:System.Reflection.MethodInfo"/> of
             the item.
             </returns>
+        </member>
+        <member name="T:NLog.Config.NLogConfigurationIgnorePropertyAttribute">
+            <summary>
+            Indicates NLog should not scan this property during configuration.
+            </summary>
+        </member>
+        <member name="M:NLog.Config.NLogConfigurationIgnorePropertyAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Config.NLogConfigurationIgnorePropertyAttribute"/> class.
+            </summary>
         </member>
         <member name="T:NLog.Config.NLogConfigurationItemAttribute">
             <summary>
@@ -1801,6 +2202,21 @@
             <param name="target">The target to log all messages to.</param>
             <param name="minLevel">The minimal logging level.</param>
         </member>
+        <member name="M:NLog.Config.SimpleConfigurator.ConfigureForFileLogging(System.String)">
+            <summary>
+            Configures NLog for file logging so that all messages above and including
+            the <see cref="F:NLog.LogLevel.Info"/> level are written to the specified file.
+            </summary>
+            <param name="fileName">Log file name.</param>
+        </member>
+        <member name="M:NLog.Config.SimpleConfigurator.ConfigureForFileLogging(System.String,NLog.LogLevel)">
+            <summary>
+            Configures NLog for file logging so that all messages above and including
+            the specified level are written to the specified file.
+            </summary>
+            <param name="fileName">Log file name.</param>
+            <param name="minLevel">The minimal logging level.</param>
+        </member>
         <member name="T:NLog.Config.StackTraceUsage">
             <summary>
             Value indicating how stack trace should be captured when processing the log event.
@@ -1874,6 +2290,11 @@
             <param name="reader"><see cref="T:System.Xml.XmlReader"/> containing the configuration section.</param>
             <param name="fileName">Name of the file that contains the element (to be used as a base for including other files).</param>
             <param name="ignoreErrors">Ignore any errors during configuration.</param>
+        </member>
+        <member name="P:NLog.Config.XmlLoggingConfiguration.Variables">
+            <summary>
+            Gets the variables defined in the configuration.
+            </summary>
         </member>
         <member name="P:NLog.Config.XmlLoggingConfiguration.AutoReload">
             <summary>
@@ -2128,6 +2549,207 @@
             </summary>
             <docgen category='Filtering Options' order='10' />
         </member>
+        <member name="T:NLog.Fluent.LogBuilder">
+            <summary>
+            A fluent class to build log events for NLog.
+            </summary>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.#ctor(NLog.Logger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Fluent.LogBuilder"/> class.
+            </summary>
+            <param name="logger">The <see cref="T:NLog.Logger"/> to send the log event.</param>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.#ctor(NLog.Logger,NLog.LogLevel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Fluent.LogBuilder"/> class.
+            </summary>
+            <param name="logger">The <see cref="T:NLog.Logger"/> to send the log event.</param>
+            <param name="logLevel">The <see cref="T:NLog.LogLevel"/> for the log event.</param>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.Exception(System.Exception)">
+            <summary>
+            Sets the <paramref name="exception"/> information of the logging event.
+            </summary>
+            <param name="exception">The exception information of the logging event.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.Level(NLog.LogLevel)">
+            <summary>
+            Sets the level of the logging event.
+            </summary>
+            <param name="logLevel">The level of the logging event.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.LoggerName(System.String)">
+            <summary>
+            Sets the logger name of the logging event.
+            </summary>
+            <param name="loggerName">The logger name of the logging event.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.Message(System.String)">
+            <summary>
+            Sets the log message on the logging event.
+            </summary>
+            <param name="message">The log message for the logging event.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.Message(System.String,System.Object)">
+            <summary>
+            Sets the log message and parameters for formating on the logging event.
+            </summary>
+            <param name="format">A composite format string.</param>
+            <param name="arg0">The object to format.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.Message(System.String,System.Object,System.Object)">
+            <summary>
+            Sets the log message and parameters for formating on the logging event.
+            </summary>
+            <param name="format">A composite format string.</param>
+            <param name="arg0">The first object to format.</param>
+            <param name="arg1">The second object to format.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.Message(System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            Sets the log message and parameters for formating on the logging event.
+            </summary>
+            <param name="format">A composite format string.</param>
+            <param name="arg0">The first object to format.</param>
+            <param name="arg1">The second object to format.</param>
+            <param name="arg2">The third object to format.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.Message(System.String,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Sets the log message and parameters for formating on the logging event.
+            </summary>
+            <param name="format">A composite format string.</param>
+            <param name="arg0">The first object to format.</param>
+            <param name="arg1">The second object to format.</param>
+            <param name="arg2">The third object to format.</param>
+            <param name="arg3">The fourth object to format.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.Message(System.String,System.Object[])">
+            <summary>
+            Sets the log message and parameters for formating on the logging event.
+            </summary>
+            <param name="format">A composite format string.</param>
+            <param name="args">An object array that contains zero or more objects to format.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.Message(System.IFormatProvider,System.String,System.Object[])">
+            <summary>
+            Sets the log message and parameters for formating on the logging event.
+            </summary>
+            <param name="provider">An object that supplies culture-specific formatting information.</param>
+            <param name="format">A composite format string.</param>
+            <param name="args">An object array that contains zero or more objects to format.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.Property(System.Object,System.Object)">
+            <summary>
+            Sets a per-event context property on the logging event.
+            </summary>
+            <param name="name">The name of the context property.</param>
+            <param name="value">The value of the context property.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.TimeStamp(System.DateTime)">
+            <summary>
+            Sets the timestamp of the logging event.
+            </summary>
+            <param name="timeStamp">The timestamp of the logging event.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.StackTrace(System.Diagnostics.StackTrace,System.Int32)">
+            <summary>
+            Sets the stack trace for the event info.
+            </summary>
+            <param name="stackTrace">The stack trace.</param>
+            <param name="userStackFrame">Index of the first user stack frame within the stack trace.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.Write">
+            <summary>
+            Writes the log event to the underlying logger.
+            </summary>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.WriteIf(System.Func{System.Boolean})">
+            <summary>
+            Writes the log event to the underlying logger.
+            </summary>
+            <param name="condition">If condition is true, write log event; otherwise ignore event.</param>
+        </member>
+        <member name="M:NLog.Fluent.LogBuilder.WriteIf(System.Boolean)">
+            <summary>
+            Writes the log event to the underlying logger.
+            </summary>
+            <param name="condition">If condition is true, write log event; otherwise ignore event.</param>
+        </member>
+        <member name="P:NLog.Fluent.LogBuilder.LogEventInfo">
+            <summary>
+            Gets the <see cref="P:NLog.Fluent.LogBuilder.LogEventInfo"/> created by the builder.
+            </summary>
+        </member>
+        <member name="T:NLog.Fluent.LoggerExtensions">
+            <summary>
+            Extension methods for NLog <see cref="T:NLog.Logger"/>.
+            </summary>
+        </member>
+        <member name="M:NLog.Fluent.LoggerExtensions.Log(NLog.Logger,NLog.LogLevel)">
+            <summary>
+            Starts building a log event with the specified <see cref="T:NLog.LogLevel"/>.
+            </summary>
+            <param name="logger">The logger to write the log event to.</param>
+            <param name="logLevel">The log level.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LoggerExtensions.Trace(NLog.Logger)">
+            <summary>
+            Starts building a log event at the <c>Trace</c> level.
+            </summary>
+            <param name="logger">The logger to write the log event to.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LoggerExtensions.Debug(NLog.Logger)">
+            <summary>
+            Starts building a log event at the <c>Debug</c> level.
+            </summary>
+            <param name="logger">The logger to write the log event to.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LoggerExtensions.Info(NLog.Logger)">
+            <summary>
+            Starts building a log event at the <c>Info</c> level.
+            </summary>
+            <param name="logger">The logger to write the log event to.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LoggerExtensions.Warn(NLog.Logger)">
+            <summary>
+            Starts building a log event at the <c>Warn</c> level.
+            </summary>
+            <param name="logger">The logger to write the log event to.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LoggerExtensions.Error(NLog.Logger)">
+            <summary>
+            Starts building a log event at the <c>Error</c> level.
+            </summary>
+            <param name="logger">The logger to write the log event to.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Fluent.LoggerExtensions.Fatal(NLog.Logger)">
+            <summary>
+            Starts building a log event at the <c>Fatal</c> level.
+            </summary>
+            <param name="logger">The logger to write the log event to.</param>
+            <returns></returns>
+        </member>
         <member name="T:NLog.GDC">
             <summary>
             Global Diagnostics Context - used for log4net compatibility.
@@ -2201,17 +2823,6 @@
             <summary>
             Clears the content of the GDC.
             </summary>
-        </member>
-        <member name="T:NLog.Internal.CurrentTimeGetter">
-            <summary>
-            Optimized methods to get current time.
-            </summary>
-        </member>
-        <member name="P:NLog.Internal.CurrentTimeGetter.Now">
-            <summary>
-            Gets the current time in an optimized fashion.
-            </summary>
-            <value>Current time.</value>
         </member>
         <member name="T:NLog.Internal.DictionaryAdapter`2">
             <summary>
@@ -2403,56 +3014,6 @@
             The current element in the collection.
             </returns>
         </member>
-        <member name="T:NLog.Internal.EnumerableHelpers">
-            <summary>
-            LINQ-like helpers (cannot use LINQ because we must work with .NET 2.0 profile).
-            </summary>
-        </member>
-        <member name="M:NLog.Internal.EnumerableHelpers.OfType``1(System.Collections.IEnumerable)">
-            <summary>
-            Filters the given enumerable to return only items of the specified type.
-            </summary>
-            <typeparam name="T">
-            Type of the item.
-            </typeparam>
-            <param name="enumerable">
-            The enumerable.
-            </param>
-            <returns>
-            Items of specified type.
-            </returns>
-        </member>
-        <member name="M:NLog.Internal.EnumerableHelpers.Reverse``1(System.Collections.Generic.IEnumerable{``0})">
-            <summary>
-            Reverses the specified enumerable.
-            </summary>
-            <typeparam name="T">
-            Type of enumerable item.
-            </typeparam>
-            <param name="enumerable">
-            The enumerable.
-            </param>
-            <returns>
-            Reversed enumerable.
-            </returns>
-        </member>
-        <member name="M:NLog.Internal.EnumerableHelpers.Any``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})">
-            <summary>
-            Determines is the given predicate is met by any element of the enumerable.
-            </summary>
-            <typeparam name="T">Element type.</typeparam>
-            <param name="enumerable">The enumerable.</param>
-            <param name="predicate">The predicate.</param>
-            <returns>True if predicate returns true for any element of the collection, false otherwise.</returns>
-        </member>
-        <member name="M:NLog.Internal.EnumerableHelpers.ToList``1(System.Collections.Generic.IEnumerable{``0})">
-            <summary>
-            Converts the enumerable to list.
-            </summary>
-            <typeparam name="T">Type of the list element.</typeparam>
-            <param name="enumerable">The enumerable.</param>
-            <returns>List of elements.</returns>
-        </member>
         <member name="T:NLog.Internal.EnvironmentHelper">
             <summary>
             Safe way to get environment variables.
@@ -2473,6 +3034,27 @@
         <member name="T:NLog.Internal.FactoryHelper">
             <summary>
             Object construction helper.
+            </summary>
+        </member>
+        <member name="T:NLog.Internal.Fakeables.AppDomainWrapper">
+            <summary>
+            Adapter for <see cref="T:System.AppDomain"/> to <see cref="T:NLog.Internal.Fakeables.IAppDomain"/>
+            </summary>
+        </member>
+        <member name="T:NLog.Internal.Fakeables.IAppDomain">
+            <summary>
+            Interface for fakeable the current <see cref="T:System.AppDomain"/>. Not fully implemented, please methods/properties as necessary.
+            </summary>
+        </member>
+        <member name="M:NLog.Internal.Fakeables.AppDomainWrapper.#ctor(System.AppDomain)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Internal.Fakeables.AppDomainWrapper"/> class.
+            </summary>
+            <param name="appDomain">The <see cref="T:System.AppDomain"/> to wrap.</param>
+        </member>
+        <member name="P:NLog.Internal.Fakeables.AppDomainWrapper.CurrentDomain">
+            <summary>
+            Gets a the current <see cref="T:System.AppDomain"/> wrappered in a <see cref="T:NLog.Internal.Fakeables.AppDomainWrapper"/>.
             </summary>
         </member>
         <member name="T:NLog.Internal.FileAppenders.BaseFileAppender">
@@ -2973,12 +3555,15 @@
             Creates instances of <see cref="T:NLog.Internal.NetworkSenders.NetworkSender"/> objects for given URLs.
             </summary>
         </member>
-        <member name="M:NLog.Internal.NetworkSenders.INetworkSenderFactory.Create(System.String)">
+        <member name="M:NLog.Internal.NetworkSenders.INetworkSenderFactory.Create(System.String,System.Int32)">
             <summary>
             Creates a new instance of the network sender based on a network URL.
             </summary>
             <param name="url">
             URL that determines the network sender to be created.
+            </param>
+            <param name="maxQueueSize">
+            The maximum queue size.
             </param>
             <returns>
             A newly created network sender.
@@ -2994,14 +3579,17 @@
             Default implementation of <see cref="T:NLog.Internal.NetworkSenders.INetworkSenderFactory"/>.
             </summary>
         </member>
-        <member name="M:NLog.Internal.NetworkSenders.NetworkSenderFactory.Create(System.String)">
+        <member name="M:NLog.Internal.NetworkSenders.NetworkSenderFactory.Create(System.String,System.Int32)">
             <summary>
             Creates a new instance of the network sender based on a network URL:.
             </summary>
             <param name="url">
             URL that determines the network sender to be created.
             </param>
-            <returns>
+            <param name="maxQueueSize">
+            The maximum queue size.
+            </param>
+            /// <returns>
             A newly created network sender.
             </returns>
         </member>
@@ -3040,6 +3628,11 @@
         <member name="M:NLog.Internal.NetworkSenders.SocketProxy.Dispose">
             <summary>
             Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="P:NLog.Internal.NetworkSenders.SocketProxy.UnderlyingSocket">
+            <summary>
+            Gets underlying socket instance.
             </summary>
         </member>
         <member name="T:NLog.Internal.NetworkSenders.TcpNetworkSender">
@@ -3372,6 +3965,51 @@
             URL Encoding helper.
             </summary>
         </member>
+        <member name="T:NLog.Internal.XmlHelper">
+            <summary>
+             Helper class for XML
+            </summary>
+        </member>
+        <member name="M:NLog.Internal.XmlHelper.RemoveInvalidXmlChars(System.String)">
+            <summary>
+            removes any unusual unicode characters that can't be encoded into XML
+            </summary>
+        </member>
+        <member name="M:NLog.Internal.XmlHelper.WriteAttributeSafeString(System.Xml.XmlWriter,System.String,System.String,System.String,System.String)">
+            <summary>
+            Safe version of WriteAttributeString
+            </summary>
+            <param name="writer"></param>
+            <param name="prefix"></param>
+            <param name="localName"></param>
+            <param name="ns"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:NLog.Internal.XmlHelper.WriteAttributeSafeString(System.Xml.XmlWriter,System.String,System.String)">
+            <summary>
+            Safe version of WriteAttributeString
+            </summary>
+            <param name="writer"></param>
+            <param name="thread"></param>
+            <param name="localName"></param>
+        </member>
+        <member name="M:NLog.Internal.XmlHelper.WriteElementSafeString(System.Xml.XmlWriter,System.String,System.String,System.String,System.String)">
+            <summary>
+            Safe version of WriteElementSafeString
+            </summary>
+            <param name="writer"></param>
+            <param name="prefix"></param>
+            <param name="localName"></param>
+            <param name="ns"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:NLog.Internal.XmlHelper.WriteSafeCData(System.Xml.XmlWriter,System.String)">
+            <summary>
+            Safe version of WriteCData
+            </summary>
+            <param name="writer"></param>
+            <param name="text"></param>
+        </member>
         <member name="T:NLog.LayoutRenderers.AmbientPropertyAttribute">
             <summary>
             Designates a property of the class as an ambient property.
@@ -3383,9 +4021,9 @@
             </summary>
             <param name="name">Ambient property name.</param>
         </member>
-        <member name="T:NLog.LayoutRenderers.CallSiteLayoutRenderer">
+        <member name="T:NLog.LayoutRenderers.AssemblyVersionLayoutRenderer">
             <summary>
-            The call site (class name, method name and source information).
+            Assembly version.
             </summary>
         </member>
         <member name="T:NLog.LayoutRenderers.LayoutRenderer">
@@ -3463,6 +4101,18 @@
             Gets the logging configuration this target is part of.
             </summary>
         </member>
+        <member name="M:NLog.LayoutRenderers.AssemblyVersionLayoutRenderer.Append(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders assembly version and appends it to the specified <see cref="T:System.Text.StringBuilder"/>.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="T:NLog.LayoutRenderers.CallSiteLayoutRenderer">
+            <summary>
+            The call site (class name, method name and source information).
+            </summary>
+        </member>
         <member name="M:NLog.LayoutRenderers.CallSiteLayoutRenderer.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:NLog.LayoutRenderers.CallSiteLayoutRenderer"/> class.
@@ -3486,6 +4136,17 @@
             Gets or sets a value indicating whether to render the method name.
             </summary>
             <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="P:NLog.LayoutRenderers.CallSiteLayoutRenderer.CleanNamesOfAnonymousDelegates">
+            <summary>
+            Gets or sets a value indicating whether the method name will be cleaned up if it is detected as an anonymous delegate.
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="P:NLog.LayoutRenderers.CallSiteLayoutRenderer.SkipFrames">
+            <summary>
+            Gets or sets the number of frames to skip.
+            </summary>
         </member>
         <member name="P:NLog.LayoutRenderers.CallSiteLayoutRenderer.NLog#Internal#IUsesStackTrace#StackTraceUsage">
             <summary>
@@ -3592,6 +4253,24 @@
             </summary>
             <docgen category='Rendering Options' order='10' />
         </member>
+        <member name="T:NLog.LayoutRenderers.EventPropertiesLayoutRenderer">
+            <summary>
+            Log event context data.
+            </summary>
+        </member>
+        <member name="M:NLog.LayoutRenderers.EventPropertiesLayoutRenderer.Append(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the specified log event context item and appends it to the specified <see cref="T:System.Text.StringBuilder"/>.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="P:NLog.LayoutRenderers.EventPropertiesLayoutRenderer.Item">
+            <summary>
+            Gets or sets the name of the item.
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
         <member name="T:NLog.LayoutRenderers.ExceptionLayoutRenderer">
             <summary>
             Exception information provided through 
@@ -3609,6 +4288,55 @@
             </summary>
             <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
             <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="M:NLog.LayoutRenderers.ExceptionLayoutRenderer.AppendMessage(System.Text.StringBuilder,System.Exception)">
+            <summary>
+            Appends the Message of an Exception to the specified <see cref="T:System.Text.StringBuilder"/>.
+            </summary>
+            <param name="sb">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="ex">The exception containing the Message to append.</param>
+        </member>
+        <member name="M:NLog.LayoutRenderers.ExceptionLayoutRenderer.AppendMethod(System.Text.StringBuilder,System.Exception)">
+            <summary>
+            Appends the method name from Exception's stack trace to the specified <see cref="T:System.Text.StringBuilder"/>.
+            </summary>
+            <param name="sb">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="ex">The Exception whose method name should be appended.</param>
+        </member>
+        <member name="M:NLog.LayoutRenderers.ExceptionLayoutRenderer.AppendStackTrace(System.Text.StringBuilder,System.Exception)">
+            <summary>
+            Appends the stack trace from an Exception to the specified <see cref="T:System.Text.StringBuilder"/>.
+            </summary>
+            <param name="sb">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="ex">The Exception whose stack trace should be appended.</param>
+        </member>
+        <member name="M:NLog.LayoutRenderers.ExceptionLayoutRenderer.AppendToString(System.Text.StringBuilder,System.Exception)">
+            <summary>
+            Appends the result of calling ToString() on an Exception to the specified <see cref="T:System.Text.StringBuilder"/>.
+            </summary>
+            <param name="sb">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="ex">The Exception whose call to ToString() should be appended.</param>
+        </member>
+        <member name="M:NLog.LayoutRenderers.ExceptionLayoutRenderer.AppendType(System.Text.StringBuilder,System.Exception)">
+            <summary>
+            Appends the type of an Exception to the specified <see cref="T:System.Text.StringBuilder"/>.
+            </summary>
+            <param name="sb">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="ex">The Exception whose type should be appended.</param>
+        </member>
+        <member name="M:NLog.LayoutRenderers.ExceptionLayoutRenderer.AppendShortType(System.Text.StringBuilder,System.Exception)">
+            <summary>
+            Appends the short type of an Exception to the specified <see cref="T:System.Text.StringBuilder"/>.
+            </summary>
+            <param name="sb">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="ex">The Exception whose short type should be appended.</param>
+        </member>
+        <member name="M:NLog.LayoutRenderers.ExceptionLayoutRenderer.AppendData(System.Text.StringBuilder,System.Exception)">
+            <summary>
+            Appends the contents of an Exception's Data property to the specified <see cref="T:System.Text.StringBuilder"/>.
+            </summary>
+            <param name="sb">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="ex">The Exception whose Data property elements should be appended.</param>
         </member>
         <member name="P:NLog.LayoutRenderers.ExceptionLayoutRenderer.Format">
             <summary>
@@ -3855,6 +4583,11 @@
             </summary>
         </member>
         <member name="M:NLog.LayoutRenderers.Log4JXmlEventLayoutRenderer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.LayoutRenderers.Log4JXmlEventLayoutRenderer"/> class.
+            </summary>
+        </member>
+        <member name="M:NLog.LayoutRenderers.Log4JXmlEventLayoutRenderer.#ctor(NLog.Internal.Fakeables.IAppDomain)">
             <summary>
             Initializes a new instance of the <see cref="T:NLog.LayoutRenderers.Log4JXmlEventLayoutRenderer"/> class.
             </summary>
@@ -4120,6 +4853,11 @@
         <member name="F:NLog.LayoutRenderers.SilverlightApplicationInfoOption.InstallState">
             <summary>
             Installed state of an application.
+            </summary>
+        </member>
+        <member name="F:NLog.LayoutRenderers.SilverlightApplicationInfoOption.HasElevatedPermissions">
+            <summary>
+            Whether application is running with elevated permissions.
             </summary>
         </member>
         <member name="T:NLog.LayoutRenderers.SpecialFolderLayoutRenderer">
@@ -4537,6 +5275,16 @@
             <param name="text">The text to be post-processed.</param>
             <returns>Post-processed text.</returns>
         </member>
+        <member name="M:NLog.LayoutRenderers.Wrappers.ReplaceLayoutRendererWrapper.ReplaceNamedGroup(System.String,System.String,System.String,System.Text.RegularExpressions.Match)">
+            <summary>
+            A match evaluator for Regular Expression based replacing
+            </summary>
+            <param name="input"></param>
+            <param name="groupName"></param>
+            <param name="replacement"></param>
+            <param name="match"></param>
+            <returns></returns>
+        </member>
         <member name="P:NLog.LayoutRenderers.Wrappers.ReplaceLayoutRendererWrapper.SearchFor">
             <summary>
             Gets or sets the text to search for.
@@ -4558,6 +5306,14 @@
             <value>The replacement string.</value>
             <docgen category='Search/Replace Options' order='10' />
         </member>
+        <member name="P:NLog.LayoutRenderers.Wrappers.ReplaceLayoutRendererWrapper.ReplaceGroupName">
+            <summary>
+            Gets or sets the group name to replace when using regular expressions.
+            Leave null or empty to replace without using group name.
+            </summary>
+            <value>The group name.</value>
+            <docgen category='Search/Replace Options' order='10' />
+        </member>
         <member name="P:NLog.LayoutRenderers.Wrappers.ReplaceLayoutRendererWrapper.IgnoreCase">
             <summary>
             Gets or sets a value indicating whether to ignore case.
@@ -4571,6 +5327,11 @@
             </summary>
             <value>A value of <c>true</c> if whole words should be searched for; otherwise, <c>false</c>.</value>
             <docgen category='Search/Replace Options' order='10' />
+        </member>
+        <member name="T:NLog.LayoutRenderers.Wrappers.ReplaceLayoutRendererWrapper.Replacer">
+            <summary>
+            This class was created instead of simply using a lambda expression so that the "ThreadAgnosticAttributeTest" will pass
+            </summary>
         </member>
         <member name="T:NLog.LayoutRenderers.Wrappers.Rot13LayoutRendererWrapper">
             <summary>
@@ -5501,6 +6262,11 @@
             Occurs when logging <see cref="P:NLog.LogFactory.Configuration"/> changes.
             </summary>
         </member>
+        <member name="P:NLog.LogFactory.CurrentAppDomain">
+            <summary>
+            Gets the current <see cref="T:NLog.Internal.Fakeables.IAppDomain"/>.
+            </summary>
+        </member>
         <member name="P:NLog.LogFactory.ThrowExceptions">
             <summary>
             Gets or sets a value indicating whether exceptions should be thrown.
@@ -5666,6 +6432,14 @@
             <param name="message">A <see langword="string" /> containing format items.</param>
             <param name="args">Arguments to format.</param>
         </member>
+        <member name="M:NLog.Logger.Log(NLog.LogLevel,System.String,System.Exception)">
+            <summary>
+            Writes the diagnostic message and exception at the specified level.
+            </summary>
+            <param name="level">The log level.</param>
+            <param name="message">A <see langword="string" /> to be written.</param>
+            <param name="exception">An exception to be logged.</param>
+        </member>
         <member name="M:NLog.Logger.Log``1(NLog.LogLevel,System.IFormatProvider,System.String,``0)">
             <summary>
             Writes the diagnostic message at the specified level using the specified parameter and formatting it with the supplied format provider.
@@ -5787,6 +6561,13 @@
             <param name="message">A <see langword="string" /> containing format items.</param>
             <param name="args">Arguments to format.</param>
         </member>
+        <member name="M:NLog.Logger.Trace(System.String,System.Exception)">
+            <summary>
+            Writes the diagnostic message and exception at the <c>Trace</c> level.
+            </summary>
+            <param name="message">A <see langword="string" /> to be written.</param>
+            <param name="exception">An exception to be logged.</param>
+        </member>
         <member name="M:NLog.Logger.Trace``1(System.IFormatProvider,System.String,``0)">
             <summary>
             Writes the diagnostic message at the <c>Trace</c> level using the specified parameter and formatting it with the supplied format provider.
@@ -5901,6 +6682,13 @@
             </summary>
             <param name="message">A <see langword="string" /> containing format items.</param>
             <param name="args">Arguments to format.</param>
+        </member>
+        <member name="M:NLog.Logger.Debug(System.String,System.Exception)">
+            <summary>
+            Writes the diagnostic message and exception at the <c>Debug</c> level.
+            </summary>
+            <param name="message">A <see langword="string" /> to be written.</param>
+            <param name="exception">An exception to be logged.</param>
         </member>
         <member name="M:NLog.Logger.Debug``1(System.IFormatProvider,System.String,``0)">
             <summary>
@@ -6017,6 +6805,13 @@
             <param name="message">A <see langword="string" /> containing format items.</param>
             <param name="args">Arguments to format.</param>
         </member>
+        <member name="M:NLog.Logger.Info(System.String,System.Exception)">
+            <summary>
+            Writes the diagnostic message and exception at the <c>Info</c> level.
+            </summary>
+            <param name="message">A <see langword="string" /> to be written.</param>
+            <param name="exception">An exception to be logged.</param>
+        </member>
         <member name="M:NLog.Logger.Info``1(System.IFormatProvider,System.String,``0)">
             <summary>
             Writes the diagnostic message at the <c>Info</c> level using the specified parameter and formatting it with the supplied format provider.
@@ -6131,6 +6926,13 @@
             </summary>
             <param name="message">A <see langword="string" /> containing format items.</param>
             <param name="args">Arguments to format.</param>
+        </member>
+        <member name="M:NLog.Logger.Warn(System.String,System.Exception)">
+            <summary>
+            Writes the diagnostic message and exception at the <c>Warn</c> level.
+            </summary>
+            <param name="message">A <see langword="string" /> to be written.</param>
+            <param name="exception">An exception to be logged.</param>
         </member>
         <member name="M:NLog.Logger.Warn``1(System.IFormatProvider,System.String,``0)">
             <summary>
@@ -6247,6 +7049,13 @@
             <param name="message">A <see langword="string" /> containing format items.</param>
             <param name="args">Arguments to format.</param>
         </member>
+        <member name="M:NLog.Logger.Error(System.String,System.Exception)">
+            <summary>
+            Writes the diagnostic message and exception at the <c>Error</c> level.
+            </summary>
+            <param name="message">A <see langword="string" /> to be written.</param>
+            <param name="exception">An exception to be logged.</param>
+        </member>
         <member name="M:NLog.Logger.Error``1(System.IFormatProvider,System.String,``0)">
             <summary>
             Writes the diagnostic message at the <c>Error</c> level using the specified parameter and formatting it with the supplied format provider.
@@ -6362,6 +7171,13 @@
             <param name="message">A <see langword="string" /> containing format items.</param>
             <param name="args">Arguments to format.</param>
         </member>
+        <member name="M:NLog.Logger.Fatal(System.String,System.Exception)">
+            <summary>
+            Writes the diagnostic message and exception at the <c>Fatal</c> level.
+            </summary>
+            <param name="message">A <see langword="string" /> to be written.</param>
+            <param name="exception">An exception to be logged.</param>
+        </member>
         <member name="M:NLog.Logger.Fatal``1(System.IFormatProvider,System.String,``0)">
             <summary>
             Writes the diagnostic message at the <c>Fatal</c> level using the specified parameter and formatting it with the supplied format provider.
@@ -6425,6 +7241,31 @@
             <param name="argument2">The second argument to format.</param>
             <param name="argument3">The third argument to format.</param>
         </member>
+        <member name="M:NLog.Logger.Swallow(System.Action)">
+            <summary>
+            Runs action. If the action throws, the exception is logged at <c>Error</c> level. Exception is not propagated outside of this method.
+            </summary>
+            <param name="action">Action to execute.</param>
+        </member>
+        <member name="M:NLog.Logger.Swallow``1(System.Func{``0})">
+            <summary>
+            Runs the provided function and returns its result. If exception is thrown, it is logged at <c>Error</c> level.
+            Exception is not propagated outside of this method. Fallback value is returned instead.
+            </summary>
+            <typeparam name="T">Return type of the provided function.</typeparam>
+            <param name="func">Function to run.</param>
+            <returns>Result returned by the provided function or fallback value in case of exception.</returns>
+        </member>
+        <member name="M:NLog.Logger.Swallow``1(System.Func{``0},``0)">
+            <summary>
+            Runs the provided function and returns its result. If exception is thrown, it is logged at <c>Error</c> level.
+            Exception is not propagated outside of this method. Fallback value is returned instead.
+            </summary>
+            <typeparam name="T">Return type of the provided function.</typeparam>
+            <param name="func">Function to run.</param>
+            <param name="fallback">Fallback value to return in case of exception. Defaults to default value of type T.</param>
+            <returns>Result returned by the provided function or fallback value in case of exception.</returns>
+        </member>
         <member name="E:NLog.Logger.LoggerReconfigured">
             <summary>
             Occurs when logger configuration changes.
@@ -6481,6 +7322,27 @@
             Implementation of logging engine.
             </summary>
         </member>
+        <member name="M:NLog.LoggerImpl.FindCallingMethodOnStackTrace(System.Diagnostics.StackTrace,System.Type)">
+            <summary>
+             Finds first user stack frame in a stack trace
+            </summary>
+            <param name="stackTrace">The stack trace of the logging method invocation</param>
+            <param name="loggerType">Type of the logger or logger wrapper</param>
+            <returns>Index of the first user stack frame or 0 if all stack frames are non-user</returns>
+            <seealso cref="M:NLog.LoggerImpl.IsNonUserStackFrame(System.Reflection.MethodBase,System.Type)"/>
+        </member>
+        <member name="M:NLog.LoggerImpl.IsNonUserStackFrame(System.Reflection.MethodBase,System.Type)">
+            <summary>
+             Defines whether a stack frame belongs to non-user code
+            </summary>
+            <param name="method">Method of the stack frame</param>
+            <param name="loggerType">Type of the logger or logger wrapper</param>
+            <returns><see langword="true"/>, if the method is from non-user code and should be skipped</returns>
+            <remarks>
+             The method is classified as non-user if its declaring assembly is from hidden assemblies list
+             or its declaring type is <paramref name="loggerType"/> or one of its subtypes.
+            </remarks>
+        </member>
         <member name="M:NLog.LoggerImpl.GetFilterResult(System.Collections.Generic.IEnumerable{NLog.Filters.Filter},NLog.LogEventInfo)">
             <summary>
             Gets the filter result.
@@ -6528,6 +7390,13 @@
             <summary>
             Off log level.
             </summary>
+        </member>
+        <member name="M:NLog.LogLevel.#ctor(System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of <see cref="T:NLog.LogLevel"/>.
+            </summary>
+            <param name="name">The log level name.</param>
+            <param name="ordinal">The log level ordinal number.</param>
         </member>
         <member name="M:NLog.LogLevel.op_Equality(NLog.LogLevel,NLog.LogLevel)">
             <summary>
@@ -6594,7 +7463,7 @@
             Gets the <see cref="T:NLog.LogLevel"/> that corresponds to the specified ordinal.
             </summary>
             <param name="ordinal">The ordinal.</param>
-            <returns>The <see cref="T:NLog.LogLevel"/> instance. For 0 it returns <see cref="F:NLog.LogLevel.Debug"/>, 1 gives <see cref="F:NLog.LogLevel.Info"/> and so on.</returns>
+            <returns>The <see cref="T:NLog.LogLevel"/> instance. For 0 it returns <see cref="F:NLog.LogLevel.Trace"/>, 1 gives <see cref="F:NLog.LogLevel.Debug"/> and so on.</returns>
         </member>
         <member name="M:NLog.LogLevel.FromString(System.String)">
             <summary>
@@ -6662,6 +7531,13 @@
             <summary>
             Prevents a default instance of the LogManager class from being created.
             </summary>
+        </member>
+        <member name="M:NLog.LogManager.AddHiddenAssembly(System.Reflection.Assembly)">
+            <summary>
+            Adds the given assembly which will be skipped 
+            when NLog is trying to find the calling method on stack trace.
+            </summary>
+            <param name="assembly">The assembly to skip.</param>
         </member>
         <member name="M:NLog.LogManager.GetCurrentClassLogger">
             <summary>
@@ -6750,6 +7626,11 @@
             <remarks>Logging is enabled if the number of <see cref="M:NLog.LogManager.EnableLogging"/> calls is greater 
             than or equal to <see cref="M:NLog.LogManager.DisableLogging"/> calls.</remarks>
         </member>
+        <member name="M:NLog.LogManager.Shutdown">
+            <summary>
+            Dispose all targets, and shutdown logging.
+            </summary>
+        </member>
         <member name="E:NLog.LogManager.ConfigurationChanged">
             <summary>
             Occurs when logging <see cref="P:NLog.LogManager.Configuration"/> changes.
@@ -6770,6 +7651,17 @@
             <summary>
             Gets or sets the global log threshold. Log events below this threshold are not logged.
             </summary>
+        </member>
+        <member name="P:NLog.LogManager.DefaultCultureInfo">
+            <summary>
+            Gets or sets the default culture to use.
+            </summary>
+        </member>
+        <member name="T:NLog.LogManager.GetCultureInfo">
+            <summary>
+            Delegate used to the the culture to use.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:NLog.LogMessageGenerator">
             <summary>
@@ -6799,45 +7691,6 @@
             Ends asynchronous processing of log messages.
             </summary>
             <param name="result">The result.</param>
-        </member>
-        <member name="T:NLog.LogReceiverService.ILogReceiverServer">
-            <summary>
-            Service contract for Log Receiver server.
-            </summary>
-        </member>
-        <member name="M:NLog.LogReceiverService.ILogReceiverServer.ProcessLogMessages(NLog.LogReceiverService.NLogEvents)">
-            <summary>
-            Processes the log messages.
-            </summary>
-            <param name="events">The events.</param>
-        </member>
-        <member name="T:NLog.LogReceiverService.LogReceiverForwardingService">
-            <summary>
-            Implementation of <see cref="T:NLog.LogReceiverService.ILogReceiverServer"/> which forwards received logs through <see cref="T:NLog.LogManager"/> or a given <see cref="T:NLog.LogFactory"/>.
-            </summary>
-        </member>
-        <member name="M:NLog.LogReceiverService.LogReceiverForwardingService.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:NLog.LogReceiverService.LogReceiverForwardingService"/> class.
-            </summary>
-        </member>
-        <member name="M:NLog.LogReceiverService.LogReceiverForwardingService.#ctor(NLog.LogFactory)">
-            <summary>
-            Initializes a new instance of the <see cref="T:NLog.LogReceiverService.LogReceiverForwardingService"/> class.
-            </summary>
-            <param name="logFactory">The log factory.</param>
-        </member>
-        <member name="M:NLog.LogReceiverService.LogReceiverForwardingService.ProcessLogMessages(NLog.LogReceiverService.NLogEvents)">
-            <summary>
-            Processes the log messages.
-            </summary>
-            <param name="events">The events to process.</param>
-        </member>
-        <member name="M:NLog.LogReceiverService.LogReceiverForwardingService.ProcessLogMessages(NLog.LogEventInfo[])">
-            <summary>
-            Processes the log messages.
-            </summary>
-            <param name="logEvents">The log events.</param>
         </member>
         <member name="T:NLog.LogReceiverService.LogReceiverServiceConfig">
             <summary>
@@ -7290,6 +8143,33 @@
             <param name="message">The message.</param>
             <param name="innerException">The inner exception.</param>
         </member>
+        <member name="T:NLog.Targets.ArchiveNumberingMode">
+            <summary>
+            Specifies the way archive numbering is performed.
+            </summary>
+        </member>
+        <member name="F:NLog.Targets.ArchiveNumberingMode.Sequence">
+            <summary>
+            Sequence style numbering. The most recent archive has the highest number.
+            </summary>
+        </member>
+        <member name="F:NLog.Targets.ArchiveNumberingMode.Rolling">
+            <summary>
+            Rolling style numbering (the most recent is always #0 then #1, ..., #N.
+            </summary>
+        </member>
+        <member name="F:NLog.Targets.ArchiveNumberingMode.Date">
+            <summary>
+            Date style numbering.  Archives will be stamped with the prior period (Year, Month, Day, Hour, Minute) datetime.
+            </summary>
+        </member>
+        <member name="F:NLog.Targets.ArchiveNumberingMode.DateAndSequence">
+            <summary>
+            Date and sequence style numbering.
+            Archives will be stamped with the prior period (Year, Month, Day) datetime.
+            The most recent archive has the highest number (in combination with the date).
+            </summary>
+        </member>
         <member name="T:NLog.Targets.ChainsawTarget">
             <summary>
             Sends log messages to the remote instance of Chainsaw application from log4j. 
@@ -7502,6 +8382,13 @@
             </summary>
             <param name="logEvents">Logging events to be written out.</param>
         </member>
+        <member name="M:NLog.Targets.Target.MergeEventProperties(NLog.LogEventInfo)">
+            <summary>
+            Merges (copies) the event context properties from any event info object stored in
+            parameters of the given event info object.
+            </summary>
+            <param name="logEvent">The event info object to perform the merge to.</param>
+        </member>
         <member name="P:NLog.Targets.Target.Name">
             <summary>
             Gets or sets the name of the target.
@@ -7613,6 +8500,11 @@
             Gets or sets the size of the connection cache (number of connections which are kept alive).
             </summary>
             <docgen category="Connection Options" order="10"/>
+        </member>
+        <member name="P:NLog.Targets.NetworkTarget.MaxQueueSize">
+            <summary>
+            Gets or sets the maximum queue size.
+            </summary>
         </member>
         <member name="P:NLog.Targets.NetworkTarget.OnOverflow">
             <summary>
@@ -7861,6 +8753,399 @@
             </summary>
             <docgen category='Debugging Options' order='10' />
         </member>
+        <member name="T:NLog.Targets.FileArchivePeriod">
+            <summary>
+            Modes of archiving files based on time.
+            </summary>
+        </member>
+        <member name="F:NLog.Targets.FileArchivePeriod.None">
+            <summary>
+            Don't archive based on time.
+            </summary>
+        </member>
+        <member name="F:NLog.Targets.FileArchivePeriod.Year">
+            <summary>
+            Archive every year.
+            </summary>
+        </member>
+        <member name="F:NLog.Targets.FileArchivePeriod.Month">
+            <summary>
+            Archive every month.
+            </summary>
+        </member>
+        <member name="F:NLog.Targets.FileArchivePeriod.Day">
+            <summary>
+            Archive daily.
+            </summary>
+        </member>
+        <member name="F:NLog.Targets.FileArchivePeriod.Hour">
+            <summary>
+            Archive every hour.
+            </summary>
+        </member>
+        <member name="F:NLog.Targets.FileArchivePeriod.Minute">
+            <summary>
+            Archive every minute.
+            </summary>
+        </member>
+        <member name="T:NLog.Targets.FileTarget">
+            <summary>
+            Writes log messages to one or more files.
+            </summary>
+            <seealso href="http://nlog-project.org/wiki/File_target">Documentation on NLog Wiki</seealso>
+        </member>
+        <member name="M:NLog.Targets.FileTarget.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Targets.FileTarget"/> class.
+            </summary>
+            <remarks>
+            The default value of the layout is: <code>${longdate}|${level:uppercase=true}|${logger}|${message}</code>
+            </remarks>
+        </member>
+        <member name="M:NLog.Targets.FileTarget.CleanupInitializedFiles">
+            <summary>
+            Removes records of initialized files that have not been 
+            accessed in the last two days.
+            </summary>
+            <remarks>
+            Files are marked 'initialized' for the purpose of writing footers when the logging finishes.
+            </remarks>
+        </member>
+        <member name="M:NLog.Targets.FileTarget.CleanupInitializedFiles(System.DateTime)">
+            <summary>
+            Removes records of initialized files that have not been
+            accessed after the specified date.
+            </summary>
+            <param name="cleanupThreshold">The cleanup threshold.</param>
+            <remarks>
+            Files are marked 'initialized' for the purpose of writing footers when the logging finishes.
+            </remarks>
+        </member>
+        <member name="M:NLog.Targets.FileTarget.FlushAsync(NLog.Common.AsyncContinuation)">
+            <summary>
+            Flushes all pending file operations.
+            </summary>
+            <param name="asyncContinuation">The asynchronous continuation.</param>
+            <remarks>
+            The timeout parameter is ignored, because file APIs don't provide
+            the needed functionality.
+            </remarks>
+        </member>
+        <member name="M:NLog.Targets.FileTarget.InitializeTarget">
+            <summary>
+            Initializes file logging by creating data structures that
+            enable efficient multi-file logging.
+            </summary>
+        </member>
+        <member name="M:NLog.Targets.FileTarget.CloseTarget">
+            <summary>
+            Closes the file(s) opened for writing.
+            </summary>
+        </member>
+        <member name="M:NLog.Targets.FileTarget.Write(NLog.LogEventInfo)">
+            <summary>
+            Writes the specified logging event to a file specified in the FileName 
+            parameter.
+            </summary>
+            <param name="logEvent">The logging event.</param>
+        </member>
+        <member name="M:NLog.Targets.FileTarget.Write(NLog.Common.AsyncLogEventInfo[])">
+            <summary>
+            Writes the specified array of logging events to a file specified in the FileName
+            parameter.
+            </summary>
+            <param name="logEvents">An array of <see cref="T:NLog.LogEventInfo"/> objects.</param>
+            <remarks>
+            This function makes use of the fact that the events are batched by sorting
+            the requests by filename. This optimizes the number of open/close calls
+            and can help improve performance.
+            </remarks>
+        </member>
+        <member name="M:NLog.Targets.FileTarget.GetFormattedMessage(NLog.LogEventInfo)">
+            <summary>
+            Formats the log event for write.
+            </summary>
+            <param name="logEvent">The log event to be formatted.</param>
+            <returns>A string representation of the log event.</returns>
+        </member>
+        <member name="M:NLog.Targets.FileTarget.GetBytesToWrite(NLog.LogEventInfo)">
+            <summary>
+            Gets the bytes to be written to the file.
+            </summary>
+            <param name="logEvent">Log event.</param>
+            <returns>Array of bytes that are ready to be written.</returns>
+        </member>
+        <member name="M:NLog.Targets.FileTarget.TransformBytes(System.Byte[])">
+            <summary>
+            Modifies the specified byte array before it gets sent to a file.
+            </summary>
+            <param name="value">The byte array.</param>
+            <returns>The modified byte array. The function can do the modification in-place.</returns>
+        </member>
+        <member name="P:NLog.Targets.FileTarget.FileName">
+            <summary>
+            Gets or sets the name of the file to write to.
+            </summary>
+            <remarks>
+            This FileName string is a layout which may include instances of layout renderers.
+            This lets you use a single target to write to multiple files.
+            </remarks>
+            <example>
+            The following value makes NLog write logging events to files based on the log level in the directory where
+            the application runs.
+            <code>${basedir}/${level}.log</code>
+            All <c>Debug</c> messages will go to <c>Debug.log</c>, all <c>Info</c> messages will go to <c>Info.log</c> and so on.
+            You can combine as many of the layout renderers as you want to produce an arbitrary log file name.
+            </example>
+            <docgen category='Output Options' order='1' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.CreateDirs">
+            <summary>
+            Gets or sets a value indicating whether to create directories if they don't exist.
+            </summary>
+            <remarks>
+            Setting this to false may improve performance a bit, but you'll receive an error
+            when attempting to write to a directory that's not present.
+            </remarks>
+            <docgen category='Output Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.DeleteOldFileOnStartup">
+            <summary>
+            Gets or sets a value indicating whether to delete old log file on startup.
+            </summary>
+            <remarks>
+            This option works only when the "FileName" parameter denotes a single file.
+            </remarks>
+            <docgen category='Output Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.ArchiveOldFileOnStartup">
+            <summary>
+            Gets or sets a value indicating whether to archive old log file on startup.
+            </summary>
+            <remarks>
+            This option works only when the "FileName" parameter denotes a single file.
+            After archiving the old file, the current log file will be empty.
+            </remarks>
+            <docgen category='Output Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.ReplaceFileContentsOnEachWrite">
+            <summary>
+            Gets or sets a value indicating whether to replace file contents on each write instead of appending log message at the end.
+            </summary>
+            <docgen category='Output Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.KeepFileOpen">
+            <summary>
+            Gets or sets a value indicating whether to keep log file open instead of opening and closing it on each logging event.
+            </summary>
+            <remarks>
+            Setting this property to <c>True</c> helps improve performance.
+            </remarks>
+            <docgen category='Performance Tuning Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.EnableFileDelete">
+            <summary>
+            Gets or sets a value indicating whether to enable log file(s) to be deleted.
+            </summary>
+            <docgen category='Output Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.ArchiveDateFormat">
+            <summary>
+            Gets or sets a value specifying the date format to use when archving files.
+            </summary>
+            <remarks>
+            This option works only when the "ArchiveNumbering" parameter is set to Date.
+            </remarks>
+            <docgen category='Output Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.LineEnding">
+            <summary>
+            Gets or sets the line ending mode.
+            </summary>
+            <docgen category='Layout Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.AutoFlush">
+            <summary>
+            Gets or sets a value indicating whether to automatically flush the file buffers after each log message.
+            </summary>
+            <docgen category='Performance Tuning Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.OpenFileCacheSize">
+            <summary>
+            Gets or sets the number of files to be kept open. Setting this to a higher value may improve performance
+            in a situation where a single File target is writing to many files
+            (such as splitting by level or by logger).
+            </summary>
+            <remarks>
+            The files are managed on a LRU (least recently used) basis, which flushes
+            the files that have not been used for the longest period of time should the
+            cache become full. As a rule of thumb, you shouldn't set this parameter to 
+            a very high value. A number like 10-15 shouldn't be exceeded, because you'd
+            be keeping a large number of files open which consumes system resources.
+            </remarks>
+            <docgen category='Performance Tuning Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.OpenFileCacheTimeout">
+            <summary>
+            Gets or sets the maximum number of seconds that files are kept open. If this number is negative the files are 
+            not automatically closed after a period of inactivity.
+            </summary>
+            <docgen category='Performance Tuning Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.BufferSize">
+            <summary>
+            Gets or sets the log file buffer size in bytes.
+            </summary>
+            <docgen category='Performance Tuning Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.Encoding">
+            <summary>
+            Gets or sets the file encoding.
+            </summary>
+            <docgen category='Layout Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.ConcurrentWrites">
+            <summary>
+            Gets or sets a value indicating whether concurrent writes to the log file by multiple processes on the same host.
+            </summary>
+            <remarks>
+            This makes multi-process logging possible. NLog uses a special technique
+            that lets it keep the files open for writing.
+            </remarks>
+            <docgen category='Performance Tuning Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.NetworkWrites">
+            <summary>
+            Gets or sets a value indicating whether concurrent writes to the log file by multiple processes on different network hosts.
+            </summary>
+            <remarks>
+            This effectively prevents files from being kept open.
+            </remarks>
+            <docgen category='Performance Tuning Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.ConcurrentWriteAttempts">
+            <summary>
+            Gets or sets the number of times the write is appended on the file before NLog
+            discards the log message.
+            </summary>
+            <docgen category='Performance Tuning Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.ConcurrentWriteAttemptDelay">
+            <summary>
+            Gets or sets the delay in milliseconds to wait before attempting to write to the file again.
+            </summary>
+            <remarks>
+            The actual delay is a random value between 0 and the value specified
+            in this parameter. On each failed attempt the delay base is doubled
+            up to <see cref="P:NLog.Targets.FileTarget.ConcurrentWriteAttempts"/> times.
+            </remarks>
+            <example>
+            Assuming that ConcurrentWriteAttemptDelay is 10 the time to wait will be:<p/>
+            a random value between 0 and 10 milliseconds - 1st attempt<br/>
+            a random value between 0 and 20 milliseconds - 2nd attempt<br/>
+            a random value between 0 and 40 milliseconds - 3rd attempt<br/>
+            a random value between 0 and 80 milliseconds - 4th attempt<br/>
+            ...<p/>
+            and so on.
+            </example>
+            <docgen category="Performance Tuning Options" order="10"/>
+        </member>
+        <member name="P:NLog.Targets.FileTarget.ArchiveAboveSize">
+            <summary>
+            Gets or sets the size in bytes above which log files will be automatically archived.
+            </summary>
+            <remarks>
+            Caution: Enabling this option can considerably slow down your file 
+            logging in multi-process scenarios. If only one process is going to
+            be writing to the file, consider setting <c>ConcurrentWrites</c>
+            to <c>false</c> for maximum performance.
+            </remarks>
+            <docgen category='Archival Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.ArchiveEvery">
+            <summary>
+            Gets or sets a value indicating whether to automatically archive log files every time the specified time passes.
+            </summary>
+            <remarks>
+            Files are moved to the archive as part of the write operation if the current period of time changes. For example
+            if the current <c>hour</c> changes from 10 to 11, the first write that will occur
+            on or after 11:00 will trigger the archiving.
+            <p>
+            Caution: Enabling this option can considerably slow down your file 
+            logging in multi-process scenarios. If only one process is going to
+            be writing to the file, consider setting <c>ConcurrentWrites</c>
+            to <c>false</c> for maximum performance.
+            </p>
+            </remarks>
+            <docgen category='Archival Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.ArchiveFileName">
+            <summary>
+            Gets or sets the name of the file to be used for an archive.
+            </summary>
+            <remarks>
+            It may contain a special placeholder {#####}
+            that will be replaced with a sequence of numbers depending on 
+            the archiving strategy. The number of hash characters used determines
+            the number of numerical digits to be used for numbering files.
+            </remarks>
+            <docgen category='Archival Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.MaxArchiveFiles">
+            <summary>
+            Gets or sets the maximum number of archive files that should be kept.
+            </summary>
+            <docgen category='Archival Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.ForceManaged">
+            <summary>
+            Gets ors set a value indicating whether a managed file stream is forced, instead of used the native implementation.
+            </summary>
+        </member>
+        <member name="P:NLog.Targets.FileTarget.ArchiveNumbering">
+            <summary>
+            Gets or sets the way file archives are numbered. 
+            </summary>
+            <docgen category='Archival Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.FileTarget.NewLineChars">
+            <summary>
+            Gets the characters that are appended after each line.
+            </summary>
+        </member>
+        <member name="M:NLog.Targets.FileTarget.DynamicArchiveFileHandlerClass.AddToArchive(System.String,System.String,System.Boolean)">
+            <returns><c>true</c> if the file has been moved successfully</returns>
+        </member>
+        <member name="T:NLog.Targets.LineEndingMode">
+            <summary>
+            Line ending mode.
+            </summary>
+        </member>
+        <member name="F:NLog.Targets.LineEndingMode.Default">
+            <summary>
+            Insert platform-dependent end-of-line sequence after each line.
+            </summary>
+        </member>
+        <member name="F:NLog.Targets.LineEndingMode.CRLF">
+            <summary>
+            Insert CR LF sequence (ASCII 13, ASCII 10) after each line.
+            </summary>
+        </member>
+        <member name="F:NLog.Targets.LineEndingMode.CR">
+            <summary>
+            Insert CR character (ASCII 13) after each line.
+            </summary>
+        </member>
+        <member name="F:NLog.Targets.LineEndingMode.LF">
+            <summary>
+            Insert LF character (ASCII 10) after each line.
+            </summary>
+        </member>
+        <member name="F:NLog.Targets.LineEndingMode.None">
+            <summary>
+            Don't insert any line ending.
+            </summary>
+        </member>
         <member name="T:NLog.Targets.LogReceiverWebServiceTarget">
             <summary>
             Sends log messages to a NLog Receiver Service (using WCF or Web Services).
@@ -7894,6 +9179,21 @@
             optimize batch writes.
             </summary>
             <param name="logEvents">Logging events to be written out.</param>
+        </member>
+        <member name="M:NLog.Targets.LogReceiverWebServiceTarget.FlushAsync(NLog.Common.AsyncContinuation)">
+            <summary>
+            Flush any pending log messages asynchronously (in case of asynchronous targets).
+            </summary>
+            <param name="asyncContinuation">The asynchronous continuation.</param>
+        </member>
+        <member name="M:NLog.Targets.LogReceiverWebServiceTarget.CreateWcfLogReceiverClient">
+            <summary>
+            Creating a new instance of WcfLogReceiverClient
+            
+            Inheritors can override this method and provide their own 
+            service configuration - binding and endpoint address
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:NLog.Targets.LogReceiverWebServiceTarget.EndpointAddress">
             <summary>
@@ -9136,6 +10436,98 @@
             optimize batch writes.
             </summary>
             <param name="logEvents">Logging events to be written out.</param>
+        </member>
+        <member name="T:NLog.Time.AccurateLocalTimeSource">
+            <summary>
+            Current local time retrieved directly from DateTime.Now.
+            </summary>
+        </member>
+        <member name="T:NLog.Time.TimeSource">
+            <summary>
+            Defines source of current time.
+            </summary>
+        </member>
+        <member name="M:NLog.Time.TimeSource.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:NLog.Time.TimeSource.Time">
+            <summary>
+            Gets current time.
+            </summary>
+        </member>
+        <member name="P:NLog.Time.TimeSource.Current">
+            <summary>
+            Gets or sets current global time source used in all log events.
+            </summary>
+            <remarks>
+            Default time source is <see cref="T:NLog.Time.FastLocalTimeSource"/>.
+            </remarks>
+        </member>
+        <member name="P:NLog.Time.AccurateLocalTimeSource.Time">
+            <summary>
+            Gets current local time directly from DateTime.Now.
+            </summary>
+        </member>
+        <member name="T:NLog.Time.AccurateUtcTimeSource">
+            <summary>
+            Current UTC time retrieved directly from DateTime.UtcNow.
+            </summary>
+        </member>
+        <member name="P:NLog.Time.AccurateUtcTimeSource.Time">
+            <summary>
+            Gets current UTC time directly from DateTime.UtcNow.
+            </summary>
+        </member>
+        <member name="T:NLog.Time.CachedTimeSource">
+            <summary>
+            Fast time source that updates current time only once per tick (15.6 milliseconds).
+            </summary>
+        </member>
+        <member name="P:NLog.Time.CachedTimeSource.FreshTime">
+            <summary>
+            Gets raw uncached time from derived time source.
+            </summary>
+        </member>
+        <member name="P:NLog.Time.CachedTimeSource.Time">
+            <summary>
+            Gets current time cached for one system tick (15.6 milliseconds).
+            </summary>
+        </member>
+        <member name="T:NLog.Time.FastLocalTimeSource">
+            <summary>
+            Fast local time source that is updated once per tick (15.6 milliseconds).
+            </summary>
+        </member>
+        <member name="P:NLog.Time.FastLocalTimeSource.FreshTime">
+            <summary>
+            Gets uncached local time directly from DateTime.Now.
+            </summary>
+        </member>
+        <member name="T:NLog.Time.FastUtcTimeSource">
+            <summary>
+            Fast UTC time source that is updated once per tick (15.6 milliseconds).
+            </summary>
+        </member>
+        <member name="P:NLog.Time.FastUtcTimeSource.FreshTime">
+            <summary>
+            Gets uncached UTC time directly from DateTime.UtcNow.
+            </summary>
+        </member>
+        <member name="T:NLog.Time.TimeSourceAttribute">
+            <summary>
+            Marks class as a time source and assigns a name to it.
+            </summary>
+        </member>
+        <member name="M:NLog.Time.TimeSourceAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Time.TimeSourceAttribute"/> class.
+            </summary>
+            <param name="name">Name of the time source.</param>
         </member>
     </members>
 </doc>

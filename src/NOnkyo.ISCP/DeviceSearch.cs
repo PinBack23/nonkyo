@@ -140,7 +140,7 @@ namespace NOnkyo.ISCP
             }
             catch (Exception exp)
             {
-                Logger.LogException(NLog.LogLevel.Error, "Discover Device", exp);
+                Logger.Log(NLog.LogLevel.Error, "Discover Device", exp);
             }
             finally
             {

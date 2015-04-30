@@ -66,14 +66,14 @@ namespace NOnkyo.WpfGui
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception loExp = e.ExceptionObject as Exception;
-            Logger.LogException(NLog.LogLevel.Fatal, "Unhandled Exception detected", loExp);
+            Logger.Log(NLog.LogLevel.Fatal, "Unhandled Exception detected", loExp);
             MessageBox.Show("{0}{1}Shutdown Application!".FormatWith(loExp.Message, Environment.NewLine), "Unhandled Exception detected");
             //Application.Current.Shutdown();
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            Logger.LogException(NLog.LogLevel.Fatal, "Unhandled Exception detected", e.Exception);
+            Logger.Log(NLog.LogLevel.Fatal, "Unhandled Exception detected", e.Exception);
             MessageBox.Show("{0}{1}Shutdown Application!".FormatWith(e.Exception.Message, Environment.NewLine), "Unhandled Exception detected");
             e.Handled = false;
             e.Dispatcher.InvokeShutdown();

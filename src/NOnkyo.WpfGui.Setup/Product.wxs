@@ -26,7 +26,7 @@
     <?include ControlPanel.wxi ?>
 
     <!-- Check DotNet-Framework -->
-    <PropertyRef Id="NETFRAMEWORK40FULL"/>
+    <PropertyRef Id="NETFRAMEWORK45"/>
     <Condition Message="!(loc.FrameworkNotInstalled)">
       <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
     </Condition>

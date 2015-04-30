@@ -215,7 +215,7 @@ namespace NOnkyo.ISCP
                     }
                     catch (Exception exp)
                     {
-                        Logger.LogException(NLog.LogLevel.Error, "Unhandled Exception in Messagelistener", exp);
+                        Logger.Log(NLog.LogLevel.Error, "Unhandled Exception in Messagelistener", exp);
                     }
                     Thread.Sleep(100);
                 }
