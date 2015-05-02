@@ -126,6 +126,27 @@ namespace NOnkyo.WpfGui.ViewModels
 
         #endregion
 
+        #region Event ShowRESTServer
+
+        [NonSerialized()]
+        private EventHandler EventShowRESTServer;
+        public event EventHandler ShowRESTServer
+        {
+            add
+            { this.EventShowRESTServer += value; }
+            remove
+            { this.EventShowRESTServer -= value; }
+        }
+
+        protected virtual void OnShowRESTServer()
+        {
+            EventHandler loHandler = this.EventShowRESTServer;
+            if (loHandler != null)
+                loHandler(this, EventArgs.Empty);
+        }
+
+        #endregion
+
         #region Attributes
 
         private Device moCurrentDevice;
@@ -716,6 +737,32 @@ namespace NOnkyo.WpfGui.ViewModels
         }
 
         private bool CanSendDebugCommand()
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region RESTServer
+
+        private RelayCommand moRESTServerCommand;
+        public ICommand RESTServerCommand
+        {
+            get
+            {
+                if (this.moRESTServerCommand == null)
+                    this.moRESTServerCommand = new RelayCommand(param => this.RESTServer(),
+                        param => this.CanRESTServer());
+                return this.moRESTServerCommand;
+            }
+        }
+
+        private void RESTServer()
+        {
+            this.OnShowRESTServer();
+        }
+
+        private bool CanRESTServer()
         {
             return true;
         }
@@ -1814,7 +1861,7 @@ namespace NOnkyo.WpfGui.ViewModels
 
         private T GetCommand<T>() where T : ISCP.Command.CommandBase
         {
-            return ISCP.Command.CommandBase.CommandList.First(item => item.GetType() == typeof(T)) as T;
+            return ISCP.Command.CommandBase.GetCommand<T>();
         }
 
         private void TaskError(Task poTask)

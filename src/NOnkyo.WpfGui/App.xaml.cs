@@ -89,7 +89,7 @@ namespace NOnkyo.WpfGui
             loBuilder.Register<IDeviceSearch, DeviceSearch>();
 
             //Init Connection
-            loBuilder.Register<IConnection, Connection>();
+            loBuilder.Register<IConnection, Connection>().ControlledBy<SingletonLifecycle>();
 
             Container = loBuilder.Build();
         }
@@ -102,7 +102,7 @@ namespace NOnkyo.WpfGui
             loBuilder.Register<IDeviceSearch, Fake.DeviceSearch>();
 
             //Init Connection
-            loBuilder.Register<IConnection, Fake.Connection>();
+            loBuilder.Register<IConnection, Fake.Connection>().ControlledBy<SingletonLifecycle>();
 
             Container = loBuilder.Build();
         }

@@ -1,0 +1,25 @@
+﻿<Controls:MetroWindow x:Class="NOnkyo.WpfGui.Views.RESTServerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:NOnkyo.WpfGui.ViewModels"
+        xmlns:properties="clr-namespace:NOnkyo.WpfGui.AttachedProperty"
+        Title="REST-Server" Height="300" Width="480" ShowIconOnTitleBar="false" ShowInTaskbar="false" ShowMinButton="false" ShowMaxRestoreButton="False">
+
+    <Window.DataContext>
+        <vm:RESTServerViewModel/>
+    </Window.DataContext>
+
+    <DockPanel Margin="4" LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top">
+            <Button x:Name="cmdStartServer" Content="StartServer"
+                Margin="10"
+                Style="{DynamicResource SquareButtonStyle}"
+                Command="{Binding Path=StartServerCommand}"/>
+            <Button x:Name="cmdStopServer" Content="StopServer"
+                Margin="10"
+                Style="{DynamicResource SquareButtonStyle}"
+                Command="{Binding Path=StopServerCommand}" />
+        </StackPanel>
+    </DockPanel>
+</Controls:MetroWindow>

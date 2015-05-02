@@ -67,6 +67,11 @@ namespace NOnkyo.ISCP.Command
             }
         }
 
+        public static T GetCommand<T>() where T : ISCP.Command.CommandBase
+        {
+            return CommandList.First(item => item.GetType() == typeof(T)) as T;
+        }
+
         public string CommandMessage { get; protected set; }
 
         public abstract bool Match(string psStatusMessage);

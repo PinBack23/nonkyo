@@ -28,7 +28,7 @@ namespace NOnkyo.WpfGui.Views
             this.Model.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Model_PropertyChanged);
             this.Loaded += new RoutedEventHandler(AutoDetectView_Loaded);
         }
-
+        
         #endregion
 
         #region Public Methods / Properties

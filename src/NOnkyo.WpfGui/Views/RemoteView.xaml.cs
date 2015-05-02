@@ -34,6 +34,7 @@ namespace NOnkyo.WpfGui.Views
             this.Model.CloseInputSelector += new EventHandler(Model_CloseInputSelector);
             this.Model.KeyboardInput += new EventHandler<KeyboardInputEventArgs>(Model_KeyboardInput);
             this.Model.ShowAbout += new EventHandler(Model_ShowAbout);
+            this.Model.ShowRESTServer += new EventHandler(Model_ShowRESTServer);
             this.Loaded += new RoutedEventHandler(RemoteView_Loaded);
         }
 
@@ -141,6 +142,13 @@ namespace NOnkyo.WpfGui.Views
             loView.ShowDialog(this);
         }
 
+        private void Model_ShowRESTServer(object sender, EventArgs e)
+        {
+            RESTServerView loView = new RESTServerView();
+            loView.Top = this.Top + 30;
+            loView.Left = this.Left + this.Width / 2 - loView.Width / 2;
+            loView.ShowDialog(this);
+        }
 
         private void RemoteView_Loaded(object sender, RoutedEventArgs e)
         {

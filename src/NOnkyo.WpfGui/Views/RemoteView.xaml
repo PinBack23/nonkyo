@@ -307,6 +307,19 @@
                 <Button Style="{DynamicResource MetroCircleButtonStyle}"
                             		Height="55"
                             		Width="55"
+                            		VerticalAlignment="Center" Command="{Binding RESTServerCommand}">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_share}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Label Content="Server" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </StackPanel>
+            <StackPanel>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                            		Height="55"
+                            		Width="55"
                             		VerticalAlignment="Center" Command="{Binding AboutCommand}">
                     <Rectangle Width="20" Height="20">
                         <Rectangle.Fill>

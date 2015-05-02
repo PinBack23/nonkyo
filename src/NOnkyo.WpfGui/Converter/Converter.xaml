@@ -7,4 +7,5 @@
     <myconverter:EnumInvisibilityConverter x:Key="enumToInvis" />
     <myconverter:SquareConverter x:Key="squareConverter" />
     <myconverter:EnumToBooleanConverter x:Key="enumTobool" />
+    <myconverter:InverseBooleanConverter x:Key="inverseBooleanConverter" />
 </ResourceDictionary>
