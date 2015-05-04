@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7 ]><html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]><html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html data-ng-app="mainmodule" data-ng-cloak="" lang="en" xmlns="http://www.w3.org/1999/xhtml" class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Karl Sparwald">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>NOnkyo Web Interface</title>
+
+    <!-- main JS libs -->
+    <script src="Web/js/libs/modernizr.min.js"></script>
+    <script src="Web/js/libs/jquery-1.10.0.js"></script>
+    <script src="Web/js/libs/jquery-ui.min.js"></script>
+    <script src="Web/js/libs/bootstrap.min.js"></script>
+    <script src="Web/js/libs/angular.min.js"></script>
+    <script src="Web/js/mainmodule.js"></script>
+    <!-- Style CSS -->
+    <link href="Web/style.less" media="screen" rel="stylesheet/less" type="text/css">
+    <!-- scripts -->
+    <script src="Web/js/general.js"></script>
+    <script src="Web/js/jquery.customInput.js"></script>
+
+    <!-- LESS -->
+    <script src="Web/js/libs/less.js"></script>
+
+    <!--[if lt IE 9]><script src="js/respond.min.js"></script><![endif]-->
+    <!--[if gte IE 9]>
+    <style type="text/css">
+        .gradient {filter: none !important;}
+    </style>
+    <![endif]-->
+</head>
+<body ng-controller="mainController">
+    <div tabindex="-1">
+        <div class="container" style="position:relative">
+            <h1 style="font-size:40px">NOnkyo Web Interface</h1>
+        </div>
+    </div>
+
+    <div class="body_wrap">
+        <div class="container">
+            <h1>{{data.Header}}</h1>
+            <div class="input_styled checklist">
+                <div class="rowCheckbox checkbox-large">
+                    <input name="signup3" type="checkbox" checked id="signup3" value="signup3">
+                    <label for="signup3">Power</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -10,6 +10,7 @@ namespace NOnkyo.WpfGui.Controller
 {
     public class VolumeController : ApiController
     {
+        [HttpGet]
         public int GetVolume()
         {
             //var loConnection = App.Container.Resolve<IConnection>();
@@ -17,25 +18,28 @@ namespace NOnkyo.WpfGui.Controller
             return ISCP.Command.CommandBase.GetCommand<ISCP.Command.MasterVolume>().VolumeLevel;
         }
 
-        public IHttpActionResult GetSetVolumeUp()
+        [HttpGet]
+        public IHttpActionResult SetVolumeUp()
         {
             var loConnection = App.Container.Resolve<IConnection>();
             loConnection.SendCommand(ISCP.Command.MasterVolume.UpCommand());
             return Ok();
         }
 
-        public IHttpActionResult GetSetVolumeDown()
+        [HttpGet]
+        public IHttpActionResult SetVolumeDown()
         {
             var loConnection = App.Container.Resolve<IConnection>();
             loConnection.SendCommand(ISCP.Command.MasterVolume.DownCommand());
             return Ok();
         }
 
-        public int GetSetVolume([FromUri] int volume)
+        [HttpGet]
+        public IHttpActionResult SetVolume([FromUri] int volume)
         {
             var loConnection = App.Container.Resolve<IConnection>();
             loConnection.SendCommand(ISCP.Command.MasterVolume.SetLevel(volume, loConnection.CurrentDevice));
-            return volume;
+            return Ok();
         }
 
     }
