@@ -107,6 +107,13 @@ namespace NOnkyo.WpfGui.Views
                     else
                         this.cmdAudioPresetSet.SetResourceReference(BackgroundProperty, "BackgroundNormal");
                 }
+                else if (e.PropertyName == this.Model.GetPropertyNameFromExpression(() => this.Model.IsServerStarted))
+                {
+                    if (this.Model.IsServerStarted)
+                        this.cirServerState.Fill = new SolidColorBrush(Colors.Green);
+                    else
+                        this.cirServerState.Fill = new SolidColorBrush(Colors.Red);
+                }
             }
             catch (Exception exp)
             {

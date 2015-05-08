@@ -24,7 +24,6 @@ namespace NOnkyo.WpfGui.Views
         public RESTServerView()
         {
             InitializeComponent();
-            this.Closed += RESTServerView_Closed;
         }
 
         #region Public Methods / Properties
@@ -36,14 +35,5 @@ namespace NOnkyo.WpfGui.Views
 
         #endregion
 
-        #region EventHandler
-
-        private void RESTServerView_Closed(object sender, EventArgs e)
-        {
-            if (this.Model != null)
-                this.Model.Dispose();
-        }
-
-        #endregion
     }
 }

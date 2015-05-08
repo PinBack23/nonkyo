@@ -218,10 +218,15 @@
 
     <DockPanel LastChildFill="True">
         <DockPanel DockPanel.Dock="Bottom">
-            <TextBlock Margin="3" Text="{Binding ConnectState}" DockPanel.Dock="Left"></TextBlock>
-            <TextBlock Margin="3" HorizontalAlignment="Right">
+            <TextBlock Margin="3" Text="{Binding ConnectState}"></TextBlock>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <TextBlock Margin="3" Text="Server"></TextBlock>
+                <Ellipse x:Name="cirServerState" Margin="3" Fill="Red" Width="10" Height="10" Opacity="0.8">
+                </Ellipse>
+                <TextBlock Margin="5">
                 <Hyperlink NavigateUri="{Binding WebSetupUrl}" RequestNavigate="Hyperlink_RequestNavigate">Web Setup</Hyperlink>
-            </TextBlock>
+                </TextBlock>
+            </StackPanel>
         </DockPanel>
 
         <StackPanel  DockPanel.Dock="Left">

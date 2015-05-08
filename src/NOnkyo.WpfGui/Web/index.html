@@ -20,11 +20,15 @@
     <script src="Web/js/libs/bootstrap.min.js"></script>
     <script src="Web/js/libs/angular.min.js"></script>
     <script src="Web/js/mainmodule.js"></script>
+    <script src="Web/js/nonkyohelper.js"></script>
+    <script src="Web/js/apiroutes.js"></script>
+
     <!-- Style CSS -->
     <link href="Web/style.less" media="screen" rel="stylesheet/less" type="text/css">
     <!-- scripts -->
     <script src="Web/js/general.js"></script>
     <script src="Web/js/jquery.customInput.js"></script>
+    <script src="Web/js/knobRot-0.2.2.js"></script>
 
     <!-- LESS -->
     <script src="Web/js/libs/less.js"></script>
@@ -45,11 +49,23 @@
 
     <div class="body_wrap">
         <div class="container">
-            <h1>{{data.Header}}</h1>
-            <div class="input_styled checklist">
-                <div class="rowCheckbox checkbox-large">
-                    <input name="signup3" type="checkbox" checked id="signup3" value="signup3">
-                    <label for="signup3">Power</label>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input_styled checklist">
+                        <div class="rowCheckbox checkbox-large">
+                            <input id="chbPowerstate" name="chbPowerstate" type="checkbox"
+                                   ng-model="data.powerstate" ng-change="setPowerstate(data.powerstate)" />
+                            <label for="chbPowerstate" ng-class="{checked: data.powerstate}">Power</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h6>Volume: {{data.volume}}</h6>
+                    <div class="widget-knob widget-volume">
+                        <input type="text" autocomplete="off" id="txtVolume" />
+                    </div>
                 </div>
             </div>
         </div>

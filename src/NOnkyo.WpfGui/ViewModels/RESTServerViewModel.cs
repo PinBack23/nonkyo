@@ -36,31 +36,22 @@ using System.Windows.Input;
 
 namespace NOnkyo.WpfGui.ViewModels
 {
-    public class RESTServerViewModel : ViewModelBase, IDisposable
+    public class RESTServerViewModel : ViewModelBase
     {
-        #region Static
-        private static ManualResetEventSlim StopServerEvent = new ManualResetEventSlim();
-        private static bool mbRESTApiStarted = false;
-        private static void StartRESTApi(Object poObject)
-        {
-            mbRESTApiStarted = true;
-#if DEBUG
-            using (WebApp.Start<Startup>(url: "http://localhost:9876/"))
-            //using (WebApp.Start<Startup>(url: "http://*:9876/"))
-#else
-            using (WebApp.Start<Startup>(url: "http://*:9876/"))
-#endif
-            {
-                StopServerEvent.Wait();
-            }
-            mbRESTApiStarted = false;
-        }
-
-        #endregion
 
         #region Attribute
 
+        private bool mbStartOnlyLocal;
+        private string mnPort;
+
         #endregion
+
+        public RESTServerViewModel()
+        {
+            this.mbStartOnlyLocal = true;
+            this.mnPort = "9876";
+            this.ErrorList.Add(this.GetPropertyNameFromExpression(() => this.Port), string.Empty);
+        }
 
         #region Commands
 
@@ -80,16 +71,15 @@ namespace NOnkyo.WpfGui.ViewModels
 
         private void StartServer()
         {
-            StopServerEvent.Reset();
-            ThreadPool.QueueUserWorkItem(new WaitCallback(StartRESTApi));
-            Thread.Sleep(400);
+            Web.RESTServer.Instance.StartServer(this.mbStartOnlyLocal, Int32.Parse(this.mnPort));
             this.moStopServerCommand.RaiseCanExecuteChanged();
             this.moStartServerCommand.RaiseCanExecuteChanged();
         }
 
         private bool CanStartServer()
         {
-            return !mbRESTApiStarted;
+            return this.ErrorList[this.GetPropertyNameFromExpression(() => this.Port)].IsEmpty() &&
+                !Web.RESTServer.Instance.IsServerStarted;
         }
 
         #endregion
@@ -110,15 +100,14 @@ namespace NOnkyo.WpfGui.ViewModels
 
         private void StopServer()
         {
-            StopServerEvent.Set();
-            Thread.Sleep(400);
+            Web.RESTServer.Instance.StopServer();
             this.moStopServerCommand.RaiseCanExecuteChanged();
             this.moStartServerCommand.RaiseCanExecuteChanged();
         }
 
         private bool CanStopServer()
         {
-            return mbRESTApiStarted;
+            return Web.RESTServer.Instance.IsServerStarted;
         }
 
         #endregion
@@ -127,85 +116,53 @@ namespace NOnkyo.WpfGui.ViewModels
 
         #region Public Methods / Properties
 
-        #endregion
-
-        #region IDisposable
-
-        // Track whether Dispose has been called.
-        private bool mbDisposed = false;
-
-        /// <summary>
-        /// Implement IDisposable
-        /// Do not make this method virtual.
-        /// A derived class should not be able to override this method.
-        /// </summary>
-        public void Dispose()
+        public bool StartOnlyLocal
         {
-            this.Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Dispose(bool disposing) executes in two distinct scenarios.
-        /// If disposing equals true, the method has been called directly
-        /// or indirectly by a user's code. Managed and unmanaged resources
-        /// can be disposed.
-        /// If disposing equals false, the method has been called by the 
-        /// runtime from inside the finalizer and you should not reference 
-        /// other objects. Only unmanaged resources can be disposed.
-        /// </summary>
-        /// <param name="disposing">true, to dispose managed ad unmanaged resources, false to dispose unmanaged resources only</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            // Note that this is not thread safe.
-            // Another thread could start disposing the object
-            // after the managed resources are disposed,
-            // but before the disposed flag is set to true.
-            // If thread safety is necessary, it must be
-            // implemented by the client.
-
-            // Check to see if Dispose has already been called.
-            if (!this.mbDisposed)
+            get { return this.mbStartOnlyLocal; }
+            set
             {
-                try
+                if (this.mbStartOnlyLocal != value)
                 {
-                    // If disposing equals true, dispose all managed 
-                    // and unmanaged resources.
-                    if (disposing)
-                    {
-                        // Dispose managed resources. HERE ->
-                        if (!StopServerEvent.IsSet)
-                            this.StopServer();
-                        //Release ComObjects
-                        //System.Runtime.InteropServices.Marshal.ReleaseComObject(ComObj);
-                    }
-                    // Release unmanaged resources. If disposing is false, 
-                    // only the following code is executed. HERE ->
+                    this.mbStartOnlyLocal = value;
+                    this.OnPropertyChanged(() => this.StartOnlyLocal);
                 }
-                catch (Exception)
-                {
-                    this.mbDisposed = false;
-                    throw;
-                }
-                this.mbDisposed = true;
             }
         }
 
-        /// <summary>
-        /// Use C# destructor syntax for finalization code.
-        /// This destructor will run only if the Dispose method 
-        /// does not get called.
-        /// It gives your base class the opportunity to finalize.
-        /// Do not provide destructors in types derived from this class.
-        /// </summary>
-        ~RESTServerViewModel()
+        public string Port
         {
-            // Do not re-create Dispose clean-up code here.
-            // Calling Dispose(false) is optimal in terms of
-            // readability and maintainability.
-            this.Dispose(false);
+            get { return this.mnPort; }
+            set
+            {
+                if (this.mnPort != value)
+                {
+                    this.mnPort = value;
+                    this.ValidateIPPort();
+                    this.OnPropertyChanged(() => this.Port);
+                }
+            }
         }
-        #endregion IDisposable
+
+        #endregion
+
+        #region Validation
+
+        private void ValidateIPPort()
+        {
+            string lsErrorMessage = string.Empty;
+            int lnDummy = -1;
+
+            if (this.mnPort.IsEmpty() || !Int32.TryParse(this.mnPort, out lnDummy))
+                lsErrorMessage = "Please insert a valid portnumber";
+
+            if (lnDummy < 1)
+                lsErrorMessage = "Please insert a valid portnumber";
+
+            this.ErrorList[this.GetPropertyNameFromExpression(() => this.Port)] = lsErrorMessage;
+            this.moStartServerCommand.RaiseCanExecuteChanged();
+        }
+
+        #endregion
 
     }
 }

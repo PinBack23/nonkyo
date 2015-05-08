@@ -183,6 +183,7 @@ namespace NOnkyo.WpfGui.ViewModels
         private Dictionary<string, AudioPreset> moAudioPresets = new Dictionary<string,AudioPreset>();
         private string msCurrentAudioPreset;
         private bool mbAudioPresetInProcess;
+        private bool mbIsServerStarted;
 
         #endregion
 
@@ -191,6 +192,8 @@ namespace NOnkyo.WpfGui.ViewModels
         public RemoteViewModel()
         {
             this.ReadAudioPresets();
+            Web.RESTServer.Instance.ServerStateChanged -= RESTServer_ServerStateChanged;
+            Web.RESTServer.Instance.ServerStateChanged += RESTServer_ServerStateChanged;
         }
 
         #endregion
@@ -1642,6 +1645,19 @@ namespace NOnkyo.WpfGui.ViewModels
             }
         }
 
+        public bool IsServerStarted
+        {
+            get { return this.mbIsServerStarted; }
+            set
+            {
+                if (this.mbIsServerStarted != value)
+                {
+                    this.mbIsServerStarted = value;
+                    this.OnPropertyChanged(() => this.IsServerStarted);
+                }
+            }
+        }
+
         #endregion
 
         #region Private Methods / Properties
@@ -2118,6 +2134,11 @@ namespace NOnkyo.WpfGui.ViewModels
             }, System.Threading.CancellationToken.None, TaskCreationOptions.None, this.moUITaskScheduler);
         }
 
+        public void RESTServer_ServerStateChanged(object sender, EventArgs e)
+        {
+            this.IsServerStarted = Web.RESTServer.Instance.IsServerStarted;
+        }
+
         #endregion
 
         #region IDisposable
@@ -2165,6 +2186,8 @@ namespace NOnkyo.WpfGui.ViewModels
                     if (disposing)
                     {
                         // Dispose managed resources. HERE ->
+                        Web.RESTServer.Instance.ServerStateChanged -= RESTServer_ServerStateChanged;
+                        Web.RESTServer.Instance.StopServer();
                         this.CloseConnection();
 
                         //Release ComObjects

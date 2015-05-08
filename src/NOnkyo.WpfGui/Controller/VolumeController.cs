@@ -11,10 +11,14 @@ namespace NOnkyo.WpfGui.Controller
     public class VolumeController : ApiController
     {
         [HttpGet]
+        public int GetMaxVolume()
+        {
+            return App.Container.Resolve<IConnection>().CurrentDevice.MaxVolume;
+        }
+
+        [HttpGet]
         public int GetVolume()
         {
-            //var loConnection = App.Container.Resolve<IConnection>();
-
             return ISCP.Command.CommandBase.GetCommand<ISCP.Command.MasterVolume>().VolumeLevel;
         }
 

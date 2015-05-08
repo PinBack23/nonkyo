@@ -110,6 +110,7 @@ namespace NOnkyo.WpfGui.Fake
         private int mnMaxNetInfoLines = 0;
         private string msCurrentNetworkGuiTitle = string.Empty;
         private System.Threading.Timer moNetTimeInfoTimer;
+        private bool mbPowerOn = true;
 
         #endregion
 
@@ -267,7 +268,26 @@ namespace NOnkyo.WpfGui.Fake
                     Task.Factory.StartNew(() =>
                     {
                         System.Threading.Thread.Sleep(50);
+                        if (this.mbPowerOn)
+                            this.OnMessageReceived("!1PWR01");
+                        else
+                            this.OnMessageReceived("!1PWR00");
+                    });
+                    break;
+                case "PWR01":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        this.mbPowerOn = true;
                         this.OnMessageReceived("!1PWR01");
+                    });
+                    break;
+                case "PWR00":
+                    Task.Factory.StartNew(() =>
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        this.mbPowerOn = false;
+                        this.OnMessageReceived("!1PWR00");
                     });
                     break;
                 case "TFRQSTN":
@@ -398,15 +418,15 @@ namespace NOnkyo.WpfGui.Fake
                     {
                         this.OnMessageReceived("!1" + psMessage);
                     }
-                    //else if (psMessage.StartsWith("MVL") && )
-                    //{
-                    //    Task.Factory.StartNew(() =>
-                    //    {
-                    //        System.Threading.Thread.Sleep(50);
-                    //        mnCurrentVolume = psMessage;
-                    //        this.OnMessageReceived("!1MVL{0}".FormatWith(mnCurrentVolume));
-                    //    });
-                    //}
+                    else if (psMessage.StartsWith("MVL"))
+                    {
+                        mnCurrentVolume = psMessage.Replace("MVL", "").ConvertHexValueToInt();
+                        Task.Factory.StartNew(() =>
+                        {
+                            System.Threading.Thread.Sleep(50);
+                            this.OnMessageReceived("!1MVL{0:x2}".FormatWith(mnCurrentVolume));
+                        });
+                    }
                     else if (psMessage.StartsWith("NLSL"))
                     {
                         this.mnNetInfoLine = Convert.ToInt32(psMessage.Last().ToString());

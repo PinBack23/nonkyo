@@ -12,6 +12,13 @@
 
     <DockPanel Margin="4" LastChildFill="True">
         <StackPanel DockPanel.Dock="Top">
+            <CheckBox IsChecked="{Binding StartOnlyLocal}" HorizontalAlignment="Center">Start server only on localhost (if no you need admin privileges)</CheckBox>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Server-Port:"/>
+                <TextBox Margin="3,6,3,3">
+                    <Binding Path="Port" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True"/>
+                </TextBox>
+            </StackPanel>
             <Button x:Name="cmdStartServer" Content="StartServer"
                 Margin="10"
                 Style="{DynamicResource SquareButtonStyle}"
