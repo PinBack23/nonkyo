@@ -12,7 +12,8 @@
 
     <DockPanel Margin="4" LastChildFill="True">
         <StackPanel DockPanel.Dock="Top">
-            <CheckBox IsChecked="{Binding StartOnlyLocal}" HorizontalAlignment="Center">Start server only on localhost (if no you need admin privileges)</CheckBox>
+            <CheckBox Margin="3,6,3,3" IsChecked="{Binding StartOnlyLocal}">Start server only on localhost (if no you need admin privileges)</CheckBox>
+            <CheckBox Margin="3,6,3,3" IsChecked="{Binding StartServerOnStartup}">Start server on startup</CheckBox>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Server-Port:"/>
                 <TextBox Margin="3,6,3,3">
@@ -27,6 +28,11 @@
                 Margin="10"
                 Style="{DynamicResource SquareButtonStyle}"
                 Command="{Binding Path=StopServerCommand}" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom">
+            <TextBlock Margin="5" >
+                <Hyperlink IsEnabled="{Binding IsServerUrlSet}" NavigateUri="{Binding ServerUrl}" RequestNavigate="Hyperlink_RequestNavigate">Web-Interface</Hyperlink>
+            </TextBlock>
         </StackPanel>
     </DockPanel>
 </Controls:MetroWindow>

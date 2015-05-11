@@ -132,6 +132,12 @@ namespace NOnkyo.WpfGui.Web
 
         #region Public Methods / Properties
 
+        public string CurrentServerUrl
+        {
+            get;
+            private set;
+        }
+
         public bool IsServerStarted
         {
             get
@@ -145,7 +151,9 @@ namespace NOnkyo.WpfGui.Web
             if (!mbRESTApiStarted)
             {
                 StopServerEvent.Reset();
-                ThreadPool.QueueUserWorkItem(new WaitCallback(StartRESTApi), new RESTServerParams() { StartOnlyLocal = pbStartOnlyLocal, Port = pnPort });
+                var loParameter = new RESTServerParams() { StartOnlyLocal = pbStartOnlyLocal, Port = pnPort };
+                this.CurrentServerUrl = loParameter.ToString();
+                ThreadPool.QueueUserWorkItem(new WaitCallback(StartRESTApi), loParameter);
                 Thread.Sleep(this.mnWaitTime);
                 this.OnServerStateChanged();
             }
@@ -155,6 +163,7 @@ namespace NOnkyo.WpfGui.Web
         {
             if (!StopServerEvent.IsSet)
             {
+                this.CurrentServerUrl = string.Empty;
                 StopServerEvent.Set();
                 Thread.Sleep(this.mnWaitTime);
                 this.OnServerStateChanged();

@@ -46,5 +46,41 @@ namespace NOnkyo.WpfGui.Properties {
                 this["DevicePort"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool StartServerOnStartup {
+            get {
+                return ((bool)(this["StartServerOnStartup"]));
+            }
+            set {
+                this["StartServerOnStartup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9876")]
+        public string ServerPort {
+            get {
+                return ((string)(this["ServerPort"]));
+            }
+            set {
+                this["ServerPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool StartServerOnlyLocal {
+            get {
+                return ((bool)(this["StartServerOnlyLocal"]));
+            }
+            set {
+                this["StartServerOnlyLocal"] = value;
+            }
+        }
     }
 }

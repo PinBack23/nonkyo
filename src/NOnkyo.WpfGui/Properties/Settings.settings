@@ -8,5 +8,14 @@
     <Setting Name="DevicePort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">60128</Value>
     </Setting>
+    <Setting Name="StartServerOnStartup" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ServerPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">9876</Value>
+    </Setting>
+    <Setting Name="StartServerOnlyLocal" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

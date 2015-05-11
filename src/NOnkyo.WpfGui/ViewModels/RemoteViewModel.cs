@@ -180,7 +180,7 @@ namespace NOnkyo.WpfGui.ViewModels
         private Byte[] moAlbumImage;
         private bool? mbIsPowerOn = null;
         private bool mbShowSearching = false;
-        private Dictionary<string, AudioPreset> moAudioPresets = new Dictionary<string,AudioPreset>();
+        private Dictionary<string, AudioPreset> moAudioPresets = new Dictionary<string, AudioPreset>();
         private string msCurrentAudioPreset;
         private bool mbAudioPresetInProcess;
         private bool mbIsServerStarted;
@@ -1695,6 +1695,20 @@ namespace NOnkyo.WpfGui.ViewModels
                 this.WebSetupUrl = "http://{0}".FormatWith(this.CurrentDevice.IP);
                 this.moConnection.MessageReceived += new EventHandler<MessageReceivedEventArgs>(Connection_MessageReceived);
                 this.moConnection.ConnectionClosed += new EventHandler(Connection_ConnectionClosed);
+
+                try
+                {
+                    if (Properties.Settings.Default.StartServerOnStartup)
+                    {
+                        Web.RESTServer.Instance.StartServer(Properties.Settings.Default.StartServerOnlyLocal, Int32.Parse(Properties.Settings.Default.ServerPort));
+                    }
+                }
+                catch (Exception)
+                {
+                    Properties.Settings.Default.StartServerOnStartup = false;
+                    Properties.Settings.Default.Save();
+                    throw;
+                }
             }
             else
                 throw new ApplicationException("Cannot connect to Receiver: {0} with Address {1}:{2}".FormatWith(this.moCurrentDevice.Model, this.moCurrentDevice.IP, this.moCurrentDevice.Port));
@@ -1931,7 +1945,7 @@ namespace NOnkyo.WpfGui.ViewModels
             finally
             {
                 this.moConnection.EndSendCommand();
-            }   
+            }
         }
 
         #endregion

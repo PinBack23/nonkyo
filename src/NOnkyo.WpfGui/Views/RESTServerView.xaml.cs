@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using NOnkyo.ISCP;
+using System.Diagnostics;
 
 namespace NOnkyo.WpfGui.Views
 {
@@ -35,5 +37,24 @@ namespace NOnkyo.WpfGui.Views
 
         #endregion
 
+        #region EventHandler
+
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            try
+            {
+                if (e.Uri.AbsoluteUri.IsNotEmpty())
+                {
+                    Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+                }
+                e.Handled = true;
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.ToString());
+            }
+        }
+
+        #endregion
     }
 }

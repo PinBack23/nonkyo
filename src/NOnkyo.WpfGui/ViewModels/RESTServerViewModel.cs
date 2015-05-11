@@ -41,15 +41,14 @@ namespace NOnkyo.WpfGui.ViewModels
 
         #region Attribute
 
-        private bool mbStartOnlyLocal;
-        private string mnPort;
+        private bool mbStartOnlyLocal = Properties.Settings.Default.StartServerOnlyLocal;
+        private string mnPort = Properties.Settings.Default.ServerPort;
+        private bool mbStartServerOnStartup = Properties.Settings.Default.StartServerOnStartup;
 
         #endregion
 
         public RESTServerViewModel()
         {
-            this.mbStartOnlyLocal = true;
-            this.mnPort = "9876";
             this.ErrorList.Add(this.GetPropertyNameFromExpression(() => this.Port), string.Empty);
         }
 
@@ -72,6 +71,8 @@ namespace NOnkyo.WpfGui.ViewModels
         private void StartServer()
         {
             Web.RESTServer.Instance.StartServer(this.mbStartOnlyLocal, Int32.Parse(this.mnPort));
+            this.OnPropertyChanged(() => this.ServerUrl);
+            this.OnPropertyChanged(() => this.IsServerUrlSet);
             this.moStopServerCommand.RaiseCanExecuteChanged();
             this.moStartServerCommand.RaiseCanExecuteChanged();
         }
@@ -101,6 +102,8 @@ namespace NOnkyo.WpfGui.ViewModels
         private void StopServer()
         {
             Web.RESTServer.Instance.StopServer();
+            this.OnPropertyChanged(() => this.ServerUrl);
+            this.OnPropertyChanged(() => this.IsServerUrlSet);
             this.moStopServerCommand.RaiseCanExecuteChanged();
             this.moStartServerCommand.RaiseCanExecuteChanged();
         }
@@ -124,7 +127,24 @@ namespace NOnkyo.WpfGui.ViewModels
                 if (this.mbStartOnlyLocal != value)
                 {
                     this.mbStartOnlyLocal = value;
+                    Properties.Settings.Default.StartServerOnlyLocal = value;
+                    Properties.Settings.Default.Save();
                     this.OnPropertyChanged(() => this.StartOnlyLocal);
+                }
+            }
+        }
+
+        public bool StartServerOnStartup
+        {
+            get { return this.mbStartServerOnStartup; }
+            set
+            {
+                if (this.mbStartServerOnStartup != value)
+                {
+                    this.mbStartServerOnStartup = value;
+                    Properties.Settings.Default.StartServerOnStartup = value;
+                    Properties.Settings.Default.Save();
+                    this.OnPropertyChanged(() => this.StartServerOnStartup);
                 }
             }
         }
@@ -138,11 +158,31 @@ namespace NOnkyo.WpfGui.ViewModels
                 {
                     this.mnPort = value;
                     this.ValidateIPPort();
+                    if (this.ErrorList[this.GetPropertyNameFromExpression(() => this.Port)].IsEmpty())
+                    {
+                        Properties.Settings.Default.ServerPort = value;
+                        Properties.Settings.Default.Save();
+                    }
                     this.OnPropertyChanged(() => this.Port);
                 }
             }
         }
 
+        public string ServerUrl
+        {
+            get
+            {
+                return Web.RESTServer.Instance.CurrentServerUrl;
+            }
+        }
+
+        public bool IsServerUrlSet
+        {
+            get
+            {
+                return Web.RESTServer.Instance.CurrentServerUrl.IsNotEmpty();
+            }
+        }
         #endregion
 
         #region Validation
