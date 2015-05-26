@@ -5,7 +5,7 @@
         Title="About NOnkyo" Height="300" Width="480" ResizeMode="NoResize" ShowIconOnTitleBar="false" ShowInTaskbar="false" ShowMinButton="false" ShowMaxRestoreButton="False">
     <DockPanel Margin="4" LastChildFill="True">
         <StackPanel DockPanel.Dock="Left">
-            <Image VerticalAlignment="Top"  Source="/NOnkyo.WpfGui;component/Resources/NOnkyo.png" MaxHeight="150" MaxWidth="150"/>
+            <Image VerticalAlignment="Top"  Source="/NOnkyo.WpfGui;component/Resources/NOnkyo64.png" MaxHeight="150" MaxWidth="150"/>
             <TextBlock Margin="0,30,0,0"  HorizontalAlignment="Center">
                 <Hyperlink TextDecorations="None" NavigateUri="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=EF9R87PWAD6AU" RequestNavigate="Hyperlink_RequestNavigate">
                     <Image  Source="/NOnkyo.WpfGui;component/Resources/Paypaldonate.gif" MaxHeight="21" MaxWidth="74"/>        

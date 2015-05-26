@@ -93,6 +93,36 @@ namespace NOnkyo.WpfGui.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap NOnkyo32 {
+            get {
+                object obj = ResourceManager.GetObject("NOnkyo32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NOnkyo64 {
+            get {
+                object obj = ResourceManager.GetObject("NOnkyo64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NOnkyoBanner {
+            get {
+                object obj = ResourceManager.GetObject("NOnkyoBanner", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Paypaldonate {
             get {
                 object obj = ResourceManager.GetObject("Paypaldonate", resourceCulture);
