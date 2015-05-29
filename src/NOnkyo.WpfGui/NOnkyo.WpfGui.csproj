@@ -171,6 +171,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AttachedProperty\CloseDialog.cs" />
+    <Compile Include="Controller\CommandController.cs" />
     <Compile Include="Controller\InputSelectorController.cs" />
     <Compile Include="Controller\PowerController.cs" />
     <Compile Include="Controller\VolumeController.cs" />
@@ -296,6 +297,8 @@
     <Resource Include="Resources\NOnkyo64.png" />
     <Resource Include="Resources\NOnkyoBanner.png" />
     <Resource Include="Resources\NOnkyo.ico" />
+    <Resource Include="Resources\NOnkyoRound256.png" />
+    <Resource Include="Resources\NOnkyoSquare256.png" />
     <Content Include="Web\fonts\glyphicons-halflings-regular.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -833,7 +836,6 @@
     </None>
     <Resource Include="Resources\Entypo-license.txt" />
     <Resource Include="Resources\Paypaldonate.gif" />
-    <Resource Include="Resources\NOnkyo.png" />
     <None Include="packages.config" />
     <Resource Include="Resources\Entypo.ttf" />
     <Resource Include="Resources\album.bmp" />
@@ -887,7 +889,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_ConfigurationName="Release" BuildVersion_StartDate="2013/1/24" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_StartDate="2013/1/24" BuildVersion_ConfigurationName="Release" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
