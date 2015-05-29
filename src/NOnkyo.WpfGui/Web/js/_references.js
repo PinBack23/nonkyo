@@ -4,3 +4,4 @@
 /// <reference path="apiroutes.js" />
 /// <reference path="nonkyohelper.js" />
 /// <reference path="knobRot-0.2.2.js" />
+/// <reference path="cusel-min.js" />

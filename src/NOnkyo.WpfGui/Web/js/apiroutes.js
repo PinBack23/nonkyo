@@ -12,7 +12,11 @@
     //http://localhost:9876/api/Power/PowerOff
 
     //http://localhost:9876/api/InputSelector/GetState
+    //http://localhost:9876/api/InputSelector/GetEnumState
+    //http://localhost:9876/api/InputSelector/AllSelectors
     //http://localhost:9876/api/InputSelector/Set?selector=TUNER
+    //http://localhost:9876/api/InputSelector/SetEnum?selector=0
+    //#region Parameter
     //selector (description)
     //----------------------------
     //VIDEO1 (VCR/DVR)
@@ -46,6 +50,9 @@
     //DAB5
     //OFF
     //SOURCE
+    //#endregion
+
+    //http://localhost:9876/api/Command/Send?command=MVLUP
 
     var URLS = {
         ApiVolumeGetMaxVolume: undefined,
@@ -56,7 +63,13 @@
 
         ApiPowerGetState: undefined,
         ApiPowerPowerOn: undefined,
-        ApiPowerPowerOff: undefined
+        ApiPowerPowerOff: undefined,
+
+        ApiInputSelectorGetState: undefined,
+        ApiInputSelectorGetEnumState: undefined,
+        ApiInputSelectorAllSelectors: undefined,
+        ApiInputSelectorSet: undefined,
+        ApiInputSelectorSetEnum: undefined
     };
 
     URLS.ApiVolumeGetMaxVolume = lsRootUrl + "Volume/GetMaxVolume";
@@ -68,6 +81,12 @@
     URLS.ApiPowerGetState = lsRootUrl + "Power/GetState";
     URLS.ApiPowerPowerOn = lsRootUrl + "Power/PowerOn";
     URLS.ApiPowerPowerOff = lsRootUrl + "Power/PowerOff";
+
+    URLS.ApiInputSelectorGetState = lsRootUrl + "InputSelector/GetState";
+    URLS.ApiInputSelectorGetEnumState = lsRootUrl + "InputSelector/GetEnumState";
+    URLS.ApiInputSelectorAllSelectors = lsRootUrl + "InputSelector/AllSelectors";
+    URLS.ApiInputSelectorSet = lsRootUrl + "InputSelector/Set";
+    URLS.ApiInputSelectorSetEnum = lsRootUrl + "InputSelector/SetEnum";
 
     return {
         URLS: URLS

@@ -28,6 +28,7 @@
     <!-- scripts -->
     <script src="Web/js/general.js"></script>
     <script src="Web/js/jquery.customInput.js"></script>
+    <script src="Web/js/cusel-min.js"></script>
     <script src="Web/js/knobRot-0.2.2.js"></script>
 
     <!-- LESS -->
@@ -65,6 +66,33 @@
                     <h6>Volume: {{data.volume}}</h6>
                     <div class="widget-knob widget-volume">
                         <input type="text" autocomplete="off" id="txtVolume" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h6>Input selectors</h6>
+                    <div class="field_select" ng-show="data.inputselectorready">
+                        <select id="cboInputselector" class="select_styled_orange" onchange="angular.element(this).scope().setInputSelector(this)">
+                            <option ng-repeat="selector in data.allinputselectors"
+                                    ng-selected="{{selector.Value == data.inputselector}}"
+                                    value="{{selector.Value}}">
+                                {{selector.DisplayName}}
+                            </option>
+                            <!--
+        <div class="field_select">
+            <select class="select_styled select_styled_orange">
+                <option value="">Stage Select</option>
+                <option value="">Parking</option>
+                <option value="">Bar & Restaurant</option>
+                <option value="">Residence</option>
+                <option value="">Parking</option>
+                <option value="">Bar & Restaurant</option>
+                <option value="">Residence</option>
+                <option value="">House</option>
+            </select>
+        </div>-->
+                        </select>
                     </div>
                 </div>
             </div>

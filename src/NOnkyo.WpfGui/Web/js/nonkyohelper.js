@@ -54,6 +54,17 @@ var nonkyohelper = (function () {
         loForm.submit();
     };
 
+    var loSetCboValue = function (psCboId, poValue) {
+        var loElem = $("#cusel-scroll-" + psCboId);
+        var loItem = loElem.find("span[val=" + poValue + "]").first();
+
+        if (!loItem.length)
+            return false;
+
+        // invoke value change  
+        loItem.click();
+    };
+
     //#region Private Funktionen
 
     function sendAjaxRequest(psUrl, psType, poJsonData) {
@@ -77,6 +88,7 @@ var nonkyohelper = (function () {
         putJson: loPutJson,
         deleteJson: loDeleteJson,
         deleteRequest: loDeleteRequest,
-        openWindow: loOpenWindow
+        openWindow: loOpenWindow,
+        setCboValue: loSetCboValue
     };
 }());

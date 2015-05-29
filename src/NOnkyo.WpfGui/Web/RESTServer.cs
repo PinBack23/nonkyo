@@ -30,6 +30,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using NOnkyo.ISCP;
+using System.Net;
 
 namespace NOnkyo.WpfGui.Web
 {
@@ -152,7 +153,7 @@ namespace NOnkyo.WpfGui.Web
             {
                 StopServerEvent.Reset();
                 var loParameter = new RESTServerParams() { StartOnlyLocal = pbStartOnlyLocal, Port = pnPort };
-                this.CurrentServerUrl = loParameter.ToString();
+                this.CurrentServerUrl = loParameter.ToString().Replace("*", Dns.GetHostName());
                 ThreadPool.QueueUserWorkItem(new WaitCallback(StartRESTApi), loParameter);
                 Thread.Sleep(this.mnWaitTime);
                 this.OnServerStateChanged();

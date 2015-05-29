@@ -7,9 +7,9 @@ mainmodule.controller('mainController', ['$scope', function ($scope) {
     //#region PowerState 
 
     nonkyohelper.getJson(apiRoutes.URLS.ApiPowerGetState)
-        .done(function (poResult) {
+        .done(function (psResult) {
             $scope.$apply(function () {
-                $scope.data.powerstate = poResult === 'ON';
+                $scope.data.powerstate = psResult === 'ON';
             });
         })
         .fail(function (error) {
@@ -34,13 +34,13 @@ mainmodule.controller('mainController', ['$scope', function ($scope) {
     var loTimeoutVolumeHandle;
 
     nonkyohelper.getJson(apiRoutes.URLS.ApiVolumeGetMaxVolume)
-        .then(function (poResult) {
-            $scope.data.maxvolume = poResult;
+        .then(function (pnResult) {
+            $scope.data.maxvolume = pnResult;
             return nonkyohelper.getJson(apiRoutes.URLS.ApiVolumeGetVolume);
         })
-        .done(function (poResult) {
+        .done(function (pnResult) {
             $scope.$apply(function () {
-                $scope.data.volume = poResult;
+                $scope.data.volume = pnResult;
                 $('#txtVolume').knobRot({
                     'classes': ['volume'],
                     'dragVertical': false,
@@ -66,7 +66,7 @@ mainmodule.controller('mainController', ['$scope', function ($scope) {
 
     function setVolume() {
         var lnVolume = $('#txtVolume').knobRot("getvalue");
-        if (!isNaN(lnVolume) && lnVolume != $scope.data.volume) {
+        if (!isNaN(lnVolume) && lnVolume !== $scope.data.volume) {
             $scope.$apply(function () {
                 $scope.data.volume = lnVolume;
                 nonkyohelper.getRequest(apiRoutes.URLS.ApiVolumeSetVolume + "?volume=" + $scope.data.volume).done()
@@ -79,4 +79,42 @@ mainmodule.controller('mainController', ['$scope', function ($scope) {
 
     //#endregion
 
+    //#region InputSelector
+
+    nonkyohelper.getJson(apiRoutes.URLS.ApiInputSelectorAllSelectors)
+        .then(function (poResult) {
+            $scope.$apply(function () {
+                $scope.data.allinputselectors = poResult;
+            });
+            return nonkyohelper.getJson(apiRoutes.URLS.ApiInputSelectorGetEnumState);
+        })
+        .done(function (pnResult) {
+            $scope.$apply(function () {
+                $scope.data.inputselector = pnResult;
+            });
+            setTimeout(function () {
+                cuSel({ changedEl: "#cboInputselector", visRows: 10 });
+                $scope.$apply(function () {
+                    $scope.data.inputselectorready = true;
+                    nonkyohelper.setCboValue("cboInputselector", $scope.data.inputselector);
+                });
+            }, 500);
+
+        })
+        .fail(function (error) {
+            alert("Cannot read inputselector:\n" + JSON.stringify(error));
+        });
+
+    $scope.setInputSelector = function (poElement) {
+        var lnNewValue = $("#cboInputselector").val();
+        if ($scope.data.inputselector !== lnNewValue) {
+            $scope.data.inputselector = lnNewValue;
+            nonkyohelper.getRequest(apiRoutes.URLS.ApiInputSelectorSetEnum + "?selector=" + $scope.data.inputselector).done()
+                .fail(function (error) {
+                    alert("Cannot set inputselector:\n" + JSON.stringify(error));
+                });
+        }
+    };
+
+    //#endregion
 }]);
