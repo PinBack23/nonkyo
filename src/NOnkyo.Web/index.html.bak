@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7 ]><html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]><html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html data-ng-app="mainmodule" data-ng-cloak="" lang="en" xmlns="http://www.w3.org/1999/xhtml" class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Karl Sparwald">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>NOnkyo Web Interface</title>
+
+    <!-- main JS libs -->
+    <script src="Web/js/libs/modernizr.min.js"></script>
+    <script src="Web/js/libs/jquery-1.6.4.min.js"></script>
+    <script src="Web/js/libs//jquery.signalR-2.2.0.min.js"></script>
+    <script src="Web/js/libs/jquery-ui.min.js"></script>
+    <script src="Web/js/libs/bootstrap.min.js"></script>
+    <script src="Web/js/libs/angular.min.js"></script>
+    <script src="Web/js/mainmodule.js"></script>
+    <script src="Web/js/nonkyohelper.js"></script>
+    <script src="Web/js/apiroutes.js"></script>
+
+    <!-- Style CSS -->
+    <link href="Web/style.less" media="screen" rel="stylesheet/less" type="text/css">
+    <!-- scripts -->
+    <script src="Web/js/general.js"></script>
+    <script src="Web/js/jquery.customInput.js"></script>
+    <script src="Web/js/cusel-min.js"></script>
+    <script src="Web/js/knobRot-0.2.2.js"></script>
+
+    <!-- LESS -->
+    <script src="Web/js/libs/less.js"></script>
+
+    <!--[if lt IE 9]><script src="js/respond.min.js"></script><![endif]-->
+    <!--[if gte IE 9]>
+    <style type="text/css">
+        .gradient {filter: none !important;}
+    </style>
+    <![endif]-->
+</head>
+<body ng-controller="mainController">
+    <div tabindex="-1">
+        <div class="container" style="position:relative">
+            <h1 style="font-size:40px">NOnkyo Web Interface</h1>
+        </div>
+    </div>
+
+    <div class="body_wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input_styled checklist">
+                        <div class="rowCheckbox checkbox-large">
+                            <input id="chbPowerstate" name="chbPowerstate" type="checkbox"
+                                   ng-model="data.powerstate" ng-change="setPowerstate(data.powerstate)" />
+                            <label for="chbPowerstate" ng-class="{checked: data.powerstate}">Power</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h6>Volume: {{data.volume}}</h6>
+                    <div class="widget-knob widget-volume">
+                        <input type="text" autocomplete="off" id="txtVolume" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h6>Input selectors</h6>
+                    <div class="field_select" ng-show="data.inputselectorready">
+                        <select id="cboInputselector" class="select_styled_orange" onchange="angular.element(this).scope().setInputSelector(this)">
+                            <option ng-repeat="selector in data.allinputselectors"
+                                    ng-selected="{{selector.Value == data.inputselector}}"
+                                    value="{{selector.Value}}">
+                                {{selector.DisplayName}}
+                            </option>
+                            <!--
+                            <div class="field_select">
+                                <select class="select_styled select_styled_orange">
+                                    <option value="">Stage Select</option>
+                                    <option value="">Parking</option>
+                                    <option value="">Bar & Restaurant</option>
+                                    <option value="">Residence</option>
+                                    <option value="">Parking</option>
+                                    <option value="">Bar & Restaurant</option>
+                                    <option value="">Residence</option>
+                                    <option value="">House</option>
+                                </select>
+                            </div>-->
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
