@@ -32,9 +32,9 @@ using System.Threading.Tasks;
 using NOnkyo.ISCP;
 using System.Net;
 
-namespace NOnkyo.WpfGui.Web
+namespace NOnkyo.Web
 {
-    public class RESTServer
+    public class RESTServer : IRESTServer
     {
         #region HilfsKlasse
 
@@ -104,32 +104,6 @@ namespace NOnkyo.WpfGui.Web
         private int mnWaitTime = 400;
 
         #endregion
-
-        #region Singleton
-
-        /// <summary>
-        /// Constructor legt Singleton-Instanz an und kann nur einmal aufgerufen werden.
-        /// </summary>    
-        protected RESTServer() { }
-
-        /// <summary>
-        /// Instance Property
-        /// </summary>
-        public static RESTServer Instance
-        {
-            get { return NestedSingleton.Instance; }
-        }
-
-        private class NestedSingleton
-        {
-            internal static readonly RESTServer Instance = new RESTServer();
-
-            // Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
-            // NICHT ENTFERNEN AUCH WENN FXCOP WAS ANDERES SAGT
-            static NestedSingleton() { }
-        }
-
-        #endregion Singleton
 
         #region Public Methods / Properties
 

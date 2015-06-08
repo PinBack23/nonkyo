@@ -281,7 +281,7 @@ namespace NOnkyo.WpfGui.ViewModels
         private void SearchDevices()
         {
             List<Device> loDeviceList;
-            var loDeviceSearch = App.Container.Resolve<IDeviceSearch>();
+            var loDeviceSearch = ContainerAccessor.Container.Resolve<IDeviceSearch>();
 
             //3 mal versuchen
             for (int i = 0; i < Properties.Settings.Default.DeviceSearchLoop; i++)

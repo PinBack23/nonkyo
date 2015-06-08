@@ -22,37 +22,18 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVE
 OF THE POSSIBILITY OF SUCH DAMAGE.*/
 #endregion
 
-using Owin;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http;
 
-namespace NOnkyo.WpfGui
+namespace NOnkyo.ISCP
 {
-    public class Startup
+    public interface IRESTServer
     {
-        // This code configures Web API. The Startup class is specified as a type
-        // parameter in the WebApp.Start method.
-        public void Configuration(IAppBuilder appBuilder)
-        {
-            // Configure Web API for self-host. 
-            HttpConfiguration loConfig = new HttpConfiguration();
-            loConfig.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{action}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+        event EventHandler ServerStateChanged;
 
-            //Json Output erzwingen
-            var appXmlType = loConfig.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
-            loConfig.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
+        string CurrentServerUrl { get; }
+        bool IsServerStarted { get; }
 
-            appBuilder.UseWebApi(loConfig);
-
-            appBuilder.UseNancy();
-        } 
+        void StartServer(bool pbStartOnlyLocal, int pnPort);
+        void StopServer();
     }
 }

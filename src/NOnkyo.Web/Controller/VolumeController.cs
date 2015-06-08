@@ -6,14 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace NOnkyo.WpfGui.Controller
+namespace NOnkyo.Web.Controller
 {
     public class VolumeController : ApiController
     {
         [HttpGet]
         public int GetMaxVolume()
         {
-            return App.Container.Resolve<IConnection>().CurrentDevice.MaxVolume;
+            return ContainerAccessor.Container.Resolve<IConnection>().CurrentDevice.MaxVolume;
         }
 
         [HttpGet]
@@ -25,7 +25,7 @@ namespace NOnkyo.WpfGui.Controller
         [HttpGet]
         public IHttpActionResult SetVolumeUp()
         {
-            var loConnection = App.Container.Resolve<IConnection>();
+            var loConnection = ContainerAccessor.Container.Resolve<IConnection>();
             loConnection.SendCommand(ISCP.Command.MasterVolume.UpCommand());
             return Ok();
         }
@@ -33,7 +33,7 @@ namespace NOnkyo.WpfGui.Controller
         [HttpGet]
         public IHttpActionResult SetVolumeDown()
         {
-            var loConnection = App.Container.Resolve<IConnection>();
+            var loConnection = ContainerAccessor.Container.Resolve<IConnection>();
             loConnection.SendCommand(ISCP.Command.MasterVolume.DownCommand());
             return Ok();
         }
@@ -41,7 +41,7 @@ namespace NOnkyo.WpfGui.Controller
         [HttpGet]
         public IHttpActionResult SetVolume([FromUri] int volume)
         {
-            var loConnection = App.Container.Resolve<IConnection>();
+            var loConnection = ContainerAccessor.Container.Resolve<IConnection>();
             loConnection.SendCommand(ISCP.Command.MasterVolume.SetLevel(volume, loConnection.CurrentDevice));
             return Ok();
         }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NOnkyo.WpfGui
+namespace NOnkyo.Web
 {
     public class NancyBootstrapper : DefaultNancyBootstrapper
     {
@@ -28,7 +28,7 @@ namespace NOnkyo.WpfGui
         {
             using (MemoryStream loMemoryStream = new MemoryStream())
             {
-                NOnkyo.WpfGui.Properties.Resources.NOnkyo.Save(loMemoryStream);
+                NOnkyo.Web.Properties.Resources.NOnkyo.Save(loMemoryStream);
                 loMemoryStream.Flush();
                 return loMemoryStream.ToArray();
             }

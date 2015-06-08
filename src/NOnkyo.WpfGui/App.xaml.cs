@@ -31,6 +31,7 @@ using System.Windows;
 using NOnkyo.ISCP;
 using LightCore;
 using LightCore.Lifecycle;
+using System.Reflection;
 
 namespace NOnkyo.WpfGui
 {
@@ -79,8 +80,6 @@ namespace NOnkyo.WpfGui
             e.Dispatcher.InvokeShutdown();
         }
 
-        public static IContainer Container { get; set; }
-
         private void Register()
         {
             var loBuilder = new ContainerBuilder();
@@ -91,7 +90,10 @@ namespace NOnkyo.WpfGui
             //Init Connection
             loBuilder.Register<IConnection, Connection>().ControlledBy<SingletonLifecycle>();
 
-            Container = loBuilder.Build();
+            //Init REST-Server
+            loBuilder.Register<IRESTServer>(c => Activator.CreateInstance("NOnkyo.Web", "NOnkyo.Web.RESTServer") as IRESTServer).ControlledBy<SingletonLifecycle>();
+
+            ContainerAccessor.Container = loBuilder.Build();
         }
 
         private void RegisterFake()
@@ -104,7 +106,15 @@ namespace NOnkyo.WpfGui
             //Init Connection
             loBuilder.Register<IConnection, Fake.Connection>().ControlledBy<SingletonLifecycle>();
 
-            Container = loBuilder.Build();
+            //Init REST-Server
+            //loBuilder.Register<IRESTServer>(c => Activator.CreateInstance("NOnkyo.Web", "NOnkyo.Web.RESTServer") as IRESTServer).ControlledBy<SingletonLifecycle>();
+            loBuilder.Register(typeof(IRESTServer), Type.GetType("NOnkyo.Web.RESTServer, NOnkyo.Web")).ControlledBy<SingletonLifecycle>();
+
+            ContainerAccessor.Container = loBuilder.Build();
+
+#if DEBUG
+            ContainerAccessor.Container.Resolve<IRESTServer>().StartServer(true, 9876);
+#endif
         }
 
     }

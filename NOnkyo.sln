@@ -25,6 +25,8 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "NOnkyo.WpfGui.Setup", "src\
 		{E9D7E4F2-C088-4EBD-B94F-AF660B4A0ED3} = {E9D7E4F2-C088-4EBD-B94F-AF660B4A0ED3}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NOnkyo.Web", "src\NOnkyo.Web\NOnkyo.Web.csproj", "{C5E0F9DF-14F0-4583-9E4F-0383EDA084DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,16 @@ Global
 		{864FF466-D045-4661-83B3-DBB521D67ED4}.Release|Mixed Platforms.Build.0 = Release|x86
 		{864FF466-D045-4661-83B3-DBB521D67ED4}.Release|x86.ActiveCfg = Release|x86
 		{864FF466-D045-4661-83B3-DBB521D67ED4}.Release|x86.Build.0 = Release|x86
+		{C5E0F9DF-14F0-4583-9E4F-0383EDA084DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5E0F9DF-14F0-4583-9E4F-0383EDA084DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5E0F9DF-14F0-4583-9E4F-0383EDA084DA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C5E0F9DF-14F0-4583-9E4F-0383EDA084DA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C5E0F9DF-14F0-4583-9E4F-0383EDA084DA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C5E0F9DF-14F0-4583-9E4F-0383EDA084DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5E0F9DF-14F0-4583-9E4F-0383EDA084DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5E0F9DF-14F0-4583-9E4F-0383EDA084DA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C5E0F9DF-14F0-4583-9E4F-0383EDA084DA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C5E0F9DF-14F0-4583-9E4F-0383EDA084DA}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

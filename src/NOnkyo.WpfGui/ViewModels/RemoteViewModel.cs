@@ -33,10 +33,10 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Drawing;
-using NOnkyo.WpfGui.ViewModels.Misc;
 using NOnkyo.WpfGui.Model;
 using Newtonsoft.Json;
 using System.IO;
+using NOnkyo.ISCP.Models;
 
 namespace NOnkyo.WpfGui.ViewModels
 {
@@ -192,8 +192,8 @@ namespace NOnkyo.WpfGui.ViewModels
         public RemoteViewModel()
         {
             this.ReadAudioPresets();
-            Web.RESTServer.Instance.ServerStateChanged -= RESTServer_ServerStateChanged;
-            Web.RESTServer.Instance.ServerStateChanged += RESTServer_ServerStateChanged;
+            ContainerAccessor.Container.Resolve<IRESTServer>().ServerStateChanged -= RESTServer_ServerStateChanged;
+            ContainerAccessor.Container.Resolve<IRESTServer>().ServerStateChanged += RESTServer_ServerStateChanged;
         }
 
         #endregion
@@ -1686,7 +1686,7 @@ namespace NOnkyo.WpfGui.ViewModels
             this.CloseConnection();
             this.moUITaskScheduler = TaskScheduler.FromCurrentSynchronizationContext();
             this.LogList = new ObservableCollection<string>();
-            this.moConnection = App.Container.Resolve<IConnection>();
+            this.moConnection = ContainerAccessor.Container.Resolve<IConnection>();
             var lbSuccess = this.moConnection.Connect(this.moCurrentDevice);
 
             if (lbSuccess)
@@ -1700,7 +1700,7 @@ namespace NOnkyo.WpfGui.ViewModels
                 {
                     if (Properties.Settings.Default.StartServerOnStartup)
                     {
-                        Web.RESTServer.Instance.StartServer(Properties.Settings.Default.StartServerOnlyLocal, Int32.Parse(Properties.Settings.Default.ServerPort));
+                        ContainerAccessor.Container.Resolve<IRESTServer>().StartServer(Properties.Settings.Default.StartServerOnlyLocal, Int32.Parse(Properties.Settings.Default.ServerPort));
                     }
                 }
                 catch (Exception)
@@ -2150,7 +2150,7 @@ namespace NOnkyo.WpfGui.ViewModels
 
         public void RESTServer_ServerStateChanged(object sender, EventArgs e)
         {
-            this.IsServerStarted = Web.RESTServer.Instance.IsServerStarted;
+            this.IsServerStarted = ContainerAccessor.Container.Resolve<IRESTServer>().IsServerStarted;
         }
 
         #endregion
@@ -2200,8 +2200,8 @@ namespace NOnkyo.WpfGui.ViewModels
                     if (disposing)
                     {
                         // Dispose managed resources. HERE ->
-                        Web.RESTServer.Instance.ServerStateChanged -= RESTServer_ServerStateChanged;
-                        Web.RESTServer.Instance.StopServer();
+                        ContainerAccessor.Container.Resolve<IRESTServer>().ServerStateChanged -= RESTServer_ServerStateChanged;
+                        ContainerAccessor.Container.Resolve<IRESTServer>().StopServer();
                         this.CloseConnection();
 
                         //Release ComObjects

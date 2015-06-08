@@ -22,7 +22,6 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVE
 OF THE POSSIBILITY OF SUCH DAMAGE.*/
 #endregion
 
-using Microsoft.Owin.Hosting;
 using NOnkyo.ISCP;
 using NOnkyo.WpfGui.ViewModels.Commands;
 using System;
@@ -70,7 +69,7 @@ namespace NOnkyo.WpfGui.ViewModels
 
         private void StartServer()
         {
-            Web.RESTServer.Instance.StartServer(this.mbStartOnlyLocal, Int32.Parse(this.mnPort));
+            ContainerAccessor.Container.Resolve<IRESTServer>().StartServer(this.mbStartOnlyLocal, Int32.Parse(this.mnPort));
             this.OnPropertyChanged(() => this.ServerUrl);
             this.OnPropertyChanged(() => this.IsServerUrlSet);
             this.moStopServerCommand.RaiseCanExecuteChanged();
@@ -80,7 +79,7 @@ namespace NOnkyo.WpfGui.ViewModels
         private bool CanStartServer()
         {
             return this.ErrorList[this.GetPropertyNameFromExpression(() => this.Port)].IsEmpty() &&
-                !Web.RESTServer.Instance.IsServerStarted;
+                !ContainerAccessor.Container.Resolve<IRESTServer>().IsServerStarted;
         }
 
         #endregion
@@ -101,7 +100,7 @@ namespace NOnkyo.WpfGui.ViewModels
 
         private void StopServer()
         {
-            Web.RESTServer.Instance.StopServer();
+            ContainerAccessor.Container.Resolve<IRESTServer>().StopServer();
             this.OnPropertyChanged(() => this.ServerUrl);
             this.OnPropertyChanged(() => this.IsServerUrlSet);
             this.moStopServerCommand.RaiseCanExecuteChanged();
@@ -110,7 +109,7 @@ namespace NOnkyo.WpfGui.ViewModels
 
         private bool CanStopServer()
         {
-            return Web.RESTServer.Instance.IsServerStarted;
+            return ContainerAccessor.Container.Resolve<IRESTServer>().IsServerStarted;
         }
 
         #endregion
@@ -172,7 +171,7 @@ namespace NOnkyo.WpfGui.ViewModels
         {
             get
             {
-                return Web.RESTServer.Instance.CurrentServerUrl;
+                return ContainerAccessor.Container.Resolve<IRESTServer>().CurrentServerUrl;
             }
         }
 
@@ -180,7 +179,7 @@ namespace NOnkyo.WpfGui.ViewModels
         {
             get
             {
-                return Web.RESTServer.Instance.CurrentServerUrl.IsNotEmpty();
+                return ContainerAccessor.Container.Resolve<IRESTServer>().CurrentServerUrl.IsNotEmpty();
             }
         }
         #endregion

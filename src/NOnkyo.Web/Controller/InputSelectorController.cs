@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using NOnkyo.ISCP;
-using NOnkyo.WpfGui.ViewModels.Misc;
+using NOnkyo.ISCP.Models;
 
-namespace NOnkyo.WpfGui.Controller
+namespace NOnkyo.Web.Controller
 {
     public class InputSelectorController : ApiController
     {
@@ -32,7 +32,7 @@ namespace NOnkyo.WpfGui.Controller
         [HttpGet]
         public IHttpActionResult Set([FromUri] string selector)
         {
-            var loConnection = App.Container.Resolve<IConnection>();
+            var loConnection = ContainerAccessor.Container.Resolve<IConnection>();
             EInputSelector leInputSelector = selector.ToEnum<EInputSelector>();
             loConnection.SendCommand(ISCP.Command.InputSelector.Chose(leInputSelector, loConnection.CurrentDevice));
             return Ok();
@@ -41,7 +41,7 @@ namespace NOnkyo.WpfGui.Controller
         [HttpGet]
         public IHttpActionResult SetEnum([FromUri] EInputSelector selector)
         {
-            var loConnection = App.Container.Resolve<IConnection>();
+            var loConnection = ContainerAccessor.Container.Resolve<IConnection>();
             loConnection.SendCommand(ISCP.Command.InputSelector.Chose(selector, loConnection.CurrentDevice));
             return Ok();
         }

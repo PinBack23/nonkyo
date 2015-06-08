@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace NOnkyo.WpfGui.Controller
+namespace NOnkyo.Web.Controller
 {
     public class PowerController : ApiController
     {
@@ -21,7 +21,7 @@ namespace NOnkyo.WpfGui.Controller
         [HttpGet]
         public IHttpActionResult PowerOn()
         {
-            var loConnection = App.Container.Resolve<IConnection>();
+            var loConnection = ContainerAccessor.Container.Resolve<IConnection>();
             loConnection.SendCommand(ISCP.Command.Power.On(loConnection.CurrentDevice));
             return Ok();
         }
@@ -29,7 +29,7 @@ namespace NOnkyo.WpfGui.Controller
         [HttpGet]
         public IHttpActionResult PowerOff()
         {
-            var loConnection = App.Container.Resolve<IConnection>();
+            var loConnection = ContainerAccessor.Container.Resolve<IConnection>();
             loConnection.SendCommand(ISCP.Command.Power.Off(loConnection.CurrentDevice));
             return Ok();
         }
