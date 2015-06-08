@@ -91,7 +91,7 @@ namespace NOnkyo.WpfGui
             loBuilder.Register<IConnection, Connection>().ControlledBy<SingletonLifecycle>();
 
             //Init REST-Server
-            loBuilder.Register<IRESTServer>(c => Activator.CreateInstance("NOnkyo.Web", "NOnkyo.Web.RESTServer") as IRESTServer).ControlledBy<SingletonLifecycle>();
+            loBuilder.Register(typeof(IRESTServer), Type.GetType("NOnkyo.Web.RESTServer, NOnkyo.Web")).ControlledBy<SingletonLifecycle>();
 
             ContainerAccessor.Container = loBuilder.Build();
         }
@@ -107,14 +107,9 @@ namespace NOnkyo.WpfGui
             loBuilder.Register<IConnection, Fake.Connection>().ControlledBy<SingletonLifecycle>();
 
             //Init REST-Server
-            //loBuilder.Register<IRESTServer>(c => Activator.CreateInstance("NOnkyo.Web", "NOnkyo.Web.RESTServer") as IRESTServer).ControlledBy<SingletonLifecycle>();
             loBuilder.Register(typeof(IRESTServer), Type.GetType("NOnkyo.Web.RESTServer, NOnkyo.Web")).ControlledBy<SingletonLifecycle>();
 
             ContainerAccessor.Container = loBuilder.Build();
-
-#if DEBUG
-            ContainerAccessor.Container.Resolve<IRESTServer>().StartServer(true, 9876);
-#endif
         }
 
     }

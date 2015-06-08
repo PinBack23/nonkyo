@@ -117,4 +117,29 @@ mainmodule.controller('mainController', ['$scope', function ($scope) {
     };
 
     //#endregion
+
+    var loCommandHub = $.connection.commandHub;
+
+    // Start the connection.
+    $.connection.hub.start().done(function () {
+        $scope.$apply(function () {
+            $scope.data.messages.push("Hub gestartet!");
+        });
+    });
+
+    $scope.showHello = function () {
+        loCommandHub.server.getMessage().done(function (psMessage) {
+            alert(psMessage);
+        }).fail(function (error) {
+            alert("Signal-R Error:\n" + JSON.stringify(error));
+        });
+    };
+
+    loCommandHub.client.volumeChange = function (pnVolume) {
+        $scope.$apply(function () {
+            $scope.data.volume = pnVolume;
+            $('#txtVolume').knobRot("set", $scope.data.volume);
+            $('#txtVolume').trigger('knobrefresh');
+        });
+    };
 }]);

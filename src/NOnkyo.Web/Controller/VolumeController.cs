@@ -10,6 +10,7 @@ namespace NOnkyo.Web.Controller
 {
     public class VolumeController : ApiController
     {
+
         [HttpGet]
         public int GetMaxVolume()
         {

@@ -131,6 +131,10 @@ namespace NOnkyo.Web
                 ThreadPool.QueueUserWorkItem(new WaitCallback(StartRESTApi), loParameter);
                 Thread.Sleep(this.mnWaitTime);
                 this.OnServerStateChanged();
+
+                var loConnection = ContainerAccessor.Container.Resolve<IConnection>();
+                loConnection.MessageReceived -= Connection_MessageReceived;
+                loConnection.MessageReceived += Connection_MessageReceived;
             }
         }
 
@@ -142,10 +146,35 @@ namespace NOnkyo.Web
                 StopServerEvent.Set();
                 Thread.Sleep(this.mnWaitTime);
                 this.OnServerStateChanged();
+
+                var loConnection = ContainerAccessor.Container.Resolve<IConnection>();
+                loConnection.MessageReceived -= Connection_MessageReceived;
             }
         }
 
         #endregion
+
+        private void Connection_MessageReceived(object sender, MessageReceivedEventArgs e)
+        {
+            try
+            {
+                foreach (var loCommand in ISCP.Command.CommandBase.CommandList.Where(item => item.Match(e.Message)))
+                {
+                    if (loCommand is ISCP.Command.MasterVolume)
+                    {
+                        var loCommandHub = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<Hubs.CommandHub>();
+                        if (loCommandHub != null)
+                        {
+                            loCommandHub.Clients.All.VolumeChange((loCommand as ISCP.Command.MasterVolume).VolumeLevel);
+                        }
+                    }
+                }
+            }
+            catch (Exception exp)
+            {
+                System.Diagnostics.Debug.WriteLine(exp.ToString());
+            }
+        }
 
     }
 }

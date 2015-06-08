@@ -16,12 +16,14 @@
     <!-- main JS libs -->
     <script src="Web/js/libs/modernizr.min.js"></script>
     <script src="Web/js/libs/jquery-1.10.0.js"></script>
+    <script src="Web/js/libs//jquery.signalR-2.2.0.min.js"></script>
     <script src="Web/js/libs/jquery-ui.min.js"></script>
     <script src="Web/js/libs/bootstrap.min.js"></script>
     <script src="Web/js/libs/angular.min.js"></script>
     <script src="Web/js/mainmodule.js"></script>
     <script src="Web/js/nonkyohelper.js"></script>
     <script src="Web/js/apiroutes.js"></script>
+    <script src="/signalr/hubs"></script>
 
     <!-- Style CSS -->
     <link href="Web/style.less" media="screen" rel="stylesheet/less" type="text/css">
@@ -80,20 +82,25 @@
                                 {{selector.DisplayName}}
                             </option>
                             <!--
-        <div class="field_select">
-            <select class="select_styled select_styled_orange">
-                <option value="">Stage Select</option>
-                <option value="">Parking</option>
-                <option value="">Bar & Restaurant</option>
-                <option value="">Residence</option>
-                <option value="">Parking</option>
-                <option value="">Bar & Restaurant</option>
-                <option value="">Residence</option>
-                <option value="">House</option>
-            </select>
-        </div>-->
+                            <div class="field_select">
+                                <select class="select_styled select_styled_orange">
+                                    <option value="">Stage Select</option>
+                                    <option value="">Parking</option>
+                                    <option value="">Bar & Restaurant</option>
+                                    <option value="">Residence</option>
+                                    <option value="">Parking</option>
+                                    <option value="">Bar & Restaurant</option>
+                                    <option value="">Residence</option>
+                                    <option value="">House</option>
+                                </select>
+                            </div>-->
                         </select>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <a href="#" class="btn btn-round hover" ng-click="showHello()" ><span>Show Hello</span></a>
                 </div>
             </div>
         </div>

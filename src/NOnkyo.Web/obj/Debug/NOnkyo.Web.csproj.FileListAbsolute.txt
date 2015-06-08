@@ -1,6 +1,8 @@
 E:\MyProjects\NOnkyo\bin\Debug\NLog.config
 E:\MyProjects\NOnkyo\bin\Debug\Web\fonts\glyphicons-halflings-regular.eot
 E:\MyProjects\NOnkyo\bin\Debug\Web\fonts\glyphicons-halflings-regular.woff
+E:\MyProjects\NOnkyo\bin\Debug\Web\js\libs\jquery.signalR-2.2.0.js
+E:\MyProjects\NOnkyo\bin\Debug\Web\js\libs\jquery.signalR-2.2.0.min.js
 E:\MyProjects\NOnkyo\bin\Debug\Web\js\libs\angular.min.js.map
 E:\MyProjects\NOnkyo\bin\Debug\Web\less\badges.less
 E:\MyProjects\NOnkyo\bin\Debug\Web\less\bootstrap\alerts.less

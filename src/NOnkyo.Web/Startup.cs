@@ -53,6 +53,11 @@ namespace NOnkyo.Web
 
             appBuilder.UseWebApi(loConfig);
 
+            appBuilder.MapSignalR(new Microsoft.AspNet.SignalR.HubConfiguration()
+            {
+                EnableDetailedErrors = true
+            });
+
             appBuilder.UseNancy();
         }
 
