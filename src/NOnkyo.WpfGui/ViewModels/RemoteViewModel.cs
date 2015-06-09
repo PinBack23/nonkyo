@@ -1742,6 +1742,7 @@ namespace NOnkyo.WpfGui.ViewModels
         {
             if (this.moConnection != null)
                 this.moConnection.Dispose();
+            ContainerAccessor.Container.Resolve<IRESTServer>().StopServer();
         }
 
         private void ChoseInputSelector(EInputSelector peInputSelector)

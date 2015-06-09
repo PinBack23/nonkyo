@@ -4,6 +4,27 @@ var mainmodule = angular.module('mainmodule', []);
 mainmodule.controller('mainController', ['$scope', function ($scope) {
     $scope.data = {};
 
+    $scope.data.signalr = {
+        connectionReady: false,
+        errorMessage: undefined
+    };
+
+    //#region Signal-R Init
+
+    var loCommandHub = $.connection.commandHub;
+
+    // Start the connection.
+    $.connection.hub.start().done(function () {
+        $scope.$apply(function () {
+            $scope.data.signalr.connectionReady = true;
+        });
+    }).fail(function (error) {
+        $scope.data.signalr.connectionReady = false;
+        $scope.data.signalr.errorMessage = JSON.stringify(error);
+    });
+
+    //#endregion
+
     //#region PowerState 
 
     nonkyohelper.getJson(apiRoutes.URLS.ApiPowerGetState)
@@ -24,6 +45,14 @@ mainmodule.controller('mainController', ['$scope', function ($scope) {
         } else {
             nonkyohelper.getRequest(apiRoutes.URLS.ApiPowerPowerOff).done().fail(function (error) {
                 alert("Cannot set powerstate:\n" + JSON.stringify(error));
+            });
+        }
+    };
+
+    loCommandHub.client.powerStateChanged = function (pbPowerState) {
+        if (pbPowerState !== $scope.data.powerstate) {
+            $scope.$apply(function () {
+                $scope.data.powerstate = pbPowerState;
             });
         }
     };
@@ -77,6 +106,16 @@ mainmodule.controller('mainController', ['$scope', function ($scope) {
         }
     }
 
+    loCommandHub.client.volumeChanged = function (pnVolume) {
+        if (!isNaN(pnVolume) && pnVolume !== $scope.data.volume) {
+            $scope.$apply(function () {
+                $scope.data.volume = pnVolume;
+                $('#txtVolume').knobRot("set", $scope.data.volume);
+                $('#txtVolume').trigger('knobrefresh');
+            });
+        }
+    };
+
     //#endregion
 
     //#region InputSelector
@@ -116,16 +155,18 @@ mainmodule.controller('mainController', ['$scope', function ($scope) {
         }
     };
 
+    loCommandHub.client.inputSelectorChanged = function (pnInputselector) {
+        if (!isNaN(pnInputselector) && pnInputselector !== $scope.data.inputselector) {
+            $scope.$apply(function () {
+                $scope.data.inputselector = pnInputselector;
+                nonkyohelper.setCboValue("cboInputselector", $scope.data.inputselector);
+            });
+        }
+    };
+
     //#endregion
 
-    var loCommandHub = $.connection.commandHub;
-
-    // Start the connection.
-    $.connection.hub.start().done(function () {
-        $scope.$apply(function () {
-            $scope.data.messages.push("Hub gestartet!");
-        });
-    });
+    //#region Test
 
     $scope.showHello = function () {
         loCommandHub.server.getMessage().done(function (psMessage) {
@@ -135,11 +176,5 @@ mainmodule.controller('mainController', ['$scope', function ($scope) {
         });
     };
 
-    loCommandHub.client.volumeChange = function (pnVolume) {
-        $scope.$apply(function () {
-            $scope.data.volume = pnVolume;
-            $('#txtVolume').knobRot("set", $scope.data.volume);
-            $('#txtVolume').trigger('knobrefresh');
-        });
-    };
+    //#endregion
 }]);

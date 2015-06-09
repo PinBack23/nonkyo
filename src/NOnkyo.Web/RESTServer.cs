@@ -131,10 +131,7 @@ namespace NOnkyo.Web
                 ThreadPool.QueueUserWorkItem(new WaitCallback(StartRESTApi), loParameter);
                 Thread.Sleep(this.mnWaitTime);
                 this.OnServerStateChanged();
-
-                var loConnection = ContainerAccessor.Container.Resolve<IConnection>();
-                loConnection.MessageReceived -= Connection_MessageReceived;
-                loConnection.MessageReceived += Connection_MessageReceived;
+                this.BindConnectionEvent();
             }
         }
 
@@ -146,27 +143,50 @@ namespace NOnkyo.Web
                 StopServerEvent.Set();
                 Thread.Sleep(this.mnWaitTime);
                 this.OnServerStateChanged();
-
-                var loConnection = ContainerAccessor.Container.Resolve<IConnection>();
-                loConnection.MessageReceived -= Connection_MessageReceived;
+                this.UnBindConnectionEvent();
             }
         }
 
         #endregion
 
+        #region Private Methods / Properties
+
+        private void BindConnectionEvent()
+        {
+            this.UnBindConnectionEvent();
+            var loConnection = ContainerAccessor.Container.Resolve<IConnection>();
+            if (loConnection != null)
+                loConnection.MessageReceived += Connection_MessageReceived;
+        }
+
+        private void UnBindConnectionEvent()
+        {
+            var loConnection = ContainerAccessor.Container.Resolve<IConnection>();
+            if (loConnection != null)
+                loConnection.MessageReceived -= Connection_MessageReceived;
+        }
+
+        #endregion
+
+        #region EventHandler
+
         private void Connection_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
             try
             {
-                foreach (var loCommand in ISCP.Command.CommandBase.CommandList.Where(item => item.Match(e.Message)))
+                var loCommandHub = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<Hubs.CommandHub>();
+                if (loCommandHub != null)
                 {
-                    if (loCommand is ISCP.Command.MasterVolume)
+                    foreach (var loCommand in ISCP.Command.CommandBase.CommandList.Where(item => item.Match(e.Message)))
                     {
-                        var loCommandHub = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<Hubs.CommandHub>();
-                        if (loCommandHub != null)
-                        {
-                            loCommandHub.Clients.All.VolumeChange((loCommand as ISCP.Command.MasterVolume).VolumeLevel);
-                        }
+                        if (loCommand is ISCP.Command.Power)
+                            loCommandHub.Clients.All.PowerStateChanged((loCommand as ISCP.Command.Power).IsOn);
+
+                        if (loCommand is ISCP.Command.MasterVolume)
+                            loCommandHub.Clients.All.VolumeChanged((loCommand as ISCP.Command.MasterVolume).VolumeLevel);
+
+                        if (loCommand is ISCP.Command.InputSelector)
+                            loCommandHub.Clients.All.InputSelectorChanged((loCommand as ISCP.Command.InputSelector).CurrentInputSelector);
                     }
                 }
             }
@@ -175,6 +195,8 @@ namespace NOnkyo.Web
                 System.Diagnostics.Debug.WriteLine(exp.ToString());
             }
         }
+
+        #endregion
 
     }
 }
