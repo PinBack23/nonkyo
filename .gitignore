@@ -2,7 +2,9 @@
 src/NOnkyo.Test/obj
 src/NOnkyo.ISCP/obj
 src/NOnkyo.WpfGui/obj
+src/NOnkyo.Web/obj
 src/NOnkyo.WpfGui.Setup/obj
 bin
 NOnkyo.v11.suo
 NOnkyo.v12.suo
+
