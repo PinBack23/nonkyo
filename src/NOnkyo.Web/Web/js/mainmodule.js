@@ -61,6 +61,13 @@ mainmodule.controller('mainController', ['$scope', function ($scope) {
 
     //#region Volume
     var loTimeoutVolumeHandle;
+    var loTimeoutVolumeHandle2;
+
+    var loVolumeScrollElement = $('#volumeScroll').jScrollPane({
+        verticalDragMaxHeight: 36,
+        verticalDragMinHeight: 36
+    });
+    var loVolumeScrollApi = loVolumeScrollElement.data("jsp");
 
     nonkyohelper.getJson(apiRoutes.URLS.ApiVolumeGetMaxVolume)
         .then(function (pnResult) {
@@ -87,6 +94,7 @@ mainmodule.controller('mainController', ['$scope', function ($scope) {
                     }
                 });
                 $('#txtVolume').knobRot("set", $scope.data.volume);
+                loVolumeScrollApi.scrollToPercentY(1 - ($scope.data.volume / $scope.data.maxvolume));
             });
         })
         .fail(function (error) {
@@ -98,6 +106,7 @@ mainmodule.controller('mainController', ['$scope', function ($scope) {
         if (!isNaN(lnVolume) && lnVolume !== $scope.data.volume) {
             $scope.$apply(function () {
                 $scope.data.volume = lnVolume;
+                loVolumeScrollApi.scrollToPercentY(1 - ($scope.data.volume / $scope.data.maxvolume));
                 nonkyohelper.getRequest(apiRoutes.URLS.ApiVolumeSetVolume + "?volume=" + $scope.data.volume).done()
                     .fail(function (error) {
                         alert("Cannot set volume:\n" + JSON.stringify(error));
@@ -106,12 +115,36 @@ mainmodule.controller('mainController', ['$scope', function ($scope) {
         }
     }
 
+    loVolumeScrollElement.bind("jsp-scroll-y", function () {
+        clearTimeout(loTimeoutVolumeHandle2);
+        loTimeoutVolumeHandle2 = setTimeout(function () {
+            var lnNewVolume = Math.floor((1 - loVolumeScrollApi.getPercentScrolledY()) * $scope.data.maxvolume);
+            if (lnNewVolume !== $scope.data.volume) {
+                nonkyohelper.getRequest(apiRoutes.URLS.ApiVolumeSetVolume + "?volume=" + lnNewVolume).done()
+                        .fail(function (error) {
+                            alert("Cannot set volume:\n" + JSON.stringify(error));
+                        });
+            }
+        }, 500);
+    });
+
+    //loVolumeScrollElement.on("mouseup", function () {
+    //    var lnNewVolume = Math.floor((1 - loVolumeScrollApi.getPercentScrolledY()) * $scope.data.maxvolume);
+    //    if (lnNewVolume !== $scope.data.volume){
+    //        nonkyohelper.getRequest(apiRoutes.URLS.ApiVolumeSetVolume + "?volume=" + lnNewVolume).done()
+    //                .fail(function (error) {
+    //                    alert("Cannot set volume:\n" + JSON.stringify(error));
+    //                });
+    //    }
+    //});
+
     loCommandHub.client.volumeChanged = function (pnVolume) {
         if (!isNaN(pnVolume) && pnVolume !== $scope.data.volume) {
             $scope.$apply(function () {
                 $scope.data.volume = pnVolume;
                 $('#txtVolume').knobRot("set", $scope.data.volume);
                 $('#txtVolume').trigger('knobrefresh');
+                loVolumeScrollApi.scrollToPercentY(1 - ($scope.data.volume / $scope.data.maxvolume));
             });
         }
     };
@@ -169,11 +202,12 @@ mainmodule.controller('mainController', ['$scope', function ($scope) {
     //#region Test
 
     $scope.showHello = function () {
-        loCommandHub.server.getMessage().done(function (psMessage) {
-            alert(psMessage);
-        }).fail(function (error) {
-            alert("Signal-R Error:\n" + JSON.stringify(error));
-        });
+        //loVolumeScrollApi.scrollToPercentY(0.5);
+        //loCommandHub.server.getMessage().done(function (psMessage) {
+        //    alert(psMessage);
+        //}).fail(function (error) {
+        //    alert("Signal-R Error:\n" + JSON.stringify(error));
+        //});
     };
 
     //#endregion
