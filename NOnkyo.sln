@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Local.testsettings = Local.testsettings
 		NOnkyo.vsmdi = NOnkyo.vsmdi
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+		WebEssentials-Settings.json = WebEssentials-Settings.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{B6606B45-13EB-43D3-8E4C-9D0F5152147A}"

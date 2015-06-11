@@ -196,22 +196,22 @@ setTimeout(function () {
 }, 0);
 
 // Scroll Bars
-    var $scrolls_on_page = $('.scrollbar.style2').length;
-    var $scroll_height = 0;
+    //var $scrolls_on_page = $('.scrollbar.style2').length;
+    //var $scroll_height = 0;
 
-    for(var i = 1; i <= $scrolls_on_page; i++){
-        $('.scrollbar.style2').eq(i-1).addClass('id'+i);
-    };
+    //for(var i = 1; i <= $scrolls_on_page; i++){
+    //    $('.scrollbar.style2').eq(i-1).addClass('id'+i);
+    //};
 
-    setTimeout(function () {
-        $(".jspTrack").append("<div class='jspProgress'></div>");
-        $(document).on('jsp-scroll-y','.scrollbar.style2',function(){
-            for(var i = 1; i <= $scrolls_on_page; i++){
-                $scroll_height = $('.scrollbar.style2.id'+i+' .jspDrag').css('top');
-                $('.scrollbar.style2.id'+i+' .jspDrag').siblings(".jspProgress").css({"height":parseInt($scroll_height, 10)+10+"px"});
-            }
-        });
-    }, 0);
+    //setTimeout(function () {
+    //    $(".jspTrack").append("<div class='jspProgress'></div>");
+    //    $(document).on('jsp-scroll-y','.scrollbar.style2',function(){
+    //        for(var i = 1; i <= $scrolls_on_page; i++){
+    //            $scroll_height = $('.scrollbar.style2.id'+i+' .jspDrag').css('top');
+    //            $('.scrollbar.style2.id'+i+' .jspDrag').siblings(".jspProgress").css({"height":parseInt($scroll_height, 10)+10+"px"});
+    //        }
+    //    });
+    //}, 0);
     
 // Rating Stars
 $(".rating span.star").hover(

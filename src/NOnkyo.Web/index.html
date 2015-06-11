@@ -21,6 +21,7 @@
     <script src="Web/js/libs/jquery-ui.min.js"></script>
     <script src="Web/js/libs/bootstrap.min.js"></script>
     <script src="Web/js/libs/angular.min.js"></script>
+    <script src="Web/js/libs/angular-ui-router.min.js"></script>
     <script src="Web/js/mainmodule.js"></script>
     <script src="Web/js/nonkyohelper.js"></script>
     <script src="Web/js/apiroutes.js"></script>
@@ -46,80 +47,40 @@
     </style>
     <![endif]-->
 </head>
-<body ng-controller="mainController">
-    <div tabindex="-1">
+<body>
+    <!--<div tabindex="-1">
         <div class="container" style="position:relative">
             <h1 style="font-size:40px">NOnkyo Web Interface</h1>
         </div>
+    </div>-->
+    <!--<div class="dropdown-wrap boxed-velvet">
+        <ul class="dropdown inner clearfix">
+            <li><a href="#"><span>Source</span></a></li>
+            <li><a href="#"><span>Log Out</span></a></li>
+        </ul>
+    </div>-->
+    <div ng-controller="mainController" class="row nonkyo-box">
+        <div class="col-sm-4 nonkyo-header-nav">
+            <a data-ui-sref="home">
+                <span class="glyphicon glyphicon-home" aria-hidden="true" />
+                Home
+            </a>
+            <a data-ui-sref="receiver">
+                <span class="glyphicon glyphicon-tasks" aria-hidden="true" />
+                Receiver
+            </a>
+        </div>
+        <div class="col-sm-2 nonkyo-header-info">
+            <h6>Volume: {{data.volume}}</h6>
+        </div>
+        <div class="col-sm-6 nonkyo-header-info">
+            <h6>{{data.inputselector}}</h6>
+        </div>
     </div>
 
-    <div class="body_wrap">
-        <div class="container" style="margin-right:4px;margin-left:4px">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="input_styled checklist">
-                        <div class="rowCheckbox checkbox-large">
-                            <input id="chbPowerstate" name="chbPowerstate" type="checkbox"
-                                   ng-model="data.powerstate" ng-change="setPowerstate(data.powerstate)" />
-                            <label for="chbPowerstate" ng-class="{checked: data.powerstate}">Power</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <h6>Volume: {{data.volume}}</h6>
-                    <div class="widget-knob widget-volume">
-                        <input type="text" autocomplete="off" id="txtVolume" />
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="scrollbars clearfix">
-                        <div id="volumeScroll" class="scrollbar style2">
-                            <p>These examples show very basic functionality and exist so that I can test that any changes to jScrollPane work cross browser and don't cause any new problems. Note that these examples aren't meant to look pretty, they merely highlight different bits of functionaity which are available. If you want examples of jScrollPane looking good then check out the themes.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <h6>Input selectors</h6>
-                    <div class="field_select" ng-show="data.inputselectorready">
-                        <select id="cboInputselector" class="select_styled_orange" onchange="angular.element(this).scope().setInputSelector(this)">
-                            <option ng-repeat="selector in data.allinputselectors"
-                                    ng-selected="{{selector.Value == data.inputselector}}"
-                                    value="{{selector.Value}}">
-                                {{selector.DisplayName}}
-                            </option>
-                            <!--
-                            <div class="field_select">
-                                <select class="select_styled select_styled_orange">
-                                    <option value="">Stage Select</option>
-                                    <option value="">Parking</option>
-                                    <option value="">Bar & Restaurant</option>
-                                    <option value="">Residence</option>
-                                    <option value="">Parking</option>
-                                    <option value="">Bar & Restaurant</option>
-                                    <option value="">Residence</option>
-                                    <option value="">House</option>
-                                </select>
-                            </div>-->
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <!--<div class="row">
-                <div class="col-lg-12">
-                    <a href="#" class="btn btn-round hover" ng-click="showHello()"><span>Show Hello</span></a>
-                    <div class="scrollbars clearfix">
-                        <div id="myscroll" class="scrollbar style2">
-                            <p>These examples show very basic functionality and exist so that I can test that any changes to jScrollPane work cross browser and don't cause any new problems. Note that these examples aren't meant to look pretty, they merely highlight different bits of functionaity which are available. If you want examples of jScrollPane looking good then check out the themes.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
-
-        </div>
+    <!-- Page Content -->
+    <div class="container body_wrap">
+        <div data-ui-view=""></div>
     </div>
 </body>
 </html>

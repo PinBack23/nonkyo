@@ -1,0 +1,125 @@
+﻿http://pixelkit.com/previews/dark-ui-kit/
+
+
+    <!--<div tabindex="-1">
+        <div class="container" style="position:relative">
+            <h1 style="font-size:40px">NOnkyo Web Interface</h1>
+        </div>
+    </div>-->
+    <!--<div class="dropdown-wrap boxed-velvet">
+        <ul class="dropdown inner clearfix">
+            <li><a href="#"><span>Source</span></a></li>
+            <li><a href="#"><span>Log Out</span></a></li>
+        </ul>
+    </div>-->
+    <div ng-controller="mainController" class="row mystyle">
+        <div class="col-sm-12">
+            <div class="buttons-small">
+                <a data-ui-sref="inputselectors" class="btn btn-small"><span>Source</span></a>
+                <a href="#" class="btn btn-small"><span>Lst. Mode</span></a>
+                <a href="#" class="btn btn-small"><span>Volume: {{data.volume}}</span></a>
+            </div>
+        </div>
+
+        <!--<div class="col-sm-2 col-xs-5">
+            <a href="#" class="btn btn-small" style="margin-top: 5px;"><span>My Select</span></a>
+        </div>
+        <div class="col-sm-2 col-xs-5">
+            <a href="#" class="btn btn-small" style="margin-top: 5px;"><span>Volume: {{data.volume}}</span></a>
+        </div>-->
+    </div>
+
+    <div class="body_wrap">
+        <div class="container" style="margin-top:5px;margin-right:5px;margin-left:5px">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="input_styled checklist">
+                        <div class="rowCheckbox checkbox-large">
+                            <input id="chbPowerstate" name="chbPowerstate" type="checkbox"
+                                   ng-model="data.powerstate" ng-change="setPowerstate(data.powerstate)" />
+                            <label for="chbPowerstate" ng-class="{checked: data.powerstate}">Power</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6>Volume: {{data.volume}}</h6>
+                    <!--<div class="widget-knob widget-volume">
+                        <input type="text" autocomplete="off" id="txtVolume" />
+                    </div>-->
+                    <div class="scrollbars clearfix">
+                        <div id="volumeScroll" class="scrollbar style2">
+                            <p>These examples show very basic functionality and exist so that I can test that any changes to jScrollPane work cross browser and don't cause any new problems. Note that these examples aren't meant to look pretty, they merely highlight different bits of functionaity which are available. If you want examples of jScrollPane looking good then check out the themes.</p>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="col-sm-2">
+                    <div class="scrollbars clearfix">
+                        <div id="volumeScroll" class="scrollbar style2">
+                            <p>These examples show very basic functionality and exist so that I can test that any changes to jScrollPane work cross browser and don't cause any new problems. Note that these examples aren't meant to look pretty, they merely highlight different bits of functionaity which are available. If you want examples of jScrollPane looking good then check out the themes.</p>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="col-sm-3">
+                    <div class="add-comment add-comment-velvet styled">
+                        <div class="add-comment-title"><h3>New Message</h3></div>
+                    </div>
+                    <table class="table mystyle">
+                        <caption>Optional table caption.</caption>
+                        <tbody>
+                            <tr>
+                                <td><a href="#" class="" hidefocus="true" style="outline: none;"><span>Select</span></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="" hidefocus="true" style="outline: none;"><span>Select</span></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="" hidefocus="true" style="outline: none;"><span>Select</span></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div>
+                        <h6>Input selectors</h6>
+                        <div class="field_select" ng-show="data.inputselectorready">
+                            <select id="cboInputselector" class="select_styled_orange" onchange="angular.element(this).scope().setInputSelector(this)">
+                                <option ng-repeat="selector in data.allinputselectors"
+                                        ng-selected="{{selector.Value == data.inputselector}}"
+                                        value="{{selector.Value}}">
+                                    {{selector.DisplayName}}
+                                </option>
+                                <!--
+                                <div class="field_select">
+                                    <select class="select_styled select_styled_orange">
+                                        <option value="">Stage Select</option>
+                                        <option value="">Parking</option>
+                                        <option value="">Bar & Restaurant</option>
+                                        <option value="">Residence</option>
+                                        <option value="">Parking</option>
+                                        <option value="">Bar & Restaurant</option>
+                                        <option value="">Residence</option>
+                                        <option value="">House</option>
+                                    </select>
+                                </div>-->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="row">
+                <div class="col-sm-12">
+                    <a href="#" class="btn btn-round hover" ng-click="showHello()"><span>Show Hello</span></a>
+                    <div class="scrollbars clearfix">
+                        <div id="myscroll" class="scrollbar style2">
+                            <p>These examples show very basic functionality and exist so that I can test that any changes to jScrollPane work cross browser and don't cause any new problems. Note that these examples aren't meant to look pretty, they merely highlight different bits of functionaity which are available. If you want examples of jScrollPane looking good then check out the themes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+
+        </div>
+    </div>

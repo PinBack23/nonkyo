@@ -1,0 +1,40 @@
+﻿<div class="row nonkyo-row">
+    <h5>Input selectors</h5>
+    <div class="col-sm-12">
+        <a href="#" class="btn nonkyo-btn-fix" ng-click="setEnumInputSelector('TUNER')"><span>Tuner</span></a>
+        <a href="#" class="btn nonkyo-btn-fix" ng-click="setEnumInputSelector('PHONO')"><span>Phono</span></a>
+        <a href="#" class="btn nonkyo-btn-fix" ng-click="setEnumInputSelector('BDDVD')"><span>BD/DVD</span></a>        
+    </div>
+</div>
+<div class="row nonkyo-row">
+    <div class="col-sm-12">
+        <a href="#" class="btn nonkyo-btn-fix" ng-click="setEnumInputSelector('MUSICSERVER')"><span>DLNA</span></a>
+        <a href="#" class="btn nonkyo-btn-fix" ng-click="setEnumInputSelector('INTERNETRADIO')"><span>iRadio</span></a>
+        <a href="#" class="btn nonkyo-btn-fix" ng-click="setEnumInputSelector('NETWORKNET')"><span>Net</span></a>
+    </div>
+</div>
+<div class="row nonkyo-row">
+    <div class="col-sm-12">
+        <div>
+            <h6>Input selectors (direct)</h6>
+            <div class="field_select" ng-show="data.inputselectorready">
+                <select id="cboInputselector" class="select_styled_orange" onchange="angular.element(this).scope().setInputSelector(this)">
+                    <option ng-repeat="selector in data.allinputselectors"
+                            ng-selected="{{selector.Value == data.inputselector}}"
+                            value="{{selector.Value}}">
+                        {{selector.DisplayName}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row nonkyo-row">
+    <div class="col-sm-12">
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <a data-ui-sref="home" class="btn btn-round"><span>Cancel</span></a>
+            </div>
+        </div>
+    </div>
+</div>

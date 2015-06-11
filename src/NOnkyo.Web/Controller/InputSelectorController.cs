@@ -24,6 +24,12 @@ namespace NOnkyo.Web.Controller
         }
 
         [HttpGet]
+        public string GetDescriptionState()
+        {
+            return ISCP.Command.CommandBase.GetCommand<ISCP.Command.InputSelector>().CurrentInputSelector.ToDescription();
+        }
+
+        [HttpGet]
         public List<InputSelectorItem> AllSelectors()
         {
             return InputSelectorItem.AllItems;

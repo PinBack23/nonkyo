@@ -67,6 +67,7 @@
 
         ApiInputSelectorGetState: undefined,
         ApiInputSelectorGetEnumState: undefined,
+        ApiInputSelectorGetDescriptionState: undefined,
         ApiInputSelectorAllSelectors: undefined,
         ApiInputSelectorSet: undefined,
         ApiInputSelectorSetEnum: undefined
@@ -84,6 +85,7 @@
 
     URLS.ApiInputSelectorGetState = lsRootUrl + "InputSelector/GetState";
     URLS.ApiInputSelectorGetEnumState = lsRootUrl + "InputSelector/GetEnumState";
+    URLS.ApiInputSelectorGetDescriptionState = lsRootUrl + "InputSelector/GetDescriptionState";
     URLS.ApiInputSelectorAllSelectors = lsRootUrl + "InputSelector/AllSelectors";
     URLS.ApiInputSelectorSet = lsRootUrl + "InputSelector/Set";
     URLS.ApiInputSelectorSetEnum = lsRootUrl + "InputSelector/SetEnum";

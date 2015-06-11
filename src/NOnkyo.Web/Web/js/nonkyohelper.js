@@ -1,6 +1,14 @@
 ﻿/// <reference path="_references.js" />
 var nonkyohelper = (function () {
 
+    var EVENT_NAMES = {
+        commandHub: {
+            volumeChanged: "commandHub.volumeChanged",
+            inputSelectorChanged: "commandHub.inputSelectorChanged",
+            powerStateChanged: "commandHub.powerStateChanged"
+        }
+    };
+
     var loGetRequest = function (psUrl) {
         return $.get(psUrl);
     };
@@ -65,6 +73,52 @@ var nonkyohelper = (function () {
         loItem.click();
     };
 
+    var loStartSignalR = function ($rootscope) {
+        var loCommandHub = $.connection.commandHub;
+
+        $.connection.hub.logging = true;
+
+        loCommandHub.client.volumeChanged = function () {
+            $rootscope.$broadcast(EVENT_NAMES.commandHub.volumeChanged, arguments);
+        };
+
+        loCommandHub.client.inputSelectorChanged = function () {
+            $rootscope.$broadcast(EVENT_NAMES.commandHub.inputSelectorChanged, arguments);
+        };
+
+        loCommandHub.client.powerStateChanged = function () {
+            $rootscope.$broadcast(EVENT_NAMES.commandHub.powerStateChanged, arguments);
+        };
+
+        var loPromise = $.connection.hub.start();
+        return loPromise;
+    };
+
+    var loCreateSlider = function (psIdSelector) {
+        var loNewScrollElement = $('#' + psIdSelector).jScrollPane({
+            verticalDragMaxHeight: 36,
+            verticalDragMinHeight: 36
+        });
+
+        loNewScrollElement.addClass('id' + psIdSelector);
+
+        setTimeout(function () {
+            loNewScrollElement.find(".jspTrack").append("<div class='jspProgress'></div>");
+            $(document).on('jsp-scroll-y', '.scrollbar.style2', function () {
+
+                $scroll_height = $('.scrollbar.style2.id' + psIdSelector + ' .jspDrag').css('top');
+                $('.scrollbar.style2.id' + psIdSelector + ' .jspDrag').siblings(".jspProgress").css({ "height": parseInt($scroll_height, 10) + 10 + "px" });
+
+                //for (var i = 1; i <= $scrolls_on_page; i++) {
+                //    $scroll_height = $('.scrollbar.style2.id' + i + ' .jspDrag').css('top');
+                //    $('.scrollbar.style2.id' + i + ' .jspDrag').siblings(".jspProgress").css({ "height": parseInt($scroll_height, 10) + 10 + "px" });
+                //}
+            });
+        }, 0);
+
+        return loNewScrollElement;
+    };
+
     //#region Private Funktionen
 
     function sendAjaxRequest(psUrl, psType, poJsonData) {
@@ -82,6 +136,7 @@ var nonkyohelper = (function () {
     //#endregion
 
     return {
+        EVENT_NAMES: EVENT_NAMES,
         getRequest: loGetRequest,
         getJson: loGetJson,
         postJson: loPostJson,
@@ -89,6 +144,8 @@ var nonkyohelper = (function () {
         deleteJson: loDeleteJson,
         deleteRequest: loDeleteRequest,
         openWindow: loOpenWindow,
-        setCboValue: loSetCboValue
+        setCboValue: loSetCboValue,
+        startSignalR: loStartSignalR,
+        createSlider: loCreateSlider
     };
 }());

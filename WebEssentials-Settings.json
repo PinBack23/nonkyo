@@ -1,0 +1,122 @@
+﻿{
+  "BrowserLink": {
+    "CssIgnorePatterns": "bootstrap*; reset.css; normalize.css; jquery*; toastr*; foundation*; animate*; inuit*; elements*; ratchet*; hint*; flat-ui*; 960*; skeleton*",
+    "EnableMenu": true,
+    "EnablePixelPushing": true,
+    "ShowMenu": true
+  },
+  "CodeGen": {
+    "CamelCasePropertyNames": true,
+    "CamelCaseTypeNames": false
+  },
+  "CoffeeScript": {
+    "CompileOnBuild": false,
+    "CompileOnSave": true,
+    "GenerateSourceMaps": true,
+    "LintOnBuild": false,
+    "LintOnSave": true,
+    "LintResultLocation": "Message",
+    "MinifyInPlace": false,
+    "OutputDirectory": null,
+    "ShowPreviewPane": true,
+    "WrapClosure": true
+  },
+  "Css": {
+    "AdjustRelativePaths": true,
+    "AutoMinify": false,
+    "GzipMinifiedFiles": false,
+    "ShowBrowserTooltip": true,
+    "ShowInitialInherit": false,
+    "ShowUnsupported": true,
+    "SyncVendorValues": true,
+    "ValidateEmbedImages": true,
+    "ValidateOverQualifiedSelector": true,
+    "ValidateStarSelector": true,
+    "ValidateVendorSpecifics": true,
+    "ValidateZeroUnit": true,
+    "ValidationLocation": "Messages"
+  },
+  "General": {
+    "AllMessagesToOutputWindow": false,
+    "KeepImportantComments": true,
+    "SvgPreviewPane": true
+  },
+  "Html": {
+    "AutoMinify": false,
+    "EnableAngularValidation": true,
+    "EnableEnterFormat": true,
+    "GzipMinifiedFiles": false,
+    "ImageDropFormats": [
+      {
+        "HtmlFormat": "<img src=\"{0}\" alt=\"\" />",
+        "Name": "Simple Image Tag"
+      },
+      {
+        "HtmlFormat": "<div><img src=\"{0}\" alt=\"\" /></div>",
+        "Name": "Enclosed in Div"
+      },
+      {
+        "HtmlFormat": "<li id=\"item_{1}\"><img src=\"{0}\" alt=\"\" /></li>",
+        "Name": "Enclosed as List Item"
+      },
+      {
+        "HtmlFormat": "<div style=\"background-image=url('{0}')\"></div>",
+        "Name": "Inline CSS"
+      }
+    ]
+  },
+  "JavaScript": {
+    "AutoMinify": false,
+    "BlockCommentCompletion": true,
+    "GenerateSourceMaps": true,
+    "GzipMinifiedFiles": false,
+    "LintOnBuild": false,
+    "LintOnSave": true,
+    "LintResultLocation": "Message"
+  },
+  "Less": {
+    "CompileOnBuild": false,
+    "CompileOnSave": false,
+    "EnableChainCompilation": false,
+    "GenerateSourceMaps": false,
+    "MinifyInPlace": false,
+    "OutputDirectory": null,
+    "ShowPreviewPane": false
+  },
+  "Markdown": {
+    "AutoHyperlink": false,
+    "AutoNewLines": false,
+    "CompileOnBuild": false,
+    "CompileOnSave": true,
+    "EncodeProblemUrlCharacters": false,
+    "GenerateXHTML": true,
+    "LinkEmails": false,
+    "MinifyInPlace": false,
+    "OutputDirectory": null,
+    "ShowPreviewPane": true,
+    "StrictBoldItalic": false
+  },
+  "Scss": {
+    "CompileOnBuild": false,
+    "CompileOnSave": true,
+    "EnableChainCompilation": true,
+    "GenerateSourceMaps": true,
+    "MinifyInPlace": false,
+    "OutputDirectory": null,
+    "ShowPreviewPane": true
+  },
+  "SweetJs": {
+    "CompileOnBuild": false,
+    "CompileOnSave": true,
+    "GenerateSourceMaps": true,
+    "MinifyInPlace": false,
+    "OutputDirectory": null,
+    "ShowPreviewPane": true
+  },
+  "TypeScript": {
+    "LintOnBuild": false,
+    "LintOnSave": true,
+    "LintResultLocation": "Message",
+    "ShowPreviewPane": true
+  }
+}
