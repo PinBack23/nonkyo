@@ -39,12 +39,12 @@ $(".widget-container li:last-child, .pricing_box li:last-child, .dropdown li:las
 	});
 
 // style Select, Radio, Checkbox
-    if ($("select").hasClass("select_styled")) {
-        cuSel({changedEl: ".select_styled", visRows: 10});
-    }
-    if ($("div,p").hasClass("input_styled")) {
-        $(".input_styled input").customInput();
-    }
+    //if ($("select").hasClass("select_styled")) {
+    //    cuSel({changedEl: ".select_styled", visRows: 10});
+    //}
+    //if ($("div,p").hasClass("input_styled")) {
+    //    $(".input_styled input").customInput();
+    //}
 
 // NavBar Parents Arrow
     $(".dropdown ul").parent("li").addClass("parent");

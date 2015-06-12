@@ -52,6 +52,10 @@
     //SOURCE
     //#endregion
 
+    //http://localhost:9876/api/AudioMuting/GetState
+    //http://localhost:9876/api/AudioMuting/MuteOn
+    //http://localhost:9876/api/AudioMuting/MuteOff
+
     //http://localhost:9876/api/Command/Send?command=MVLUP
 
     var URLS = {
@@ -70,7 +74,13 @@
         ApiInputSelectorGetDescriptionState: undefined,
         ApiInputSelectorAllSelectors: undefined,
         ApiInputSelectorSet: undefined,
-        ApiInputSelectorSetEnum: undefined
+        ApiInputSelectorSetEnum: undefined,
+
+        ApiAudioMutingGetState: undefined,
+        ApiAudioMutingMuteOn: undefined,
+        ApiAudioMutingMuteOff: undefined,
+
+        ApiCommandSend: undefined
     };
 
     URLS.ApiVolumeGetMaxVolume = lsRootUrl + "Volume/GetMaxVolume";
@@ -90,6 +100,11 @@
     URLS.ApiInputSelectorSet = lsRootUrl + "InputSelector/Set";
     URLS.ApiInputSelectorSetEnum = lsRootUrl + "InputSelector/SetEnum";
 
+    URLS.ApiAudioMutingGetState = lsRootUrl + "AudioMuting/GetState";
+    URLS.ApiAudioMutingMuteOn = lsRootUrl + "AudioMuting/MuteOn";
+    URLS.ApiAudioMutingMuteOff = lsRootUrl + "AudioMuting/MuteOff";
+
+    URLS.ApiCommandSend = lsRootUrl + "Command/Send";
     return {
         URLS: URLS
     };

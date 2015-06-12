@@ -1,5 +1,25 @@
 ﻿<div class="row nonkyo-row">
-    <div class="col-sm-12">
+    <div class="col-sm-2">
+        <div class="input_styled checklist">
+            <div class="rowCheckbox checkbox-large">
+                <input id="chbPowerstate" name="chbPowerstate" type="checkbox"
+                       ng-model="data.powerstate" ng-change="setPowerstate(data.powerstate)" />
+                <label for="chbPowerstate" ng-class="{checked: data.powerstate}">Power</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="input_styled checklist">
+            <div class="rowCheckbox checkbox-large">
+                <input id="chbMute" name="chbMute" type="checkbox"
+                       ng-model="data.mutestate" ng-change="setMutestate(data.mutestate)" />
+                <label for="chbMute" ng-class="{checked: data.mutestate}">Mute</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row nonkyo-row">
+    <div class="col-sm-2">
         <h6>Volume: {{data.volume}}</h6>
         <div class="scrollbars clearfix">
             <div id="volumeScroll" class="scrollbar style2">
@@ -7,4 +27,29 @@
             </div>
         </div>
     </div>
+    <div class="col-sm-5">
+        <div class="row">
+            <div class="col-sm-12">
+                <a href="#" ng-click="setVolumeUp()">
+                    <span class="glyphicon glyphicon-volume-up" style="font-size: 2em;" aria-hidden="true" />
+                    Up
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <a href="#" ng-click="setVolumeDown()">
+                    <span class="glyphicon glyphicon-volume-down" style="font-size: 2em;" aria-hidden="true" />
+                    Down
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
+<script type="text/javascript">
+	jQuery(function()
+	{
+	    jQuery("#chbPowerstate").customInput();
+	    jQuery("#chbMute").customInput();
+	});
+</script>

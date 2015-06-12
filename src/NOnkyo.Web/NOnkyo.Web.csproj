@@ -694,6 +694,7 @@
     <None Include="Web\js\_references.js" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\AudioMutingController.cs" />
     <Compile Include="Controller\CommandController.cs" />
     <Compile Include="Controller\InputSelectorController.cs" />
     <Compile Include="Controller\PowerController.cs" />

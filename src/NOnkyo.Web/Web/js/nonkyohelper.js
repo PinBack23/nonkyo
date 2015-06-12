@@ -5,7 +5,8 @@ var nonkyohelper = (function () {
         commandHub: {
             volumeChanged: "commandHub.volumeChanged",
             inputSelectorChanged: "commandHub.inputSelectorChanged",
-            powerStateChanged: "commandHub.powerStateChanged"
+            powerStateChanged: "commandHub.powerStateChanged",
+            muteStateChanged: "commandHub.muteStateChanged"
         }
     };
 
@@ -90,6 +91,10 @@ var nonkyohelper = (function () {
             $rootscope.$broadcast(EVENT_NAMES.commandHub.powerStateChanged, arguments);
         };
 
+        loCommandHub.client.muteStateChanged = function () {
+            $rootscope.$broadcast(EVENT_NAMES.commandHub.muteStateChanged, arguments);
+        };
+
         var loPromise = $.connection.hub.start();
         return loPromise;
     };
@@ -105,14 +110,8 @@ var nonkyohelper = (function () {
         setTimeout(function () {
             loNewScrollElement.find(".jspTrack").append("<div class='jspProgress'></div>");
             $(document).on('jsp-scroll-y', '.scrollbar.style2', function () {
-
                 $scroll_height = $('.scrollbar.style2.id' + psIdSelector + ' .jspDrag').css('top');
                 $('.scrollbar.style2.id' + psIdSelector + ' .jspDrag').siblings(".jspProgress").css({ "height": parseInt($scroll_height, 10) + 10 + "px" });
-
-                //for (var i = 1; i <= $scrolls_on_page; i++) {
-                //    $scroll_height = $('.scrollbar.style2.id' + i + ' .jspDrag').css('top');
-                //    $('.scrollbar.style2.id' + i + ' .jspDrag').siblings(".jspProgress").css({ "height": parseInt($scroll_height, 10) + 10 + "px" });
-                //}
             });
         }, 0);
 

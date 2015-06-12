@@ -187,6 +187,9 @@ namespace NOnkyo.Web
 
                         if (loCommand is ISCP.Command.InputSelector)
                             loCommandHub.Clients.All.InputSelectorChanged((loCommand as ISCP.Command.InputSelector).CurrentInputSelector);
+
+                        if (loCommand is ISCP.Command.AudioMuting)
+                            loCommandHub.Clients.All.MuteStateChanged((loCommand as ISCP.Command.AudioMuting).Mute);
                     }
                 }
             }

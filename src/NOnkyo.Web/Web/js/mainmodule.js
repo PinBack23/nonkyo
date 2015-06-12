@@ -82,13 +82,79 @@ mainmodule.controller('homeController', ['$scope', '$rootScope', function ($scop
     $scope.data = {};
     nonkyohelper.startSignalR($rootScope);
 
+    //#region PowerState 
+
+    nonkyohelper.getJson(apiRoutes.URLS.ApiPowerGetState)
+        .done(function (psResult) {
+            $scope.$apply(function () {
+                $scope.data.powerstate = psResult === 'ON';
+            });
+        })
+        .fail(function (error) {
+            alert("Cannot read powerstate:\n" + JSON.stringify(error));
+        });
+
+    $scope.setPowerstate = function (pbState) {
+        if (pbState) {
+            nonkyohelper.getRequest(apiRoutes.URLS.ApiPowerPowerOn).done().fail(function (error) {
+                alert("Cannot set powerstate:\n" + JSON.stringify(error));
+            });
+        } else {
+            nonkyohelper.getRequest(apiRoutes.URLS.ApiPowerPowerOff).done().fail(function (error) {
+                alert("Cannot set powerstate:\n" + JSON.stringify(error));
+            });
+        }
+    };
+
+    $rootScope.$on(nonkyohelper.EVENT_NAMES.commandHub.powerStateChanged, function (event, args) {
+        var lbPowerState = args[0];
+        if (lbPowerState !== $scope.data.powerstate) {
+            $scope.$apply(function () {
+                $scope.data.powerstate = lbPowerState;
+            });
+        }
+    });
+
+    //#endregion
+
+    //#region Mute 
+
+    nonkyohelper.getJson(apiRoutes.URLS.ApiAudioMutingGetState)
+        .done(function (pbResult) {
+            $scope.$apply(function () {
+                $scope.data.mutestate = pbResult;
+            });
+        })
+        .fail(function (error) {
+            alert("Cannot read mutestate:\n" + JSON.stringify(error));
+        });
+
+    $scope.setMutestate = function (pbState) {
+        if (pbState) {
+            nonkyohelper.getRequest(apiRoutes.URLS.ApiAudioMutingMuteOn).done().fail(function (error) {
+                alert("Cannot set mutestate:\n" + JSON.stringify(error));
+            });
+        } else {
+            nonkyohelper.getRequest(apiRoutes.URLS.ApiAudioMutingMuteOff).done().fail(function (error) {
+                alert("Cannot set mutestate:\n" + JSON.stringify(error));
+            });
+        }
+    };
+
+    $rootScope.$on(nonkyohelper.EVENT_NAMES.commandHub.muteStateChanged, function (event, args) {
+        var lbMuteState = args[0];
+        if (lbMuteState !== $scope.data.mutestate) {
+            $scope.$apply(function () {
+                $scope.data.mutestate = lbMuteState;
+            });
+        }
+    });
+
+    //#endregion
+
     //#region Volume
     var loTimeoutVolumeHandle;
 
-    //var loVolumeScrollElement = $('#volumeScroll').jScrollPane({
-    //    verticalDragMaxHeight: 36,
-    //    verticalDragMinHeight: 36
-    //});
     var loVolumeScrollElement = nonkyohelper.createSlider('volumeScroll');
     var loVolumeScrollApi = loVolumeScrollElement.data("jsp");
 
@@ -130,7 +196,22 @@ mainmodule.controller('homeController', ['$scope', '$rootScope', function ($scop
         }
     });
 
+    $scope.setVolumeUp = function () {
+        nonkyohelper.getRequest(apiRoutes.URLS.ApiVolumeSetVolumeUp).done()
+                .fail(function (error) {
+                    alert("Cannot set volume:\n" + JSON.stringify(error));
+                });
+    };
+
+    $scope.setVolumeDown = function () {
+        nonkyohelper.getRequest(apiRoutes.URLS.ApiVolumeSetVolumeDown).done()
+                .fail(function (error) {
+                    alert("Cannot set volume:\n" + JSON.stringify(error));
+                });
+    };
+
     //#endregion
+
 }]);
 
 mainmodule.controller('receiverController', ['$scope', '$rootScope', function ($scope, $rootScope) {
