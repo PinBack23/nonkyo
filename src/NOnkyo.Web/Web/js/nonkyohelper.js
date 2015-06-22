@@ -67,8 +67,9 @@ var nonkyohelper = (function () {
         var loElem = $("#cusel-scroll-" + psCboId);
         var loItem = loElem.find("span[val=" + poValue + "]").first();
 
-        if (!loItem.length)
+        if (!loItem.length) {
             return false;
+        }
 
         // invoke value change  
         loItem.click();
