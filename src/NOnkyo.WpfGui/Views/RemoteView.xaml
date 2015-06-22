@@ -224,7 +224,7 @@
                 <Ellipse x:Name="cirServerState" Margin="3" Fill="Red" Width="10" Height="10" Opacity="0.8">
                 </Ellipse>
                 <TextBlock Margin="5">
-                <Hyperlink NavigateUri="{Binding WebSetupUrl}" RequestNavigate="Hyperlink_RequestNavigate">Web Setup</Hyperlink>
+                <Hyperlink NavigateUri="{Binding WebSetupUrl}" RequestNavigate="Hyperlink_RequestNavigate">Onkyo Setup</Hyperlink>
                 </TextBlock>
             </StackPanel>
         </DockPanel>

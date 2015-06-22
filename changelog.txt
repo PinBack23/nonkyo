@@ -1,6 +1,12 @@
 Release notes
 
 #################################
+version 0.14
+#################################
+- changed: new icons for NOnkyo
+- added: self hosting web server with a minimal web-interface
+- added: provide a REST-Api to control NOnkyo
+#################################
 version 0.13
 #################################
 - added: email contact address in about view

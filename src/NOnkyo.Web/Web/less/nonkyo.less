@@ -1,4 +1,7 @@
-﻿.nonkyo-buttons .btn {
+﻿/// <reference path="variables.less" />
+/// <reference path="bootstrap/variables.less" />
+
+.nonkyo-buttons .btn {
     margin-right: 20px;
 }
 
@@ -39,4 +42,8 @@ div.nonkyo-row {
 
 a.nonkyo-btn-fix {
     width: 120px;
+    @media screen and (max-width: @screen-phone) {
+        width: 90px;
+        font-size: small;
+    }
 }
