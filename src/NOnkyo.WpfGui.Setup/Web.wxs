@@ -1,0 +1,763 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <ComponentGroup Id="CID_WEB">
+      <ComponentRef Id="comp_A09FFCB9396442D2B5F1CA301A19CFE6" />
+      <ComponentRef Id="comp_308DA5C033724DE681E3B1BD4C9EF9B6" />
+      <ComponentRef Id="comp_5A5BD12B166C4D5BAFDCE39270006A6C" />
+      <ComponentRef Id="comp_8645457C161D459398FC27EB55E31B85" />
+      <ComponentRef Id="comp_5944F08476AC462D94B74814D2905C8E" />
+      <ComponentRef Id="comp_AC630073CACB413889E3B62320A75B2A" />
+      <ComponentRef Id="comp_42992DC3313E4548A1C0CE15D402A4D3" />
+      <ComponentRef Id="comp_76370AC3FC6D47718C88A05568D4B9FF" />
+      <ComponentRef Id="comp_C55F1F89C65248FE8D2D1749952A3F8B" />
+      <ComponentRef Id="comp_9257BB8A8C884CD583C5A7B46E9A394A" />
+      <ComponentRef Id="comp_8AA0C493EA834ADAB408D61A17DAA3F0" />
+      <ComponentRef Id="comp_88AB06B84E8C49ADBCE4A7545C7861B9" />
+      <ComponentRef Id="comp_AABA938855024DDDA531EE01C9503DFE" />
+      <ComponentRef Id="comp_A4E25B824831450BB92F9E99A0E82CD0" />
+      <ComponentRef Id="comp_0AD197E91C0148D59A3232EEAB3493FD" />
+      <ComponentRef Id="comp_55F1AD65C8794EE690C296647793DF34" />
+      <ComponentRef Id="comp_7716CF422792405BB5BDC892AFFE40F2" />
+      <ComponentRef Id="comp_F5A46D51E20B4900B3968CD61218DDB7" />
+      <ComponentRef Id="comp_A8258394C7D4404693ED930C74DCC2A2" />
+      <ComponentRef Id="comp_C3D7911A04AB4845B504E48558441AE9" />
+      <ComponentRef Id="comp_71961F25E4234FED84EEE218890E5D94" />
+      <ComponentRef Id="comp_0ED15ED0806C44328AE07B93BB8BDA06" />
+      <ComponentRef Id="comp_3E204E33B14947CF8E9886A8A41C739E" />
+      <ComponentRef Id="comp_92A2A02ACD30447D95BAAC3CA00951FE" />
+      <ComponentRef Id="comp_FCDE4231131C48F590FFF0D8A7F7CC0F" />
+      <ComponentRef Id="comp_9C204F2E2E7240C1BF66C9D6A8A4CF06" />
+      <ComponentRef Id="comp_B2F560D8633D42D0BDD1FAB9F921FD0A" />
+      <ComponentRef Id="comp_421AC9B2650F49E7BF6F8D0890E64E12" />
+      <ComponentRef Id="comp_3B28308E1A95459D86F0F41B50F1D81A" />
+      <ComponentRef Id="comp_E21F872C4E8848149A2D6364A8F5785A" />
+      <ComponentRef Id="comp_220706B8E4A24A638696858D05F70D00" />
+      <ComponentRef Id="comp_AE9B0EDB66C048A092D21F30103D7CC8" />
+      <ComponentRef Id="comp_E081FDE2D3F3423EA7B5EE8F0937F87D" />
+      <ComponentRef Id="comp_1143E9D9B4F1460B97AC9BDC6B0D04F7" />
+      <ComponentRef Id="comp_633CC39A81FD41C2B1F4B0D779BEB8AE" />
+      <ComponentRef Id="comp_BF0EAC83D60C4047BC7EC960137F7C8B" />
+      <ComponentRef Id="comp_7E401F0321B84623BF34ECB95B10177F" />
+      <ComponentRef Id="comp_95CFE01FD17A4442A038EC4853CF1B65" />
+      <ComponentRef Id="comp_B3C572AC55B045E4AF9BEFCC4FCF1086" />
+      <ComponentRef Id="comp_317F640CC59F4ACD8CE999A5A6AA1EB4" />
+      <ComponentRef Id="comp_47897ACFB09645D7A7561F91D135AC69" />
+      <ComponentRef Id="comp_D06E3864ACD54429BD049E34633D0D86" />
+      <ComponentRef Id="comp_C0461AEED41C4C4E8C82E6C473C110FF" />
+      <ComponentRef Id="comp_863564DF7C13407C884751F05975C325" />
+      <ComponentRef Id="comp_13D6E58CBFAD4672A6481DAE15E55F42" />
+      <ComponentRef Id="comp_A92F4806F6C4470A8B0F32269619D591" />
+      <ComponentRef Id="comp_50D054127D23472B8ABE782B2D199BA5" />
+      <ComponentRef Id="comp_AA559328FB5A468882DAFD04F0BC0584" />
+      <ComponentRef Id="comp_7119AB1355684C56B7FBCF7B0D80B7A0" />
+      <ComponentRef Id="comp_1068DCB1FFF24712927D5DCE3B7881B2" />
+      <ComponentRef Id="comp_C8BBC838569143088988240E93C281B4" />
+      <ComponentRef Id="comp_B8368ED0326649E38B164B55757FA931" />
+      <ComponentRef Id="comp_6531B4D6DC0A450D80AE6524BF13909F" />
+      <ComponentRef Id="comp_D6D9FFD4A9C14CDFA82489D15EF21827" />
+      <ComponentRef Id="comp_144A7DA3820F471483EE5458311FAFB5" />
+      <ComponentRef Id="comp_793FB28BFC0849EFA751C10CD54B5B26" />
+      <ComponentRef Id="comp_1F8C8A39D7A94C75844EA37A1C6A4A4F" />
+      <ComponentRef Id="comp_E654EC431D67410A93FC2D707A6A340D" />
+      <ComponentRef Id="comp_9BF4F8B202FB4C24B9E471DB49C60ACB" />
+      <ComponentRef Id="comp_4AB98BB019B44D1BAC3996D0849A0767" />
+      <ComponentRef Id="comp_5582C38BD2324A75A18D1BA7F1CA6D9B" />
+      <ComponentRef Id="comp_BBC0BC48F4294A2BBB5E2A5C5E7D2B42" />
+      <ComponentRef Id="comp_7CFEEAC434F5481385D9142AF633952D" />
+      <ComponentRef Id="comp_8E5840C72F234FE5985F14524FE827E7" />
+      <ComponentRef Id="comp_20232D43C1484B5CA05862738C80F4BC" />
+      <ComponentRef Id="comp_90A46DA387A44B359142B3422EDEBB9F" />
+      <ComponentRef Id="comp_24D2171C8C7A4845A852410ED00870BF" />
+      <ComponentRef Id="comp_EDC46109A1FE419DB48A11D19095F7CC" />
+      <ComponentRef Id="comp_C492A1FD71E44CEC90772FADBCFB06DE" />
+      <ComponentRef Id="comp_6EF5D5E08374451D9EE3668A41E3A7ED" />
+      <ComponentRef Id="comp_F8E849F2656F403CB767DC7178FD9265" />
+      <ComponentRef Id="comp_077562841EB84CD38D448B5BF62F387E" />
+      <ComponentRef Id="comp_46089112B2C4456EA67EB8792AC4D63F" />
+      <ComponentRef Id="comp_7232B31A4A204221A425A36069A739F5" />
+      <ComponentRef Id="comp_ABDF69FC9AF9480880396DF12DA20876" />
+      <ComponentRef Id="comp_F5E59E850DC244A1A00F227A0B56ED5D" />
+      <ComponentRef Id="comp_A97B369C6FD6436E8C3E6A53AE7C19F1" />
+      <ComponentRef Id="comp_DF8F05724E224B4698F25E0A2BAEF2F7" />
+      <ComponentRef Id="comp_68EADEAC6E554EC68F7327E00D0CB859" />
+      <ComponentRef Id="comp_E10B7B2489D6495FADFC697792729DE5" />
+      <ComponentRef Id="comp_5B966416A2FF477B8511BB89C7078F90" />
+      <ComponentRef Id="comp_C4C38A44CBCD47FBA1266C7C3C8EF97C" />
+      <ComponentRef Id="comp_87692BC7E8CB462B913593FB70FF68A3" />
+      <ComponentRef Id="comp_0CDBD20F6C4C4475B8297A82FF13C5A1" />
+      <ComponentRef Id="comp_CB4877BA7230405A8C05A782EF781F96" />
+      <ComponentRef Id="comp_00A9D3DC00744D5CAEB2167F6F400470" />
+      <ComponentRef Id="comp_ABE1F016ADA94032BA76D90F1B768EA6" />
+      <ComponentRef Id="comp_8B097270088D4E5EB14DA77BCCB09C9C" />
+      <ComponentRef Id="comp_26F58C85876442FF90B145F4B341F150" />
+      <ComponentRef Id="comp_DA4025C08A03494AA3AD27831204DAD9" />
+      <ComponentRef Id="comp_26208579DEAF404BBFCEA996713A9802" />
+      <ComponentRef Id="comp_0EC0131563B247AFB3D93AD2A4F6876C" />
+      <ComponentRef Id="comp_177BCFF679FD4B419B81D87CE90E9EBB" />
+      <ComponentRef Id="comp_5C5AF75ED8C84E2E96CE20170BE7A168" />
+      <ComponentRef Id="comp_3F4AB774C76F4CDA97EA548D2732BA35" />
+      <ComponentRef Id="comp_044CE3221FBD4E2791D7A23A361BBF26" />
+      <ComponentRef Id="comp_628B2F0927984D42B61691FDA0FC81C7" />
+      <ComponentRef Id="comp_EBF09F22B247455AA06AEC4CD7B7F9B9" />
+      <ComponentRef Id="comp_A943B6C4E43E401FA613F3F0706AF526" />
+      <ComponentRef Id="comp_7AB785C87BCD4A508B6EA4660753FEB1" />
+      <ComponentRef Id="comp_FC8D70C45AE449DF817D3625145319BD" />
+      <ComponentRef Id="comp_8ED2CF79F14F410ABB2DA1EFD160A553" />
+      <ComponentRef Id="comp_659D85B201C142218E4683FB2461EDF7" />
+      <ComponentRef Id="comp_83C9C96F77504679B52576D11BE201CB" />
+      <ComponentRef Id="comp_F72641ECAD2A4CB3B9EE7C80F708BB3A" />
+      <ComponentRef Id="comp_7FF93ECFF9CC44A8BB6F34A822E0065A" />
+      <ComponentRef Id="comp_1B78B5DF46CF4A6EB13E4859A6766C7A" />
+      <ComponentRef Id="comp_A49BF1C5841747FC86564BA5BAC10CC8" />
+      <ComponentRef Id="comp_A5EE41704BAB4F76B691092297D0CCD7" />
+      <ComponentRef Id="comp_BDE931B52CE84E44A637D511FDEE4478" />
+      <ComponentRef Id="comp_EDAB460A7E97497E82FEC414039F86A1" />
+      <ComponentRef Id="comp_88DFA38B38394034AEB8AD3782D58B4E" />
+      <ComponentRef Id="comp_1E1ED6E3D1844C33A7A5E25CD063F503" />
+      <ComponentRef Id="comp_765CE0EFEF434530957DC390CA5237ED" />
+      <ComponentRef Id="comp_53E263725AEE470F8FF2BC9576EDA6FA" />
+      <ComponentRef Id="comp_1752BCB659824797A813990F828F95E1" />
+      <ComponentRef Id="comp_3DBECCC90BDF4706800A53A193DE8A29" />
+      <ComponentRef Id="comp_78822D57F30646EE871F439380813501" />
+      <ComponentRef Id="comp_5A274E7F91CA42A6BB9537C7DD3397E4" />
+      <ComponentRef Id="comp_5088E0FFB4964C959A54A1424D3F4BD6" />
+      <ComponentRef Id="comp_5C59C7CAF5EA4CF986C261077CF4C16B" />
+      <ComponentRef Id="comp_467A75D5CD854528BE1F07BC74C9BD5D" />
+      <ComponentRef Id="comp_F6467FB0254F458BBE6EF05D4D11F34D" />
+      <ComponentRef Id="comp_D54A26E1EAB64A38A3B66BE92A982134" />
+      <ComponentRef Id="comp_E27B7B449A014A0FAACDADC839300239" />
+      <ComponentRef Id="comp_6C54A00642F9472B9BA6A4441552C168" />
+      <ComponentRef Id="comp_5AB14AA6E38941D1ACF2384CA66026D3" />
+      <ComponentRef Id="comp_CC479E98924E45D2A4B9652C8957B944" />
+      <ComponentRef Id="comp_6C20293FE4BB45C88253A98E2338D6F8" />
+      <ComponentRef Id="comp_2F09CEF3E9BF4E14B6173CA4371B9A3D" />
+      <ComponentRef Id="comp_9ABF606ADB5A4499A095F9022014BD73" />
+      <ComponentRef Id="comp_69CC33C47C34494B8E8D4E14F5A6DE8A" />
+      <ComponentRef Id="comp_91FFD7D74C9348ED96B5C885159B8AF9" />
+      <ComponentRef Id="comp_D2D48CC8CB4648D89F676C72ECC5F19C" />
+      <ComponentRef Id="comp_5A49858AE01F4712A672E040A265BAE8" />
+      <ComponentRef Id="comp_5016C1AF15354854B1AAB040E2E1A5F3" />
+      <ComponentRef Id="comp_FD6080C1E7574B87BFE9F594A232B8BB" />
+      <ComponentRef Id="comp_4736F89CB4A54F678391EE817D24F9A5" />
+      <ComponentRef Id="comp_A9612333571C40C58C3C9F87D717A40B" />
+      <ComponentRef Id="comp_E07A48A1C2B5455B8EE264FF171955E0" />
+      <ComponentRef Id="comp_181B1A530ECD4654AC8D08C1C4C9A560" />
+      <ComponentRef Id="comp_E2AC697C8734424FA11FB2DE4FDB914A" />
+      <ComponentRef Id="comp_9307F85767654AB99E88194011452059" />
+      <ComponentRef Id="comp_F5A5D14B2140425C893B65F1949087D0" />
+      <ComponentRef Id="comp_1B386537D48E45AEA7CA04E100077BE4" />
+      <ComponentRef Id="comp_952B28B6D6654662B93E4FB0DE9E4B77" />
+      <ComponentRef Id="comp_5FDC04845BF9416696666EE524A86193" />
+      <ComponentRef Id="comp_768CCC7F4F5B41C3BCEC80DE4A3B4C09" />
+      <ComponentRef Id="comp_004F447FBFB542EEBFC29B565CC4480E" />
+      <ComponentRef Id="comp_CA6A45520FCC447580667D0A56F544AD" />
+      <ComponentRef Id="comp_F50FBE23E7B645B1A03C8C68C582AACC" />
+      <ComponentRef Id="comp_F38FA7DE502940BF84BE52102A2C9FBD" />
+      <ComponentRef Id="comp_3292B958288D4B4586551DD10CB1C56E" />
+      <ComponentRef Id="comp_D1F54E6868604CA4A47A4CB0C9001CD3" />
+      <ComponentRef Id="comp_0643785D44124B3EBA89F547EFF88814" />
+      <ComponentRef Id="comp_F85DEF6B05D14DE0946F92608F53CBCE" />
+      <ComponentRef Id="comp_68702C25BE584E9493AFC16524C768E5" />
+      <ComponentRef Id="comp_7ECE38F83216467FAE0FFE20F4DB1D8F" />
+      <ComponentRef Id="comp_89B0DEDC625D4F04BE585838688AF0C0" />
+      <ComponentRef Id="comp_A03951D1498F4558A6DBF7AB4545B4F5" />
+      <ComponentRef Id="comp_CD38E0F63A21417AB8742FBFBA21DA3F" />
+      <ComponentRef Id="comp_8D33FA88681349E3A436D54092CD2AD3" />
+      <ComponentRef Id="comp_4BB7915046814FC69626DA006D456FD2" />
+      <ComponentRef Id="comp_E934A206DD0C4594B39D9704B17AEDBF" />
+      <ComponentRef Id="comp_24918405E4B349DCBA2742DECE268A8A" />
+      <ComponentRef Id="comp_8A0431605690451B9409B8A2F79A9D7F" />
+      <ComponentRef Id="comp_F468D75070A94960950E14C099CB699B" />
+      <ComponentRef Id="comp_F1807EBC8CE34A298A900E936DE566C0" />
+      <ComponentRef Id="comp_E68D26862BFD4227AB8114A2E4FEF310" />
+      <ComponentRef Id="comp_7CECCBB55B58498889007709E078CC50" />
+      <ComponentRef Id="comp_96CC1D2E9AB545AA935B8C59013185BF" />
+      <ComponentRef Id="comp_4CB069EB24F44B268702AB9F01EDDB8A" />
+      <ComponentRef Id="comp_78F6789F7B1C41B2B5C20A6EC946F814" />
+      <ComponentRef Id="comp_CF5F7B47A7534575A6DC71DE6813EE13" />
+      <ComponentRef Id="comp_8694D72C913E4E619B49DB31AF11D2B1" />
+      <ComponentRef Id="comp_E2B95AFB85B3442184B7E5D3C31E7A29" />
+      <ComponentRef Id="comp_2FBB72D3C85E44A680EF08C380E23559" />
+      <ComponentRef Id="comp_E56B84340047496A8D6C158DB8A5A15D" />
+      <ComponentRef Id="comp_F870607D1AE2405FB2018A5F8376F467" />
+      <ComponentRef Id="comp_8BBFDCFF868643F3A06B7F73A65058CE" />
+      <ComponentRef Id="comp_7981A181275A4433972C6D2D0C316E39" />
+      <ComponentRef Id="comp_34AAA54CA5AD424E921840C71F4F2C77" />
+      <ComponentRef Id="comp_61C642E3625546DCBEB07FE45B789762" />
+    </ComponentGroup>
+
+    <!-- Web Ordner aus Release Web-Ordner -->
+    <DirectoryRef Id="INSTALLLOCATION">
+      <Directory Id="dir_15917F270EC94B3A9FFA4D6EE187A4F5" Name="Web">
+        <Component Id="comp_A09FFCB9396442D2B5F1CA301A19CFE6" Guid="BBE3C307-B41B-4530-96C8-BFA88CEC8D12">
+          <File Id="file_5316110AC6324FB79FCA6EE3D43619C0" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\style.less" />
+        </Component>
+        <Directory Id="dir_18173B627A6341EC89C30FC7D666E60A" Name="fonts">
+          <Component Id="comp_308DA5C033724DE681E3B1BD4C9EF9B6" Guid="33BC1B65-F3D9-43DD-8818-0997229683A9">
+            <File Id="file_5DC303CDCF994AA9B705D28FBBD34425" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\fonts\glyphicons-halflings-regular.eot" />
+          </Component>
+          <Component Id="comp_5A5BD12B166C4D5BAFDCE39270006A6C" Guid="93A3F946-9C67-4170-AEA0-E82841507E3D">
+            <File Id="file_493DD3CB4BE442569D3C88EF8F1FDC00" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\fonts\glyphicons-halflings-regular.svg" />
+          </Component>
+          <Component Id="comp_8645457C161D459398FC27EB55E31B85" Guid="ABA62757-9A71-402D-A83D-B8B08114EB05">
+            <File Id="file_D8D5B79366114E928967D36B4D1F0C7E" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\fonts\glyphicons-halflings-regular.woff" />
+          </Component>
+        </Directory>
+        <Directory Id="dir_CBE9A1ABD59649349CFCFD79765A3446" Name="images">
+          <Component Id="comp_5944F08476AC462D94B74814D2905C8E" Guid="698662B5-93CE-45EE-BEB1-A7448F3B99D8">
+            <File Id="file_3E01058537F04C71A51315573DD5DFB0" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\badges_text.png" />
+          </Component>
+          <Component Id="comp_AC630073CACB413889E3B62320A75B2A" Guid="9DA2EFA4-4985-4655-BF5B-316037F37E92">
+            <File Id="file_5D1A80FB3D374CF1B313FCFE37B46897" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\badges_text_2.png" />
+          </Component>
+          <Component Id="comp_42992DC3313E4548A1C0CE15D402A4D3" Guid="653FB9E5-AE41-487C-9F59-E44228F8C4CE">
+            <File Id="file_7B5B6D1B35094CEA912C350FFCD7283A" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\bg-tabs.png" />
+          </Component>
+          <Component Id="comp_76370AC3FC6D47718C88A05568D4B9FF" Guid="F9801C50-6EA1-4849-8BED-C0BBF2D0BD19">
+            <File Id="file_B094B1A7F3BF4BFA905AFE310AB774BC" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\bg-widget.png" />
+          </Component>
+          <Component Id="comp_C55F1F89C65248FE8D2D1749952A3F8B" Guid="785E9E31-78D9-47E7-94BC-50BA19AE44F8">
+            <File Id="file_ED500C0F3A094ABBBDE630C6A412EC8D" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\bg-widget2.png" />
+          </Component>
+          <Component Id="comp_9257BB8A8C884CD583C5A7B46E9A394A" Guid="121EBBF2-8F79-4F88-B385-F9E061007026">
+            <File Id="file_964583950324473AA3031973798C8DBF" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\bg.png" />
+          </Component>
+          <Component Id="comp_8AA0C493EA834ADAB408D61A17DAA3F0" Guid="9853AD65-8377-45DA-BF48-E13F3E34DCA6">
+            <File Id="file_443DA2E3460440349A5CF098081F79BB" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\buttons.png" />
+          </Component>
+          <Component Id="comp_88AB06B84E8C49ADBCE4A7545C7861B9" Guid="5DD1EF98-8BE1-4852-8B75-B04311FBD3A2">
+            <File Id="file_989982EAC0644A3997E9D0E9DD0FB176" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\calendar_arrows.png" />
+          </Component>
+          <Component Id="comp_AABA938855024DDDA531EE01C9503DFE" Guid="57ABB92C-230A-473C-A890-AE307F09134F">
+            <File Id="file_9D51A79118A3423097EE4561BD6658D2" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\calendar_header.png" />
+          </Component>
+          <Component Id="comp_A4E25B824831450BB92F9E99A0E82CD0" Guid="66AC2128-A529-4E2C-9741-0114FBD2E2FC">
+            <File Id="file_32DC95F2BF38428E8F588E7F8CF0B5CD" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\chosen.png" />
+          </Component>
+          <Component Id="comp_0AD197E91C0148D59A3232EEAB3493FD" Guid="46A8858A-2877-4C92-A435-3A0D7B6F841D">
+            <File Id="file_E79EE239EF034191BE0B4C0F7CEA1922" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\comment-bg.png" />
+          </Component>
+          <Component Id="comp_55F1AD65C8794EE690C296647793DF34" Guid="EE471518-AA9C-4B10-9FB1-A35E09785B09">
+            <File Id="file_68B31C240A884824AADCF7BAA88B4777" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\comment-bg2.png" />
+          </Component>
+          <Component Id="comp_7716CF422792405BB5BDC892AFFE40F2" Guid="561A4774-EB11-469F-B8A6-A3777339C625">
+            <File Id="file_471549612E1348F09F8F61EF814B8800" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\comment-bg3.png" />
+          </Component>
+          <Component Id="comp_F5A46D51E20B4900B3968CD61218DDB7" Guid="C7D14DFB-20B8-4AB8-8074-78AAB4BEB658">
+            <File Id="file_8C79F03DDEAE470599A0E07089DA4B0A" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\comment-rowsubmit.png" />
+          </Component>
+          <Component Id="comp_A8258394C7D4404693ED930C74DCC2A2" Guid="A1340D21-3517-45A1-9FB8-F8999BA8C879">
+            <File Id="file_53B5ED68CE7942B4A584E422F3ECABD6" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\comment-title.png" />
+          </Component>
+          <Component Id="comp_C3D7911A04AB4845B504E48558441AE9" Guid="487C816F-DA19-433C-9992-9F2B032AA714">
+            <File Id="file_18E6ACF852FF4B96818A7D4813B374BB" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\comment_arrow.png" />
+          </Component>
+          <Component Id="comp_71961F25E4234FED84EEE218890E5D94" Guid="0406FAEA-031A-468C-BE91-4DD081245FC4">
+            <File Id="file_E318084F87284DAFBAF1709A4F55E524" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\cusel-bg-1.png" />
+          </Component>
+          <Component Id="comp_0ED15ED0806C44328AE07B93BB8BDA06" Guid="3A70BDD8-CA78-404B-86B9-D84E746F9254">
+            <File Id="file_2BC5C437AE3F490584065C130F33222C" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\cusel-bg-2.png" />
+          </Component>
+          <Component Id="comp_3E204E33B14947CF8E9886A8A41C739E" Guid="AEA5AF8D-D0C5-4A92-98DE-2C15B906FF29">
+            <File Id="file_63EE19D8E04247C4B146A6880DB2493A" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\jp-controls-bg.png" />
+          </Component>
+          <Component Id="comp_92A2A02ACD30447D95BAAC3CA00951FE" Guid="EE8BECCC-D68B-47F0-A45C-5C9EBC462D0A">
+            <File Id="file_145DBC308FE842A6989D4F92A4C5F6DC" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\jp-controls.png" />
+          </Component>
+          <Component Id="comp_FCDE4231131C48F590FFF0D8A7F7CC0F" Guid="3539E965-9F27-4B9B-8D84-9C83E8902673">
+            <File Id="file_D1F4E9F549F8493BB9A2D974662F149E" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\jp-interface-bg.png" />
+          </Component>
+          <Component Id="comp_9C204F2E2E7240C1BF66C9D6A8A4CF06" Guid="3E73071B-184E-46D5-B6B5-0CAA8D65D1A3">
+            <File Id="file_31A56C2FA7F94297873FF61EB5DDD600" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\jp-interface-bg2.png" />
+          </Component>
+          <Component Id="comp_B2F560D8633D42D0BDD1FAB9F921FD0A" Guid="947723B8-2CD7-49CF-B723-9871777BCF16">
+            <File Id="file_5DCDD05345214B8E83CC26E054E9C175" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\jp-playlist-divider.png" />
+          </Component>
+          <Component Id="comp_421AC9B2650F49E7BF6F8D0890E64E12" Guid="AA5E365C-63B5-4ED4-8BEA-B51C60F2FC1F">
+            <File Id="file_6BD5D129830C4DCBA851396C25D27DE0" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\jslider.png" />
+          </Component>
+          <Component Id="comp_3B28308E1A95459D86F0F41B50F1D81A" Guid="B2D11C4C-1669-4A29-8424-DDE08F1CFBB5">
+            <File Id="file_5F876A0CB9284B6883335CE3078962BF" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\knob-volume-bg.png" />
+          </Component>
+          <Component Id="comp_E21F872C4E8848149A2D6364A8F5785A" Guid="79AF909F-8521-414C-8810-E8B995178615">
+            <File Id="file_14D296F48425450EBA416A7DFA2B7DF3" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\knob-volume.png" />
+          </Component>
+          <Component Id="comp_220706B8E4A24A638696858D05F70D00" Guid="925BD717-D4CA-4F2E-8B56-A98C27EBD88F">
+            <File Id="file_F9BD45DBC2994EB9A8D55086717368C1" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\loading.gif" />
+          </Component>
+          <Component Id="comp_AE9B0EDB66C048A092D21F30103D7CC8" Guid="F6821C5B-243C-4269-BFE0-1FFE91241386">
+            <File Id="file_8ED36F1B2A554CF18CD23667F58A09AA" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\nicEditorIcons.png" />
+          </Component>
+          <Component Id="comp_E081FDE2D3F3423EA7B5EE8F0937F87D" Guid="95BE623B-1592-47EF-939F-BA2F8ED2C114">
+            <File Id="file_043D70ECF4C94CA5B0809CAB040885E9" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\play.png" />
+          </Component>
+          <Component Id="comp_1143E9D9B4F1460B97AC9BDC6B0D04F7" Guid="ECC73D94-9B04-4EB9-BC8A-320A73DDA561">
+            <File Id="file_A92EF093CA6749B0AC8BF91E0B5A81E6" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\post_image_controls.png" />
+          </Component>
+          <Component Id="comp_633CC39A81FD41C2B1F4B0D779BEB8AE" Guid="DB3A6F2C-58E5-4B8B-9A57-C36D88D696D2">
+            <File Id="file_D57B489B021F4C988B31C27205522511" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\price-bottom.png" />
+          </Component>
+          <Component Id="comp_BF0EAC83D60C4047BC7EC960137F7C8B" Guid="A9037F0A-F7DD-4752-B58A-B054F1D7F616">
+            <File Id="file_202A2CE5791440E7A7C980DFF6D25370" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\price-head-blue.png" />
+          </Component>
+          <Component Id="comp_7E401F0321B84623BF34ECB95B10177F" Guid="603737D5-7B48-429E-B232-697814BC81E7">
+            <File Id="file_A4E006EB361C47EDBB75525708013EA8" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\price-head-red.png" />
+          </Component>
+          <Component Id="comp_95CFE01FD17A4442A038EC4853CF1B65" Guid="22818075-0F47-4409-90AD-03FF31C900FD">
+            <File Id="file_A928FF7E407844B19FA6874CE2867B78" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\price-head-yellow.png" />
+          </Component>
+          <Component Id="comp_B3C572AC55B045E4AF9BEFCC4FCF1086" Guid="B620E17B-DB74-4EA9-88F2-BB06FE492E3E">
+            <File Id="file_DBE27CBF999243AE8C120973E348CD0E" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\profile-bg.png" />
+          </Component>
+          <Component Id="comp_317F640CC59F4ACD8CE999A5A6AA1EB4" Guid="EAACFF4B-4147-4DF2-80AF-92891BE461DE">
+            <File Id="file_105A6C2FBBE740EB8BAFD2B09A0D41D4" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\progressbars.png" />
+          </Component>
+          <Component Id="comp_47897ACFB09645D7A7561F91D135AC69" Guid="8F671FC1-BBBA-4B3F-BE6B-C39B741E56B3">
+            <File Id="file_07701B2092FD4E628229C5F1C1E66481" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\ribbons-shadow.png" />
+          </Component>
+          <Component Id="comp_D06E3864ACD54429BD049E34633D0D86" Guid="1559BD49-D60E-4033-8CA0-FFD0BAB3F6EB">
+            <File Id="file_0FF81EA2A1B64FB397D14A7E7519FCFD" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\ribbons.png" />
+          </Component>
+          <Component Id="comp_C0461AEED41C4C4E8C82E6C473C110FF" Guid="BC208956-740F-4355-BE21-88B928B4CD3C">
+            <File Id="file_BB5EA98D53BF46398F0DE2AFA6E61ADB" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\scrollbar.png" />
+          </Component>
+          <Component Id="comp_863564DF7C13407C884751F05975C325" Guid="057C6578-897D-4DC3-9C0D-9C7D77B78FC7">
+            <File Id="file_CDE55971A1574F778AC904A1887F53E9" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\selects1.png" />
+          </Component>
+          <Component Id="comp_13D6E58CBFAD4672A6481DAE15E55F42" Guid="23D71F08-6C88-4AD6-AE28-1868F2FE8927">
+            <File Id="file_2D070B2A704341D8AD95B86513BE90A8" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\selects2.png" />
+          </Component>
+          <Component Id="comp_A92F4806F6C4470A8B0F32269619D591" Guid="583A5CF9-1380-4A10-B906-E92473479548">
+            <File Id="file_8BE08783391F4D0584E414196F500D7E" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\styled_checkbox.png" />
+          </Component>
+          <Component Id="comp_50D054127D23472B8ABE782B2D199BA5" Guid="D50D03DB-D4C0-4463-8C02-4C2CD4B0A4C8">
+            <File Id="file_ADCBA75D1A524DA480244788F37DEFD1" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\styled_checkbox_large.png" />
+          </Component>
+          <Component Id="comp_AA559328FB5A468882DAFD04F0BC0584" Guid="99B2DF05-784E-45F3-9E8B-50EF38EB90B7">
+            <File Id="file_91290527802741E98B7BF8C6BB87381A" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\styled_radiobutton.png" />
+          </Component>
+          <Component Id="comp_7119AB1355684C56B7FBCF7B0D80B7A0" Guid="1023A057-7BE1-4BBF-A264-8EAE230C1CF1">
+            <File Id="file_2C98D30861AE47D7A06EC5DFAF869126" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\tabs-span.png" />
+          </Component>
+          <Component Id="comp_1068DCB1FFF24712927D5DCE3B7881B2" Guid="4ACE208E-8929-495A-8B12-3DB4638EB92D">
+            <File Id="file_FC17466FD2E1428CA2778FC73811E922" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\tag.png" />
+          </Component>
+          <Component Id="comp_C8BBC838569143088988240E93C281B4" Guid="05234D0F-B733-41D5-884E-BB19FFCCE343">
+            <File Id="file_D92FA96AF85641A1BF5CB0333987C8F0" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\video-js.png" />
+          </Component>
+          <Component Id="comp_B8368ED0326649E38B164B55757FA931" Guid="E85EDF48-EEB1-4F5C-8D1F-F3D623EA32BF">
+            <File Id="file_B515663ADF8E4749A97C620FE4685333" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\video_controls.png" />
+          </Component>
+          <Component Id="comp_6531B4D6DC0A450D80AE6524BF13909F" Guid="FD9C8DE4-D3FC-4B96-BF30-B97145BDC76E">
+            <File Id="file_480D43D695004620A0BD5AF26F7C515B" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\video_controls_bg.png" />
+          </Component>
+          <Directory Id="dir_7C9B50FD8FE140CFBBF4F41248077C54" Name="icons">
+            <Component Id="comp_D6D9FFD4A9C14CDFA82489D15EF21827" Guid="3E508EEB-475D-4327-AD4D-94DCD4922EE0">
+              <File Id="file_1FE17656D7D0493CAB81CF5EA25A5599" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\icons\plus.png" />
+            </Component>
+            <Component Id="comp_144A7DA3820F471483EE5458311FAFB5" Guid="32646863-71BD-47CC-A49A-81D45A81D06D">
+              <File Id="file_4CF3F290C74A478792ECCFF05E287E30" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\icons\search.png" />
+            </Component>
+            <Component Id="comp_793FB28BFC0849EFA751C10CD54B5B26" Guid="077E700B-7E2E-4D70-95C2-B140E794FADC">
+              <File Id="file_B08B8847EA86460EA9A5CDE59FD9337E" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\icons\star_off.png" />
+            </Component>
+            <Component Id="comp_1F8C8A39D7A94C75844EA37A1C6A4A4F" Guid="F4B9F40A-BDB6-433F-A0AC-732E5B00422F">
+              <File Id="file_A33282AF84CA4F1F965FA0EDD2F4277F" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\icons\star_on.png" />
+            </Component>
+          </Directory>
+          <Directory Id="dir_37D87D4ECB514896AC0820596B1979EE" Name="temp">
+            <Component Id="comp_E654EC431D67410A93FC2D707A6A340D" Guid="9B9271DB-5FA5-4D3B-82C6-68CC578815FC">
+              <File Id="file_F5BA957AB95D481AAFCAC9620679E367" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\temp\avatar.png" />
+            </Component>
+            <Component Id="comp_9BF4F8B202FB4C24B9E471DB49C60ACB" Guid="4E9EF46A-CB98-4B31-B0BD-99430EFDE97E">
+              <File Id="file_CA9521B800C045059ADC603B5F198DFD" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\temp\avatar1.png" />
+            </Component>
+            <Component Id="comp_4AB98BB019B44D1BAC3996D0849A0767" Guid="0AA3609F-3815-4B9D-8813-BD270B36C077">
+              <File Id="file_956A52BF20694391A73B6FC853DFE4C0" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\temp\main-slider-2.jpg" />
+            </Component>
+            <Component Id="comp_5582C38BD2324A75A18D1BA7F1CA6D9B" Guid="2F1229E3-7C6B-452C-9780-E5A771A8D276">
+              <File Id="file_286FE50C0AED434196B9F59ECCB3EB9E" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\temp\music-player1.png" />
+            </Component>
+            <Component Id="comp_BBC0BC48F4294A2BBB5E2A5C5E7D2B42" Guid="398D4210-04D0-4D6D-A139-DF9D27C140DC">
+              <File Id="file_58267FBBAA0B4617B1DDE438DF7B380A" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\temp\music-player2.png" />
+            </Component>
+            <Component Id="comp_7CFEEAC434F5481385D9142AF633952D" Guid="4DF71722-4BB7-4551-A50B-E2F12126447C">
+              <File Id="file_627A393BFC3044A783C7465ADECDA61E" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\temp\music-player3.png" />
+            </Component>
+            <Component Id="comp_8E5840C72F234FE5985F14524FE827E7" Guid="5509B7B1-560D-4301-AFC4-67D07AA7B58F">
+              <File Id="file_EEE427E954AF4B9699B1F8D7E28B327A" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\temp\tabimage5.png" />
+            </Component>
+            <Component Id="comp_20232D43C1484B5CA05862738C80F4BC" Guid="D7DAEDFD-3199-47F7-A8B8-AA57648B0362">
+              <File Id="file_5D416059B55346C285966783F4D1A805" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\temp\tabimage6.png" />
+            </Component>
+            <Component Id="comp_90A46DA387A44B359142B3422EDEBB9F" Guid="03D71F6E-72AF-41F1-864E-C166830871D8">
+              <File Id="file_D98D1427DCF848C8B9A07EE09AEF9FF5" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\temp\tabimage7.png" />
+            </Component>
+            <Component Id="comp_24D2171C8C7A4845A852410ED00870BF" Guid="29CBE7E6-9436-499A-A1DA-71F1CCCBD67F">
+              <File Id="file_2F5974B5C63A4D90A2A462B1F5E568AF" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\temp\tabimage8.png" />
+            </Component>
+            <Component Id="comp_EDC46109A1FE419DB48A11D19095F7CC" Guid="680DF84D-E34A-4819-967C-58A38D95D5FD">
+              <File Id="file_78BAB01D6FEE46CE9F2FD92BC7F3E1FF" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\temp\top-slider-1.jpg" />
+            </Component>
+            <Component Id="comp_C492A1FD71E44CEC90772FADBCFB06DE" Guid="82F873BE-6D66-4B36-BB82-E2E7CCCFAF1F">
+              <File Id="file_8E9BFFE77DD14C8D91FF35B9C3E4F205" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\temp\top-slider-2.jpg" />
+            </Component>
+            <Component Id="comp_6EF5D5E08374451D9EE3668A41E3A7ED" Guid="E05C6821-E2F3-4C28-8581-887F816C6B96">
+              <File Id="file_14E0CC7E0F7E404E873F240A39BF658E" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\temp\top-slider-3.jpg" />
+            </Component>
+            <Component Id="comp_F8E849F2656F403CB767DC7178FD9265" Guid="9E200833-E9B8-40C3-95B9-0062E21EA426">
+              <File Id="file_2431EA41046C42A8A2350E568A56853D" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\temp\top-slider-4.jpg" />
+            </Component>
+            <Component Id="comp_077562841EB84CD38D448B5BF62F387E" Guid="CCE51D59-529B-4121-B373-8E65F20F82E8">
+              <File Id="file_B3C6C3807AE8425F8EF174F86F74C972" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\images\temp\vjs_poster2.png" />
+            </Component>
+          </Directory>
+        </Directory>
+        <Directory Id="dir_66B14E61AA8147469633005B3A0B8763" Name="js">
+          <Component Id="comp_46089112B2C4456EA67EB8792AC4D63F" Guid="0FF75889-3500-4748-AD6E-DC602222569B">
+            <File Id="file_561165BF07754D80A64983BB8E5A1D37" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\apiroutes.js" />
+          </Component>
+          <Component Id="comp_7232B31A4A204221A425A36069A739F5" Guid="5296CF4B-CF29-4553-957C-ADF8D04621AE">
+            <File Id="file_3B3031F25A6843D9B57E6A2F7D31B91B" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\cusel-min.js" />
+          </Component>
+          <Component Id="comp_ABDF69FC9AF9480880396DF12DA20876" Guid="0A5BEF9B-65C0-46CE-8593-935262AFA1F1">
+            <File Id="file_A808F4D226104E5F85151B36E0E6EA2D" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\custom.js" />
+          </Component>
+          <Component Id="comp_F5E59E850DC244A1A00F227A0B56ED5D" Guid="EAE48E9B-91B0-4393-B8F1-14AEA9BDFE89">
+            <File Id="file_56DD56C94F8F46FEAFCD3C25870A80A8" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\excanvas.min.js" />
+          </Component>
+          <Component Id="comp_A97B369C6FD6436E8C3E6A53AE7C19F1" Guid="39E0CF48-EE40-4D08-A4DE-F1D3DC654C14">
+            <File Id="file_9B00CCB94B014A21B0E3289CAFD45240" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\general.js" />
+          </Component>
+          <Component Id="comp_DF8F05724E224B4698F25E0A2BAEF2F7" Guid="BB58D8BB-E581-4E05-8842-0EC93BCF0577">
+            <File Id="file_F01643B26374408282826E9EF86D8F65" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\jplayer.playlist.min.js" />
+          </Component>
+          <Component Id="comp_68EADEAC6E554EC68F7327E00D0CB859" Guid="CDEAC68C-10A1-493C-A4B1-786A74991991">
+            <File Id="file_F0DAEAB5982944CCB1A8FD4DB0FBF3A1" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\Jplayer.swf" />
+          </Component>
+          <Component Id="comp_E10B7B2489D6495FADFC697792729DE5" Guid="F57B84C1-412E-4EB6-B901-D41F111C19E4">
+            <File Id="file_773D5062B2DE4B88B3CB05C5C1AB988E" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\jquery-ui.multidatespicker.js" />
+          </Component>
+          <Component Id="comp_5B966416A2FF477B8511BB89C7078F90" Guid="E7F62EF7-2686-4434-83A3-0696CB8B9504">
+            <File Id="file_72D20CB73AC440CBB8D0D9BC7190897A" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\jquery.chosen.min.js" />
+          </Component>
+          <Component Id="comp_C4C38A44CBCD47FBA1266C7C3C8EF97C" Guid="D0A65A66-9A05-4F96-8F0C-EC96F8369886">
+            <File Id="file_B8AC499DD7574DBC9C135BCD179659D7" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\jquery.customInput.js" />
+          </Component>
+          <Component Id="comp_87692BC7E8CB462B913593FB70FF68A3" Guid="B66D67BE-0F25-4416-888D-4B29E5FDB6B0">
+            <File Id="file_58EFEB72113649D4B1C6E56F7644A439" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\jquery.flot.js" />
+          </Component>
+          <Component Id="comp_0CDBD20F6C4C4475B8297A82FF13C5A1" Guid="8ABD409F-87C9-489C-A8E6-3CA0DFB350F6">
+            <File Id="file_F37F4E2E6E984624A144381ED1B6E8F4" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\jquery.flot.resize.js" />
+          </Component>
+          <Component Id="comp_CB4877BA7230405A8C05A782EF781F96" Guid="4AEADD43-8EA8-44C1-A1A9-AFC83AE15842">
+            <File Id="file_CFC0BFCA313B4E17BDAB2B1678B3D9F2" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\jquery.jplayer.min.js" />
+          </Component>
+          <Component Id="comp_00A9D3DC00744D5CAEB2167F6F400470" Guid="E12CB03E-89D4-4DC0-A815-23FAB5EEF7E2">
+            <File Id="file_9264F2E0C7AF4BF6A068F7A1D77F85E7" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\jquery.jscrollpane.min.js" />
+          </Component>
+          <Component Id="comp_ABE1F016ADA94032BA76D90F1B768EA6" Guid="762385EB-E41F-4B38-A867-213DEA69EC3F">
+            <File Id="file_127C962BBBC0440A80439EAFF7833B6C" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\jquery.mousewheel.js" />
+          </Component>
+          <Component Id="comp_8B097270088D4E5EB14DA77BCCB09C9C" Guid="84B33804-2F30-4A81-9F9E-5FF7FB3742B0">
+            <File Id="file_53290BF9FBEF4D34BD2C407CAC4C8D61" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\jquery.powerful-placeholder.min.js" />
+          </Component>
+          <Component Id="comp_26F58C85876442FF90B145F4B341F150" Guid="9193E915-BD5E-48FB-A145-2C143F903B4E">
+            <File Id="file_B86F3F1C324143849422A660719C5896" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\jquery.slider.bundle.js" />
+          </Component>
+          <Component Id="comp_DA4025C08A03494AA3AD27831204DAD9" Guid="FE6F3868-ED9C-4924-A4E7-047A74153659">
+            <File Id="file_515FAF58A01F4979AC824EB76188C301" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\jquery.slider.js" />
+          </Component>
+          <Component Id="comp_26208579DEAF404BBFCEA996713A9802" Guid="43FD5BA2-C52D-4289-972A-974745BD8D07">
+            <File Id="file_39AA8A07C8FD45C5B4B06FBDAD44B68B" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\knobRot-0.2.2.js" />
+          </Component>
+          <Component Id="comp_0EC0131563B247AFB3D93AD2A4F6876C" Guid="9B735F77-B93C-4BCA-991D-8CE30F660C1C">
+            <File Id="file_40631A9001884054BEB36EC1C469CDB1" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\mainmodule.js" />
+          </Component>
+          <Component Id="comp_177BCFF679FD4B419B81D87CE90E9EBB" Guid="70B5234A-7F08-4AE1-97DB-8CD8C5354864">
+            <File Id="file_929C725B6A644CE48988F482BBD814DE" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\nicEdit.js" />
+          </Component>
+          <Component Id="comp_5C5AF75ED8C84E2E96CE20170BE7A168" Guid="1676FB8B-E334-42FC-96E5-9167978EE882">
+            <File Id="file_29FA441706954E1D97771F26EF65BA7C" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\nonkyohelper.js" />
+          </Component>
+          <Component Id="comp_3F4AB774C76F4CDA97EA548D2732BA35" Guid="E1C74B7F-FDD6-49AF-8CB1-8B86334856AB">
+            <File Id="file_681DA557FA07440581A5287059CC4F70" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\progressbar.js" />
+          </Component>
+          <Component Id="comp_044CE3221FBD4E2791D7A23A361BBF26" Guid="DD2D6E3D-5B04-4AB3-A647-B671B9187FD2">
+            <File Id="file_F367A78E51C44DAEB112FAFACC0FADE9" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\respond.min.js" />
+          </Component>
+          <Component Id="comp_628B2F0927984D42B61691FDA0FC81C7" Guid="86FC6C1B-C6F9-47B6-A886-398F2BE212B8">
+            <File Id="file_8545292F1A7140EA9A01F45378E5B322" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\video.js" />
+          </Component>
+          <Directory Id="dir_23851A01908F429AA313C98A0EB96EA0" Name="libs">
+            <Component Id="comp_EBF09F22B247455AA06AEC4CD7B7F9B9" Guid="C069867F-3CD8-40CA-BF56-4B9C957C0ECC">
+              <File Id="file_C1274BFAAFFE47928E40CFE3FFBF0692" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\libs\angular-ui-router.js" />
+            </Component>
+            <Component Id="comp_A943B6C4E43E401FA613F3F0706AF526" Guid="F216BDE2-072E-4AB6-96FD-DE85FE9E5022">
+              <File Id="file_C1FC5905FA6D4F1FBEEE7D7420FD45C1" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\libs\angular-ui-router.min.js" />
+            </Component>
+            <Component Id="comp_7AB785C87BCD4A508B6EA4660753FEB1" Guid="70578A39-B2A1-4896-8148-F6A44F44B578">
+              <File Id="file_041CBA4277974049AC276E2C794404C2" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\libs\angular.js" />
+            </Component>
+            <Component Id="comp_FC8D70C45AE449DF817D3625145319BD" Guid="CFAA42BE-3813-48AF-9BF8-B4B34F30FB7A">
+              <File Id="file_D4408156E6954870A1C252CCAC677E1E" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\libs\angular.min.js" />
+            </Component>
+            <Component Id="comp_8ED2CF79F14F410ABB2DA1EFD160A553" Guid="034A49B1-FAA9-4976-AA63-3DA69CA05DB4">
+              <File Id="file_50AB0B4EEE13460A92680E0721B69253" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\libs\angular.min.js.map" />
+            </Component>
+            <Component Id="comp_659D85B201C142218E4683FB2461EDF7" Guid="567C6857-C999-4863-9ECB-D6EF974E4B15">
+              <File Id="file_7243F041167A448C9F7B555B62C5CACA" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\libs\bootstrap.min.js" />
+            </Component>
+            <Component Id="comp_83C9C96F77504679B52576D11BE201CB" Guid="71DD5F7A-C23F-400F-8E4B-01F6153F1A09">
+              <File Id="file_B0B762DC8C684516B11914CE8BD215D3" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\libs\jquery-1.10.0.js" />
+            </Component>
+            <Component Id="comp_F72641ECAD2A4CB3B9EE7C80F708BB3A" Guid="651E7553-CDC2-46D6-A8DD-73C59E4A1F2E">
+              <File Id="file_0D724792E4784D299F5B7986DF1A1584" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\libs\jquery-ui.min.js" />
+            </Component>
+            <Component Id="comp_7FF93ECFF9CC44A8BB6F34A822E0065A" Guid="F9E52ED8-D793-46CE-814D-A5BAB9DCABB2">
+              <File Id="file_D90037DD316045F5B296252D5F29BB04" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\libs\jquery.signalR-2.2.0.js" />
+            </Component>
+            <Component Id="comp_1B78B5DF46CF4A6EB13E4859A6766C7A" Guid="E1D96F33-AF3E-4EA4-A39A-1302F03E3FA7">
+              <File Id="file_02BF70C156784BE999C9AFC1B44F060F" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\libs\jquery.signalR-2.2.0.min.js" />
+            </Component>
+            <Component Id="comp_A49BF1C5841747FC86564BA5BAC10CC8" Guid="B65E5821-ED78-4473-9EF3-DEB63CA8140F">
+              <File Id="file_BDF84B1DC6F54AD29BDF881B35A4B2E6" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\libs\less.js" />
+            </Component>
+            <Component Id="comp_A5EE41704BAB4F76B691092297D0CCD7" Guid="2D2C063D-227C-429B-A787-CC6BC14616ED">
+              <File Id="file_BF05BA6182C2484F969220FC633BD3B7" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\js\libs\modernizr.min.js" />
+            </Component>
+          </Directory>
+        </Directory>
+        <Directory Id="dir_2AB91F68EAB04E239B7562A8040397D2" Name="less">
+          <Component Id="comp_BDE931B52CE84E44A637D511FDEE4478" Guid="2B8DC7FD-07CB-4DCF-9BCE-D09ED12422AC">
+            <File Id="file_2657D67D5FD446C4A3C7B730683C1122" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\badges.less" />
+          </Component>
+          <Component Id="comp_EDAB460A7E97497E82FEC414039F86A1" Guid="F6889FB3-B78E-49F7-BDB9-339164E9B890">
+            <File Id="file_CBB132D60FB645D98EEC745921CC024E" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\buttons.less" />
+          </Component>
+          <Component Id="comp_88DFA38B38394034AEB8AD3782D58B4E" Guid="9155F438-4640-4ACB-AFAE-33A90DCFDBC6">
+            <File Id="file_6D6F0983AD15431E94D6F6585C0E86A5" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\checkboxes.less" />
+          </Component>
+          <Component Id="comp_1E1ED6E3D1844C33A7A5E25CD063F503" Guid="B184A584-5537-49CE-ADFE-D3165CEAE2B9">
+            <File Id="file_8948FCC4AAE240C88A611F4A390B2004" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\chosen.less" />
+          </Component>
+          <Component Id="comp_765CE0EFEF434530957DC390CA5237ED" Guid="162B74B9-5545-4F9B-A190-D6D372AFC237">
+            <File Id="file_B0A6DC49229F44A1A6C93C89BFB0D394" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\comments.less" />
+          </Component>
+          <Component Id="comp_53E263725AEE470F8FF2BC9576EDA6FA" Guid="4285B165-D9DB-44EC-9881-68B6C25A6DA1">
+            <File Id="file_087B5F34513E4ABBB48B226C5BFDEA09" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\cusel.less" />
+          </Component>
+          <Component Id="comp_1752BCB659824797A813990F828F95E1" Guid="6A006E60-949E-4611-B736-D2F242EA9C8D">
+            <File Id="file_9E24B489B41E49BCA3C9BEF739ABF9A6" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\datepicker.less" />
+          </Component>
+          <Component Id="comp_3DBECCC90BDF4706800A53A193DE8A29" Guid="28B8CC77-B77E-483E-ACD7-D6983F30CB45">
+            <File Id="file_7309620EA082462C8C8B7FFB1B737906" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\dividers.less" />
+          </Component>
+          <Component Id="comp_78822D57F30646EE871F439380813501" Guid="531CECC7-A9FB-4B0F-9950-83F7F970DFF2">
+            <File Id="file_46BF978BFA994B6791211B9FBA1A16F0" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\forms.less" />
+          </Component>
+          <Component Id="comp_5A274E7F91CA42A6BB9537C7DD3397E4" Guid="24812C93-FC09-4041-A831-49A9BEC08066">
+            <File Id="file_F41AF11A8FA74D85AC5BF942B365E365" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\general.less" />
+          </Component>
+          <Component Id="comp_5088E0FFB4964C959A54A1424D3F4BD6" Guid="BDE15BB2-E1C5-4500-9E3A-1887B7437FC9">
+            <File Id="file_0E0D28A0DFC34732862422E35351B9D4" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\graph.less" />
+          </Component>
+          <Component Id="comp_5C59C7CAF5EA4CF986C261077CF4C16B" Guid="E6319803-460D-4A8D-B494-D473DD2C9AD9">
+            <File Id="file_0CB1F570333F4F98A9286BABD8EBF81F" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\jplayer.less" />
+          </Component>
+          <Component Id="comp_467A75D5CD854528BE1F07BC74C9BD5D" Guid="DD568E32-F5C5-4FF0-95E3-2E3BC0D7E657">
+            <File Id="file_134BEE8DC70D42C4BD62C01122F67071" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\jslider.less" />
+          </Component>
+          <Component Id="comp_F6467FB0254F458BBE6EF05D4D11F34D" Guid="A806E718-8B90-498B-9117-899EA1C353B6">
+            <File Id="file_B3EA720F211F4E44BF3DE3FC4AD036ED" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\knobs.less" />
+          </Component>
+          <Component Id="comp_D54A26E1EAB64A38A3B66BE92A982134" Guid="6D4ED352-D820-4343-9713-3A839A78DA6C">
+            <File Id="file_D30943A77B92479DA8436353708C0C80" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\menu.less" />
+          </Component>
+          <Component Id="comp_E27B7B449A014A0FAACDADC839300239" Guid="2CF5FF5C-90C7-41D2-9360-BFACCA8E678D">
+            <File Id="file_154FFF0E88A94925933AD5CAD8749C90" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\mixins.less" />
+          </Component>
+          <Component Id="comp_6C54A00642F9472B9BA6A4441552C168" Guid="F64B8E85-CB30-41B4-B226-3A29C7906CF6">
+            <File Id="file_A7753592D3AC4C3EACBF3347379CD1FC" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\nonkyo.less" />
+          </Component>
+          <Component Id="comp_5AB14AA6E38941D1ACF2384CA66026D3" Guid="1D4B3D42-1759-4B37-A090-DC2B10C2B354">
+            <File Id="file_9C5A04C8FB784A9DAAE53C6A71C358D4" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\notifications.less" />
+          </Component>
+          <Component Id="comp_CC479E98924E45D2A4B9652C8957B944" Guid="E37D8FF6-387A-467F-A1B1-C5C524ED078B">
+            <File Id="file_48D96867CE5C4A718FEC49879C898EDE" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\posts.less" />
+          </Component>
+          <Component Id="comp_6C20293FE4BB45C88253A98E2338D6F8" Guid="EB36BF4D-56E2-48BD-BD88-A4A94E32D5FC">
+            <File Id="file_A68838269D0F4800B389AB3B744AA423" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\pricing.less" />
+          </Component>
+          <Component Id="comp_2F09CEF3E9BF4E14B6173CA4371B9A3D" Guid="E9115ED6-18EA-49D8-8D66-340408937869">
+            <File Id="file_21B30E750EA64570A64D711ECAF789BE" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\profile.less" />
+          </Component>
+          <Component Id="comp_9ABF606ADB5A4499A095F9022014BD73" Guid="99DE107B-EB1B-4F54-8AC7-899BC23C52E1">
+            <File Id="file_7519A8AE9D3D4359A9FD41542AF9168B" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\progress-bars.less" />
+          </Component>
+          <Component Id="comp_69CC33C47C34494B8E8D4E14F5A6DE8A" Guid="20190732-9AF6-4206-99CF-1455463F609E">
+            <File Id="file_8FBFA25D0ABB4136812BB8650461D589" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\rating.less" />
+          </Component>
+          <Component Id="comp_91FFD7D74C9348ED96B5C885159B8AF9" Guid="4E6C2A33-158A-47D0-9AA2-A74EACD815BA">
+            <File Id="file_BF3EFB45C1DE47D48B541F063BA274AF" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\reset.less" />
+          </Component>
+          <Component Id="comp_D2D48CC8CB4648D89F676C72ECC5F19C" Guid="5D4CFC86-3394-40BE-BF54-F7F07CCB9571">
+            <File Id="file_7341CBF9A9674D79BB2B359D4E064D45" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\ribbons.less" />
+          </Component>
+          <Component Id="comp_5A49858AE01F4712A672E040A265BAE8" Guid="750C9009-4731-4F6D-97F8-027DB98740BA">
+            <File Id="file_9844E747C37C41F58BFDEFB7D8DB56FE" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\scroll-bars.less" />
+          </Component>
+          <Component Id="comp_5016C1AF15354854B1AAB040E2E1A5F3" Guid="514C9899-01D0-413A-AAEA-E471CC8894F9">
+            <File Id="file_DEA7FB39802E44D1AB2D9011D494EA78" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\sliders.less" />
+          </Component>
+          <Component Id="comp_FD6080C1E7574B87BFE9F594A232B8BB" Guid="38049D65-0CC3-4EFB-BCFB-22DD53D8B690">
+            <File Id="file_898115196DBE41F69FBE035F8397569A" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\tabs.less" />
+          </Component>
+          <Component Id="comp_4736F89CB4A54F678391EE817D24F9A5" Guid="69AC2563-9F24-4B13-8DC3-DA9FEECD913B">
+            <File Id="file_57DAFF814A0047ABAA8F7C6A4D86B40F" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\typography.less" />
+          </Component>
+          <Component Id="comp_A9612333571C40C58C3C9F87D717A40B" Guid="EDD323B8-A843-4324-9260-54A995D33561">
+            <File Id="file_02FFFF9E69E74D3FB19A12DB9CA1D960" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\variables.less" />
+          </Component>
+          <Component Id="comp_E07A48A1C2B5455B8EE264FF171955E0" Guid="53FDDE2B-59E0-4538-B9A8-28E7BB442B70">
+            <File Id="file_43ABD72DBEA948F6A2617BEA6709FE8D" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\video-js.less" />
+          </Component>
+          <Component Id="comp_181B1A530ECD4654AC8D08C1C4C9A560" Guid="2D8A0E80-E448-4DFA-B830-2B27ECF37D6D">
+            <File Id="file_6A5122C728A44A14BF6B84C9D13D5AE9" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\widgets-sidebar.less" />
+          </Component>
+          <Directory Id="dir_60BF01D1C56B46419C65B3F60DF8B471" Name="bootstrap">
+            <Component Id="comp_E2AC697C8734424FA11FB2DE4FDB914A" Guid="29D29863-9EA4-4BA3-B65E-A7C7AEDCE825">
+              <File Id="file_61FAAB542C0346EFB55C2166E8F52666" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\alerts.less" />
+            </Component>
+            <Component Id="comp_9307F85767654AB99E88194011452059" Guid="66580C29-68DF-4AC8-8189-55A40346A90E">
+              <File Id="file_B3DA3B9F3C884D7CACE73FA355B8C069" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\badges.less" />
+            </Component>
+            <Component Id="comp_F5A5D14B2140425C893B65F1949087D0" Guid="CED143DF-ABA7-4BBF-A9D8-B154C177A54A">
+              <File Id="file_29CE199A9D504E82A845056471413452" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\bootstrap.less" />
+            </Component>
+            <Component Id="comp_1B386537D48E45AEA7CA04E100077BE4" Guid="E123193D-A3AB-4A2E-AA61-52B3C7CA03F9">
+              <File Id="file_6AE5D0A5DABD4E16AD0D12D43D018BE0" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\breadcrumbs.less" />
+            </Component>
+            <Component Id="comp_952B28B6D6654662B93E4FB0DE9E4B77" Guid="4682B842-1EA7-4138-B435-4827C897BD2F">
+              <File Id="file_F34D4AFB6E614E24ABC08BE4F10163C3" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\button-groups.less" />
+            </Component>
+            <Component Id="comp_5FDC04845BF9416696666EE524A86193" Guid="C21D7969-17D1-45DE-832F-06C711D9FD11">
+              <File Id="file_23C8877EB0D44828A5DB5CC8D3A2EE9B" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\buttons.less" />
+            </Component>
+            <Component Id="comp_768CCC7F4F5B41C3BCEC80DE4A3B4C09" Guid="B02FF270-17D0-451B-98DD-29AE64DB9CF0">
+              <File Id="file_91C03F36D43944FDA9113D0649296552" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\carousel.less" />
+            </Component>
+            <Component Id="comp_004F447FBFB542EEBFC29B565CC4480E" Guid="C222C0F3-9E14-4794-A55C-26C02FEC788C">
+              <File Id="file_6E0C8A8AC752438AA3E70F11424A0CAB" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\close.less" />
+            </Component>
+            <Component Id="comp_CA6A45520FCC447580667D0A56F544AD" Guid="C04E34C6-B68C-4C1A-A3C7-59833EF8B1C7">
+              <File Id="file_1DAA430B57CF4FC9B4C54CF463C45FF0" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\code.less" />
+            </Component>
+            <Component Id="comp_F50FBE23E7B645B1A03C8C68C582AACC" Guid="9DCD88B6-EB98-4586-AAC4-FC4FA7AF656B">
+              <File Id="file_FE5B73966AD746399C5885A647F29029" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\component-animations.less" />
+            </Component>
+            <Component Id="comp_F38FA7DE502940BF84BE52102A2C9FBD" Guid="B05462F6-5090-4AE0-95D3-CC2CB04A1558">
+              <File Id="file_E8EECA99C0E14CD1AD134564C4961173" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\dropdowns.less" />
+            </Component>
+            <Component Id="comp_3292B958288D4B4586551DD10CB1C56E" Guid="9A5B9A85-A9B9-4B80-A754-7AA5D7C2A57E">
+              <File Id="file_F67E4D7765B041EB8A6D7D7CDD85F48E" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\forms.less" />
+            </Component>
+            <Component Id="comp_D1F54E6868604CA4A47A4CB0C9001CD3" Guid="7597DEB2-E3D0-482B-92E6-6FFEEC620109">
+              <File Id="file_50B97D461FFE44578533CB07AD5F8307" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\glyphicons.less" />
+            </Component>
+            <Component Id="comp_0643785D44124B3EBA89F547EFF88814" Guid="AE2CC519-26B4-4D54-A576-D1EF186A6067">
+              <File Id="file_12EF765A3F8E4191BC4B4A51A513CA18" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\grid.less" />
+            </Component>
+            <Component Id="comp_F85DEF6B05D14DE0946F92608F53CBCE" Guid="004FAD63-4199-46D1-A0F9-23FE2F31ED8B">
+              <File Id="file_9B53A828D9224B61B357954B6DE23381" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\input-groups.less" />
+            </Component>
+            <Component Id="comp_68702C25BE584E9493AFC16524C768E5" Guid="6EB9D652-8DF1-4FD4-81FE-E5A6C757B307">
+              <File Id="file_044B2098BC1444188B468AFD6AF9F549" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\jumbotron.less" />
+            </Component>
+            <Component Id="comp_7ECE38F83216467FAE0FFE20F4DB1D8F" Guid="620EE06B-5513-42AB-B7BD-99ED1FADD118">
+              <File Id="file_5983577E17474C7F8F7347B9D421D6EE" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\labels.less" />
+            </Component>
+            <Component Id="comp_89B0DEDC625D4F04BE585838688AF0C0" Guid="4267D6B4-52AF-44AB-9623-F630D8D5B2D6">
+              <File Id="file_C9CB8BFD9F39451883C75D4AD63E54C2" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\list-group.less" />
+            </Component>
+            <Component Id="comp_A03951D1498F4558A6DBF7AB4545B4F5" Guid="CD412D47-1D7F-4AF7-A922-EDAB406FF5D0">
+              <File Id="file_86691C8C9BEB421595BDCD292A64C736" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\media.less" />
+            </Component>
+            <Component Id="comp_CD38E0F63A21417AB8742FBFBA21DA3F" Guid="62A95F6A-BBC2-4B8E-AA63-5970EC1435B0">
+              <File Id="file_7FC528839680470BB7DFB7CBFDFB9E4F" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\mixins.less" />
+            </Component>
+            <Component Id="comp_8D33FA88681349E3A436D54092CD2AD3" Guid="66BB6F38-265C-44BF-87C8-3949F2A9DD1E">
+              <File Id="file_C31D45CC1C9B4387922768B5D11D5BFB" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\modals.less" />
+            </Component>
+            <Component Id="comp_4BB7915046814FC69626DA006D456FD2" Guid="58ED5BBE-F9EA-496D-A11D-D49C210D0E72">
+              <File Id="file_0A73E9FB7C444358A68F497A87A3315C" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\navbar.less" />
+            </Component>
+            <Component Id="comp_E934A206DD0C4594B39D9704B17AEDBF" Guid="9D9BD9FF-8232-44B3-A3CC-36C2F65842AD">
+              <File Id="file_741986C6D958407F94730624D81673F2" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\navs.less" />
+            </Component>
+            <Component Id="comp_24918405E4B349DCBA2742DECE268A8A" Guid="A25909B1-447C-44AB-B250-4B4426D8B16B">
+              <File Id="file_CC05073A05A14F4394B24C74BD19397C" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\normalize.less" />
+            </Component>
+            <Component Id="comp_8A0431605690451B9409B8A2F79A9D7F" Guid="D52F8027-826E-4CAF-BE08-CBAC034072A9">
+              <File Id="file_4C7810656DF84484B2401819ADE2B81C" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\pager.less" />
+            </Component>
+            <Component Id="comp_F468D75070A94960950E14C099CB699B" Guid="697A5AFB-C11C-4A77-84A5-8BAFD32ED924">
+              <File Id="file_BD8770306A524E5EBD57D46D8F94AA32" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\pagination.less" />
+            </Component>
+            <Component Id="comp_F1807EBC8CE34A298A900E936DE566C0" Guid="2A902B79-5956-438A-A9B0-822DC33521AA">
+              <File Id="file_784795F7031846FD9E7EA6E20411D9F0" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\panels.less" />
+            </Component>
+            <Component Id="comp_E68D26862BFD4227AB8114A2E4FEF310" Guid="C3411C47-985D-4FB0-83AC-182A602D208E">
+              <File Id="file_44803D6DA2BC48409472042E6E1AED68" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\popovers.less" />
+            </Component>
+            <Component Id="comp_7CECCBB55B58498889007709E078CC50" Guid="35780880-EE33-4A27-B4FC-8D78CFBEEC7B">
+              <File Id="file_7937AB2AF40D40B7AEF2144903E54D9F" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\print.less" />
+            </Component>
+            <Component Id="comp_96CC1D2E9AB545AA935B8C59013185BF" Guid="8C3F502E-5223-49AD-9E3E-768F9151EE6E">
+              <File Id="file_3E209829E21E45BABEF81288F838230B" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\progress-bars.less" />
+            </Component>
+            <Component Id="comp_4CB069EB24F44B268702AB9F01EDDB8A" Guid="C25A7F21-FB6C-41E3-9636-04A54E47BCA0">
+              <File Id="file_5CEC13E7ED8B4E68B59D3AA298203F2E" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\responsive-utilities.less" />
+            </Component>
+            <Component Id="comp_78F6789F7B1C41B2B5C20A6EC946F814" Guid="9EDD2DA5-268B-4747-BD3D-DA5E2EE16A8D">
+              <File Id="file_B8C997B14AE048119481A2E1F1A5518A" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\scaffolding.less" />
+            </Component>
+            <Component Id="comp_CF5F7B47A7534575A6DC71DE6813EE13" Guid="054690BB-D9CA-4FE4-A0B6-4D959CD2C2AF">
+              <File Id="file_0F896C42628F47EBB6BB8F4667B31D7D" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\tables.less" />
+            </Component>
+            <Component Id="comp_8694D72C913E4E619B49DB31AF11D2B1" Guid="0A9EC438-BCE6-46FC-A02F-1A245067D865">
+              <File Id="file_D7337EE8511847B8B8CD52AD8A46A85D" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\theme.less" />
+            </Component>
+            <Component Id="comp_E2B95AFB85B3442184B7E5D3C31E7A29" Guid="AB979AE8-C0ED-4054-AA2E-E784F173346E">
+              <File Id="file_17440E5F65764F1A966807CF351D41FE" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\thumbnails.less" />
+            </Component>
+            <Component Id="comp_2FBB72D3C85E44A680EF08C380E23559" Guid="936F4BC5-C37F-4BC9-98FB-0FB114E2F8E6">
+              <File Id="file_A74A541720574C33BF6D927D58E5BC1D" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\tooltip.less" />
+            </Component>
+            <Component Id="comp_E56B84340047496A8D6C158DB8A5A15D" Guid="2C0977F0-B253-4906-A716-7E2483832173">
+              <File Id="file_59C639F5E2894951A7C879471D4D0C13" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\type.less" />
+            </Component>
+            <Component Id="comp_F870607D1AE2405FB2018A5F8376F467" Guid="E9DABF11-C03E-470A-8585-9ED01196BA89">
+              <File Id="file_A76757879E43459F8289BE12023120FB" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\utilities.less" />
+            </Component>
+            <Component Id="comp_8BBFDCFF868643F3A06B7F73A65058CE" Guid="7AFC3277-69FC-416E-B4A1-76278287EFB0">
+              <File Id="file_72B8D6D1405C42E08C82C98E1980CF53" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\variables.less" />
+            </Component>
+            <Component Id="comp_7981A181275A4433972C6D2D0C316E39" Guid="7415F2EF-8C84-4D07-A825-66919AE3EC32">
+              <File Id="file_B652BF4249094AB58D5E673EE8E76E29" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\less\bootstrap\wells.less" />
+            </Component>
+          </Directory>
+        </Directory>
+        <Directory Id="dir_2C2468D1F93C447ABDECC80DCA93F463" Name="pages">
+          <Component Id="comp_34AAA54CA5AD424E921840C71F4F2C77" Guid="BAAA8064-4D7F-499D-AC7B-FEDE7AA7BE2F">
+            <File Id="file_1ADF4527023D4CB1A0835B2131824F57" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\pages\home.html" />
+          </Component>
+          <Component Id="comp_61C642E3625546DCBEB07FE45B789762" Guid="FBF3DB12-E1D6-4FE9-9281-0A9033A8B2DB">
+            <File Id="file_D34A405079514C9BAECC5A4E54FFD80D" KeyPath="yes" Source="!(wix.OUTPUTPATH)Web\pages\receiver.html" />
+          </Component>
+        </Directory>
+      </Directory>
+    </DirectoryRef>
+  </Fragment>
+</Wix>

@@ -24,6 +24,7 @@
   <ItemGroup>
     <Compile Include="Product.wxs" />
     <Compile Include="UISequence.wxs" />
+    <Compile Include="Web.wxs" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixUtilExtension">

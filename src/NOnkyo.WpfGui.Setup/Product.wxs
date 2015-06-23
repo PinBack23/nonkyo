@@ -22,13 +22,16 @@
              Compressed="yes"/>
 
 
+    <!-- Variable fuer die Library -->
+    <WixVariable Id="OUTPUTPATH" Value="$(var.OUTPUTPATH)" Overridable="no"/>
+    
     <!-- Include der Infos fuer Installationspaket -->
     <?include ControlPanel.wxi ?>
 
     <!-- Check DotNet-Framework -->
     <PropertyRef Id="NETFRAMEWORK45"/>
     <Condition Message="!(loc.FrameworkNotInstalled)">
-      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+      <![CDATA[Installed OR NETFRAMEWORK45]]>
     </Condition>
 
     <CustomAction Id="NewerVersionDetected"  Error="2000"/>
@@ -41,7 +44,6 @@
       <Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLLOCATION" Name="NOnkyo">
           <Directory Id="DID_SYSTEM" Name="System"/>
-          <Directory Id="DID_WEB" Name="Web"/>
         </Directory>
       </Directory>
     </Directory>
@@ -65,8 +67,9 @@
           </Shortcut>
         </File>
         <File Id="FID_EXE_CONFIG" Name="$(var.EXENAME).exe.config" />
-        <File Id="NOnkyo.ISCP.dll" />
         <File Id="index.html" />
+        <File Id="NOnkyo.Web.dll" />
+        <File Id="NOnkyo.ISCP.dll" />
         <RemoveFolder Id="RID_MENU_ABRAXAS" Directory="DID_MENU_ABRAXAS"  On="uninstall" />
       </Component>
     </DirectoryRef>
@@ -79,25 +82,30 @@
         <File Id="LightCore.Configuration.dll" />
         <File Id="LightCore.dll" />
         <File Id="MahApps.Metro.dll" />
+        <File Id="Microsoft.AspNet.SignalR.Core.dll" />
         <File Id="Microsoft.Expression.Drawing.dll" />
+        <File Id="Microsoft.Owin.dll" />
+        <File Id="Microsoft.Owin.Host.HttpListener.dll" />
+        <File Id="Microsoft.Owin.Hosting.dll" />
+        <File Id="Microsoft.Owin.Security.dll" />
         <File Id="Microsoft.Practices.ServiceLocation.dll" />
-        <File Id="Newtonsoft.Json.dll" />
+        <File Id="Nancy.dll" />
+        <File Id="Nancy.Owin.dll" />
+        <File Id="Newtonsoft.Json.dll" />        
         <File Id="NLog.dll" />
+        <File Id="Owin.dll" />
+        <File Id="System.Net.Http.Formatting.dll" />
+        <File Id="System.Web.Http.dll" />
+        <File Id="System.Web.Http.Owin.dll" />        
         <File Id="System.Windows.Interactivity.dll" />
       </Component>
     </DirectoryRef>
-
-    <!-- Web Ordner aus Release Web-Ordner -->
-    <DirectoryRef Id="DID_WEB" FileSource="$(var.OUTPUTPATH)Web">
-      <Component Id="CID_WEB_OUT" Guid="FAC96A84-AB11-4540-BC5C-E7323CF9C84E">
-      </Component>
-    </DirectoryRef>
-
+    
     <!-- Feature-Liste immer nur ein Feature kein Auswahl nötig -->
     <Feature Id="Application" Title="$(var.INSTALLNAME)" Level="1">
       <ComponentRef Id="CID_APP" />
       <ComponentRef Id="CID_SYSTEM_OUT" />
-      <ComponentRef Id="CID_WEB_OUT" />
+      <ComponentGroupRef Id="CID_WEB"/>
       <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
       <ComponentGroupRef Id="Product.Generated" />
     </Feature>
