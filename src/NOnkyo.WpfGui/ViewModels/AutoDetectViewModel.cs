@@ -271,26 +271,57 @@ namespace NOnkyo.WpfGui.ViewModels
 
         private bool CanSearch
         {
-            get 
+            get
             {
-                return !this.mbProgressBarVisibility && 
-                    this.ErrorList[this.GetPropertyNameFromExpression(() => this.IPPort)].IsEmpty(); 
+                return !this.mbProgressBarVisibility &&
+                    this.ErrorList[this.GetPropertyNameFromExpression(() => this.IPPort)].IsEmpty();
             }
         }
 
         private void SearchDevices()
         {
-            List<Device> loDeviceList;
+            List<Device> loDeviceList = null;
             var loDeviceSearch = ContainerAccessor.Container.Resolve<IDeviceSearch>();
 
-            //3 mal versuchen
-            for (int i = 0; i < Properties.Settings.Default.DeviceSearchLoop; i++)
+            //With fixed IP-Address
+            if (Properties.Settings.Default.UsedFixedIP)
             {
-                loDeviceList = loDeviceSearch.Discover(int.Parse(this.msIPPort, System.Globalization.CultureInfo.InvariantCulture));
-                if (loDeviceList.Count > 0)
+                try
                 {
-                    this.moDeviceList = new ObservableCollection<Device>(loDeviceList);
-                    break;
+                    IPAddress loDeviceIP;
+
+                    if (IPAddress.TryParse(Properties.Settings.Default.DeviceIP, out loDeviceIP))
+                    {
+                        for (int i = 0; i < Properties.Settings.Default.DeviceSearchLoop; i++)
+                        {
+                            loDeviceList = loDeviceSearch.Discover(loDeviceIP, int.Parse(this.msIPPort, System.Globalization.CultureInfo.InvariantCulture));
+                            if (loDeviceList.Count > 0)
+                            {
+                                this.moDeviceList = new ObservableCollection<Device>(loDeviceList);
+                                break;
+                            }
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    Properties.Settings.Default.UsedFixedIP = false;
+                    Properties.Settings.Default.Save();
+                    throw;
+                }
+            }
+
+            //Not Found or not fixed IP-Address
+            if (this.moDeviceList == null || this.moDeviceList.Count == 0)
+            {
+                for (int i = 0; i < Properties.Settings.Default.DeviceSearchLoop; i++)
+                {
+                    loDeviceList = loDeviceSearch.Discover(int.Parse(this.msIPPort, System.Globalization.CultureInfo.InvariantCulture));
+                    if (loDeviceList.Count > 0)
+                    {
+                        this.moDeviceList = new ObservableCollection<Device>(loDeviceList);
+                        break;
+                    }
                 }
             }
         }

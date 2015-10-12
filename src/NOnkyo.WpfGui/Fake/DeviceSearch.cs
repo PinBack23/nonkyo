@@ -53,27 +53,47 @@ namespace NOnkyo.WpfGui.Fake
 
         public List<Device> Discover(int pnPort)
         {
+            return this.Discover(null, pnPort);
+        }
+
+        public List<Device> Discover(IPAddress poIPAddress, int pnPort)
+        {
             List<Device> loList = new List<Device>();
             if (mbFakeToggle)
             {
-                loList.Add(new Device()
+                if (poIPAddress == null)
                 {
-                    Category = "1",
-                    Model = "TX-NR509",
-                    Port = 6821,
-                    Area = "XX",
-                    MacAddress = "009923233",
-                    IP = IPAddress.Parse("192.168.178.24")
-                });
-                loList.Add(new Device()
+                    loList.Add(new Device()
+                    {
+                        Category = "1",
+                        Model = "TX-NR509",
+                        Port = 6821,
+                        Area = "XX",
+                        MacAddress = "009923233",
+                        IP = IPAddress.Parse("192.168.178.24")
+                    });
+                    loList.Add(new Device()
+                    {
+                        Category = "1",
+                        Model = "TX-NR1009",
+                        Port = 6821,
+                        Area = "XX",
+                        MacAddress = "008923233",
+                        IP = IPAddress.Parse("192.168.178.55")
+                    });
+                }
+                else
                 {
-                    Category = "1",
-                    Model = "TX-NR1009",
-                    Port = 6821,
-                    Area = "XX",
-                    MacAddress = "008923233",
-                    IP = IPAddress.Parse("192.168.178.55")
-                });
+                    loList.Add(new Device()
+                    {
+                        Category = "1",
+                        Model = "TX-NR509",
+                        Port = 6821,
+                        Area = "XX",
+                        MacAddress = "009923233",
+                        IP = poIPAddress
+                    });
+                }
             }
             else
                 System.Threading.Thread.Sleep(2000);

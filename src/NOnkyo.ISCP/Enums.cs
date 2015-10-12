@@ -76,6 +76,8 @@ namespace NOnkyo.ISCP
         DTSSURROUND = 0x15,
         [Description("Audyssey DSX")]
         AUDYSSEYDSX = 0x16,
+        [Description("Whole House")]
+        WHOLEHOUSE = 0x1F,
         [Description("Dolby D")]
         STRAIGHTDECODE = 0x40,
         [Description("Dolby EX")]
@@ -216,6 +218,10 @@ namespace NOnkyo.ISCP
         NETWORKNET = 0x2B,
         [Description("USB(toggle)")]
         USBTOGGLE = 0x2C,
+        [Description("Airplay")]
+        AIRPLAY = 0x2D,
+        [Description("Bluetooth")]
+        BLUETOOTH = 0x2E,
         [Description("Universal PORT")]
         UNIVERSALPORT = 0x40,
         [Description("MULTI CH")]
@@ -398,6 +404,7 @@ namespace NOnkyo.ISCP
         [Description("Internet Radio")]
         InternetRadio = 0xF2,
         NET = 0xF3,
+        Bluetooth = 0xF4,
         None = 0xFF,
     }
 

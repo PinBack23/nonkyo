@@ -105,6 +105,11 @@ namespace NOnkyo.ISCP
 
         public List<Device> Discover(int pnPort)
         {
+            return this.Discover(null, pnPort);
+        }
+
+        public List<Device> Discover(IPAddress poIPAddress, int pnPort)
+        {
             List<Device> loDeviceList = new List<Device>();
             UdpClient loSendUdp = new UdpClient();
             IPEndPoint loEndPoint = new IPEndPoint(IPAddress.Any, 0);
@@ -113,7 +118,13 @@ namespace NOnkyo.ISCP
             {
                 var loCommand = "!xECNQSTN".ToISCPCommandMessage(false);
 
-                foreach (var loBroadcast in AllBroadcastAddresses())
+                List<IPAddress> loIPAddressList = new List<IPAddress>();
+                if (poIPAddress != null)
+                    loIPAddressList.Add(poIPAddress);
+                else
+                    loIPAddressList.AddRange(AllBroadcastAddresses());
+
+                foreach (var loBroadcast in loIPAddressList)
                 {
                     Logger.Debug("Find Broadcastaddress {0}", loBroadcast);
                     loSendUdp.Send(loCommand, loCommand.Length, loBroadcast.ToString(), pnPort);

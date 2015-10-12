@@ -24,6 +24,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.*/
 
 using System;
 using System.Collections.Generic;
+using System.Net;
 
 namespace NOnkyo.ISCP
 {
@@ -31,5 +32,6 @@ namespace NOnkyo.ISCP
     {
         List<Device> Discover();
         List<Device> Discover(int pnPort);
+        List<Device> Discover(IPAddress poIPAddress, int pnPort);
     }
 }
