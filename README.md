@@ -5,7 +5,9 @@ This is a library and a GUI to communicate with Onkyo AV receivers over the netw
 The library uses eISCP (Integra Serial Control Protocol over Ethernet) to control the receivers over an ethernet network connection.
 
 If you would like to make a donation, please click the "Donate" button below.
-![Donate](Home_https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif|https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EF9R87PWAD6AU)
+<br/>
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EF9R87PWAD6AU" rel="Donate">![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)</a>
+
 ## Features
 * Auto Detect receiver
 * Control volume and mute
