@@ -126,8 +126,15 @@ namespace NOnkyo.ISCP
 
                 foreach (var loBroadcast in loIPAddressList)
                 {
-                    Logger.Debug("Find Broadcastaddress {0}", loBroadcast);
-                    loSendUdp.Send(loCommand, loCommand.Length, loBroadcast.ToString(), pnPort);
+                    try
+                    {
+                        Logger.Debug("Find Broadcastaddress {0}", loBroadcast);
+                        loSendUdp.Send(loCommand, loCommand.Length, loBroadcast.ToString(), pnPort);
+                    }
+                    catch (Exception exp)
+                    {
+                        Logger.Log(NLog.LogLevel.Error, "Broadcast failed", exp);
+                    }
                 }
 
                 System.Threading.Thread.Sleep(1000);
