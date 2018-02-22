@@ -55,17 +55,29 @@ namespace NOnkyo.ISCP
         private static List<IPAddress> AllBroadcastAddresses()
         {
             List<IPAddress> loBroadcastAddresses = new List<IPAddress>();
+			
+			foreach (var loInterfaceAddress in this.AllInterfaceAddresses())
+			{
+				loBroadcastAddresses.Add(BroadcastAddress(loInterfaceAddress));
+			}
+
+            return loBroadcastAddresses;
+        }
+		
+		private static List<IPAddress> AllInterfaceAddresses()
+        {
+            List<IPAddress> loInterfafceAddresses = new List<IPAddress>();
 
             foreach (var loNic in NetworkInterface.GetAllNetworkInterfaces())
             {
                 foreach (var loUAddress in loNic.GetIPProperties().UnicastAddresses.Where(
                     uaddress => uaddress.Address.AddressFamily == AddressFamily.InterNetwork && uaddress.IPv4Mask != null))
                 {
-                    loBroadcastAddresses.Add(BroadcastAddress(loUAddress));
+                    loInterfaceAddresses.Add(loUAddress);
                 }
             }
 
-            return loBroadcastAddresses;
+            return loInterfaceAddresses;
         }
 
         private static IPAddress BroadcastAddress(UnicastIPAddressInformation poUAddress)
@@ -111,9 +123,8 @@ namespace NOnkyo.ISCP
         public List<Device> Discover(IPAddress poIPAddress, int pnPort)
         {
             List<Device> loDeviceList = new List<Device>();
-            UdpClient loSendUdp = new UdpClient();
-            IPEndPoint loEndPoint = new IPEndPoint(IPAddress.Any, 0);
-
+			List<UdpClient> loSendUdpList = new List<UdpClient>();
+			
             try
             {
                 var loCommand = "!xECNQSTN".ToISCPCommandMessage(false);
@@ -122,14 +133,17 @@ namespace NOnkyo.ISCP
                 if (poIPAddress != null)
                     loIPAddressList.Add(poIPAddress);
                 else
-                    loIPAddressList.AddRange(AllBroadcastAddresses());
+                    loIPAddressList.AddRange(AllInterfaceAddresses());
 
-                foreach (var loBroadcast in loIPAddressList)
+                foreach (var loInterface in loIPAddressList)
                 {
                     try
                     {
-                        Logger.Debug("Find Broadcastaddress {0}", loBroadcast);
-                        loSendUdp.Send(loCommand, loCommand.Length, loBroadcast.ToString(), pnPort);
+						var loEndPoint = new IPEndPoint(IPAddress.Parse(loInterface), 0);
+						var loSendUdp = new UdpClient(loEndPoint);
+                        Logger.Debug("Find BroadcastAddress {0} on Interface {1}", BroadcastAddress(loInterface), loInterface);
+                        loSendUdp.Send(loCommand, loCommand.Length, BroadcastAddress(loInterface).ToString(), pnPort);
+						loSendUdpList.Add(UdpClient);
                     }
                     catch (Exception exp)
                     {
@@ -138,23 +152,25 @@ namespace NOnkyo.ISCP
                 }
 
                 System.Threading.Thread.Sleep(1000);
-
-                while (loSendUdp.Available > 0)
-                {
-                    byte[] loReceiveBytes = loSendUdp.Receive(ref loEndPoint);
-                    byte[] loDummyOut;
-                    Logger.Debug("Receive byte[] {0}{1}", Environment.NewLine, loReceiveBytes.FormatToOutput());
-                    foreach (var lsMessage in loReceiveBytes.ToISCPStatusMessage(out loDummyOut))
-                    {
-                        var loDevice = ExtractDevice(lsMessage, loEndPoint);
-                        if (loDevice != null)
-                        {
-                            loDevice.InitDeviceBehaviors();
-                            Logger.Debug("Find Device {0}", loDevice);
-                            loDeviceList.Add(loDevice);
-                        }
-                    }
-                }
+				foreach (var loSendUdp in loSendUdpList)
+				{
+					while (loSendUdp.Available > 0)
+					{
+						byte[] loReceiveBytes = loSendUdp.Receive(ref loEndPoint);
+						byte[] loDummyOut;
+						Logger.Debug("Receive byte[] {0}{1}", Environment.NewLine, loReceiveBytes.FormatToOutput());
+						foreach (var lsMessage in loReceiveBytes.ToISCPStatusMessage(out loDummyOut))
+						{
+							var loDevice = ExtractDevice(lsMessage, loEndPoint);
+							if (loDevice != null)
+							{
+								loDevice.InitDeviceBehaviors();
+								Logger.Debug("Find Device {0}", loDevice);
+								loDeviceList.Add(loDevice);
+							}
+						}
+					}
+				}
             }
             catch (Exception exp)
             {
