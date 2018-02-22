@@ -56,7 +56,7 @@ namespace NOnkyo.ISCP
         {
             List<IPAddress> loBroadcastAddresses = new List<IPAddress>();
 			
-			foreach (var loInterfaceAddress in this.AllInterfaceAddresses())
+			foreach (var loInterfaceAddress in AllInterfaceAddresses())
 			{
 				loBroadcastAddresses.Add(BroadcastAddress(loInterfaceAddress));
 			}
