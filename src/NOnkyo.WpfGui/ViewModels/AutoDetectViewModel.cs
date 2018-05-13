@@ -282,6 +282,7 @@ namespace NOnkyo.WpfGui.ViewModels
         {
             List<Device> loDeviceList = null;
             var loDeviceSearch = ContainerAccessor.Container.Resolve<IDeviceSearch>();
+            loDeviceSearch.Timeout = TimeSpan.FromMilliseconds(Properties.Settings.Default.TimeoutDeviceSearch);
 
             //With fixed IP-Address
             if (Properties.Settings.Default.UsedFixedIP)

@@ -98,6 +98,13 @@ namespace NOnkyo.ISCP
 
         #endregion
 
+        public DeviceSearch()
+        {
+            this.Timeout = TimeSpan.FromSeconds(1d);
+        }
+
+        public TimeSpan Timeout { get; set; }
+
         public List<Device> Discover()
         {
             return this.Discover(60128);
@@ -137,7 +144,7 @@ namespace NOnkyo.ISCP
                     }
                 }
 
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(Convert .ToInt32(this.Timeout.TotalMilliseconds));
 
                 while (loSendUdp.Available > 0)
                 {

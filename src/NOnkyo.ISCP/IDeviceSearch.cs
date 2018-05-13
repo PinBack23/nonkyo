@@ -30,6 +30,7 @@ namespace NOnkyo.ISCP
 {
     public interface IDeviceSearch
     {
+        TimeSpan Timeout { get; set; }
         List<Device> Discover();
         List<Device> Discover(int pnPort);
         List<Device> Discover(IPAddress poIPAddress, int pnPort);

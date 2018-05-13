@@ -38,13 +38,15 @@ namespace NOnkyo.WpfGui.Fake
         private static bool mbFakeToggle;
 
         #endregion
-
         public DeviceSearch()
         {
             mbFakeToggle = !mbFakeToggle;
+            this.Timeout = TimeSpan.FromSeconds(1d);
         }
 
         #region IDeviceSearch Member
+
+        public TimeSpan Timeout { get; set; }
 
         public List<Device> Discover()
         {

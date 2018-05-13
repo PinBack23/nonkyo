@@ -17,11 +17,14 @@
     <Setting Name="StartServerOnlyLocal" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="DeviceIP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.177.20</Value>
-    </Setting>
     <Setting Name="UsedFixedIP" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DeviceIP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.1.19</Value>
+    </Setting>
+    <Setting Name="TimeoutDeviceSearch" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1000</Value>
     </Setting>
   </Settings>
 </SettingsFile>

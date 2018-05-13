@@ -6,4 +6,4 @@ src/NOnkyo.WpfGui/obj
 src/NOnkyo.Web/obj
 src/NOnkyo.WpfGui.Setup/obj
 bin
-
+.vs
